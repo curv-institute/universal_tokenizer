@@ -122,6 +122,37 @@ def generate_markdown_report(summary: dict) -> str:
             "",
         ])
 
+    # Add HHC diagnostics section if present
+    hhc_diag = summary.get("hhc_diagnostics")
+    if hhc_diag:
+        hhc_enabled = summary.get("hhc_enabled", False)
+        lines.extend([
+            "## HHC Diagnostics",
+            "",
+            f"- **HHC Active:** {'Yes' if hhc_enabled else 'No'}",
+            f"- Active fraction: {hhc_diag.get('hhc_active_fraction', 0) * 100:.1f}%",
+            f"- Mean neighbors: {hhc_diag.get('hhc_mean_num_neighbors', 0):.1f}",
+            f"- Mean neighbor distance: {hhc_diag.get('hhc_mean_neighbor_dist', 0):.3f}",
+            f"- Neighbor distance variance: {hhc_diag.get('hhc_var_neighbor_dist', 0):.3f}",
+            f"- Mean curvature delta: {hhc_diag.get('hhc_mean_curvature_delta', 0):.3f}",
+            f"- Nonzero delta fraction: {hhc_diag.get('hhc_nonzero_delta_fraction', 0) * 100:.1f}%",
+            "",
+        ])
+
+        # Add warnings if thresholds not met
+        active_frac = hhc_diag.get("hhc_active_fraction", 0)
+        nonzero_frac = hhc_diag.get("hhc_nonzero_delta_fraction", 0)
+        if hhc_enabled and active_frac < 0.95:
+            lines.extend([
+                f"> **Warning:** HHC active fraction ({active_frac * 100:.1f}%) is below 95% threshold",
+                "",
+            ])
+        if hhc_enabled and nonzero_frac < 0.20:
+            lines.extend([
+                f"> **Warning:** Nonzero delta fraction ({nonzero_frac * 100:.1f}%) is below 20% threshold - HHC may be producing degenerate results",
+                "",
+            ])
+
     return "\n".join(lines)
 
 

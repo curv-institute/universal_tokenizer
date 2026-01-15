@@ -16,8 +16,10 @@ import argparse
 import json
 import random
 import sys
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 import torch
@@ -35,6 +37,77 @@ from tokenizer.metrics import (
     verify_lossless,
     compute_entropy,
 )
+
+
+@dataclass
+class HHCDiagnostics:
+    """HHC diagnostics collected during evaluation."""
+
+    hhc_active_fraction: float = 0.0
+    hhc_mean_num_neighbors: float = 0.0
+    hhc_mean_neighbor_dist: float = 0.0
+    hhc_var_neighbor_dist: float = 0.0
+    hhc_mean_curvature_delta: float = 0.0
+    hhc_nonzero_delta_fraction: float = 0.0
+
+    # Internal accumulators
+    _total_samples: int = field(default=0, repr=False)
+    _active_samples: int = field(default=0, repr=False)
+    _neighbor_counts: list[int] = field(default_factory=list, repr=False)
+    _neighbor_dists: list[float] = field(default_factory=list, repr=False)
+    _neighbor_vars: list[float] = field(default_factory=list, repr=False)
+    _curvature_deltas: list[float] = field(default_factory=list, repr=False)
+
+    def record(
+        self,
+        num_neighbors: int,
+        mean_neighbor_dist: float,
+        var_neighbor_dist: float,
+        curvature_delta: float,
+    ) -> None:
+        """Record a single HHC observation."""
+        self._total_samples += 1
+        if num_neighbors > 0:
+            self._active_samples += 1
+            self._neighbor_counts.append(num_neighbors)
+            self._neighbor_dists.append(mean_neighbor_dist)
+            self._neighbor_vars.append(var_neighbor_dist)
+        if curvature_delta > 1e-8:
+            self._curvature_deltas.append(curvature_delta)
+
+    def finalize(self) -> None:
+        """Compute final aggregate metrics."""
+        if self._total_samples > 0:
+            self.hhc_active_fraction = self._active_samples / self._total_samples
+        if self._neighbor_counts:
+            self.hhc_mean_num_neighbors = sum(self._neighbor_counts) / len(
+                self._neighbor_counts
+            )
+        if self._neighbor_dists:
+            self.hhc_mean_neighbor_dist = sum(self._neighbor_dists) / len(
+                self._neighbor_dists
+            )
+        if self._neighbor_vars:
+            self.hhc_var_neighbor_dist = sum(self._neighbor_vars) / len(
+                self._neighbor_vars
+            )
+        if self._curvature_deltas:
+            self.hhc_mean_curvature_delta = sum(self._curvature_deltas) / len(
+                self._curvature_deltas
+            )
+        if self._total_samples > 0:
+            self.hhc_nonzero_delta_fraction = len(self._curvature_deltas) / self._total_samples
+
+    def to_dict(self) -> dict[str, Any]:
+        """Convert to dictionary for JSON serialization."""
+        return {
+            "hhc_active_fraction": self.hhc_active_fraction,
+            "hhc_mean_num_neighbors": self.hhc_mean_num_neighbors,
+            "hhc_mean_neighbor_dist": self.hhc_mean_neighbor_dist,
+            "hhc_var_neighbor_dist": self.hhc_var_neighbor_dist,
+            "hhc_mean_curvature_delta": self.hhc_mean_curvature_delta,
+            "hhc_nonzero_delta_fraction": self.hhc_nonzero_delta_fraction,
+        }
 
 
 def set_seed(seed: int) -> None:
@@ -107,6 +180,10 @@ def evaluate(
     results = {"universal": [], "raw_bytes": [], "byte_bpe": []}
     all_tokenizers = [("universal", tokenizer)] + [(b.name, b) for b in baselines]
 
+    # Check if HHC is enabled
+    hhc_enabled = config.hhc.enabled
+    hhc_diagnostics: HHCDiagnostics | None = None
+
     # Evaluate each tokenizer
     for name, tok in all_tokenizers:
         print(f"\nEvaluating {name}...")
@@ -115,6 +192,11 @@ def evaluate(
 
         # Get vocab_size for correct BPB calculation
         vocab_size = getattr(tok, "vocab_size", config.codebook.num_codes)
+
+        # Initialize HHC diagnostics for universal tokenizer with HHC enabled
+        collect_hhc = name == "universal" and hhc_enabled
+        if collect_hhc:
+            hhc_diagnostics = HHCDiagnostics()
 
         for chunk in tqdm(chunks, desc=name):
             result = tok.encode(chunk)
@@ -126,6 +208,25 @@ def evaluate(
             if verify_lossless(chunk, decoded.data):
                 lossless_count += 1
 
+            # Collect HHC diagnostics from the tokenizer
+            if collect_hhc and hasattr(tok, "equilibrium"):
+                eq_stats = tok.equilibrium.get_hhc_stats()
+                if eq_stats is not None:
+                    hhc_diagnostics.record(
+                        num_neighbors=eq_stats.num_neighbors,
+                        mean_neighbor_dist=eq_stats.mean_neighbor_distance,
+                        var_neighbor_dist=eq_stats.neighbor_distance_variance,
+                        curvature_delta=eq_stats.delta_applied,
+                    )
+                else:
+                    # HHC not applied for this sample
+                    hhc_diagnostics.record(
+                        num_neighbors=0,
+                        mean_neighbor_dist=0.0,
+                        var_neighbor_dist=0.0,
+                        curvature_delta=0.0,
+                    )
+
         agg = aggregate_metrics(metrics_list)
         agg.lossless_rate = lossless_count / len(chunks)
 
@@ -135,6 +236,30 @@ def evaluate(
         print(f"  End-to-end BPB: {agg.mean_end_to_end_bpb:.2f} (lossless)")
         print(f"  Structural BPB: {agg.mean_structural_bpb:.2f} (representational)")
         print(f"  Lossless rate: {agg.lossless_rate:.1%}")
+
+    # Finalize and display HHC diagnostics
+    if hhc_diagnostics is not None:
+        hhc_diagnostics.finalize()
+        print("\n=== HHC Diagnostics ===")
+        print(f"  HHC Active: {'Yes' if hhc_enabled else 'No'}")
+        print(f"  Active fraction: {hhc_diagnostics.hhc_active_fraction:.1%}")
+        print(f"  Mean neighbors: {hhc_diagnostics.hhc_mean_num_neighbors:.1f}")
+        print(f"  Mean neighbor distance: {hhc_diagnostics.hhc_mean_neighbor_dist:.3f}")
+        print(f"  Neighbor distance variance: {hhc_diagnostics.hhc_var_neighbor_dist:.3f}")
+        print(f"  Mean curvature delta: {hhc_diagnostics.hhc_mean_curvature_delta:.3f}")
+        print(f"  Nonzero delta fraction: {hhc_diagnostics.hhc_nonzero_delta_fraction:.1%}")
+
+        # Acceptance criteria warnings
+        if hhc_diagnostics.hhc_active_fraction < 0.95:
+            print(
+                f"\n  WARNING: HHC active fraction ({hhc_diagnostics.hhc_active_fraction:.1%}) "
+                "is below 95% threshold"
+            )
+        if hhc_diagnostics.hhc_nonzero_delta_fraction < 0.20:
+            print(
+                f"\n  WARNING: Nonzero delta fraction ({hhc_diagnostics.hhc_nonzero_delta_fraction:.1%}) "
+                "is below 20% threshold - HHC may be producing degenerate results"
+            )
 
     # Save results
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -159,6 +284,11 @@ def evaluate(
             for name, res in results.items()
         },
     }
+
+    # Add HHC diagnostics to summary if collected
+    if hhc_diagnostics is not None:
+        summary["hhc_enabled"] = hhc_enabled
+        summary["hhc_diagnostics"] = hhc_diagnostics.to_dict()
 
     summary_path = output_dir / "summary.json"
     with open(summary_path, "w") as f:
