@@ -1,4 +1,4 @@
-# Small CPU-friendly configuration for testing and development
+# Small CPU-friendly configuration with HHC enabled
 
 [model]
 input_dim = 256
@@ -52,7 +52,7 @@ max_samples = 100
 seed = 42
 
 [hhc]
-enabled = false
+enabled = true
 apply_equilibrium = true
 apply_curvature = true
 apply_harmonizer = true

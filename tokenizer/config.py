@@ -18,6 +18,7 @@ from .interfaces import (
     ControllerConfig,
     TrainConfig,
     EvalConfig,
+    HHCConfig,
 )
 
 
@@ -54,6 +55,7 @@ def _parse_config(data: dict[str, Any]) -> TokenizerConfig:
     ctrl_data = data.get("controller", {})
     train_data = data.get("train", {})
     eval_data = data.get("eval", {})
+    hhc_data = data.get("hhc", {})
 
     # Build config with validation
     model = ModelConfig(**model_data)
@@ -63,6 +65,7 @@ def _parse_config(data: dict[str, Any]) -> TokenizerConfig:
     ctrl = ControllerConfig(**ctrl_data)
     train = TrainConfig(**train_data)
     eval_cfg = EvalConfig(**eval_data)
+    hhc = HHCConfig(**hhc_data)
 
     config = TokenizerConfig(
         model=model,
@@ -72,6 +75,7 @@ def _parse_config(data: dict[str, Any]) -> TokenizerConfig:
         controller=ctrl,
         train=train,
         eval=eval_cfg,
+        hhc=hhc,
     )
 
     # Validate consistency

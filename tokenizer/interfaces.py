@@ -100,6 +100,24 @@ class EvalConfig:
     seed: int = 42
 
 
+@dataclass(frozen=True)
+class HHCConfig:
+    """Harmonized Hyper-Connections configuration."""
+
+    enabled: bool = False
+    apply_equilibrium: bool = True
+    apply_curvature: bool = True
+    apply_harmonizer: bool = True
+    window_tokens: int = 8
+    overlap_bytes: int = 16
+    adjacency: bool = True
+    lambda_equilibrium: float = 0.05
+    alpha_curvature: float = 0.10
+    max_neighbor_norm: float = 10.0
+    max_delta_per_step: float = 0.25
+    log_hhc_stats: bool = True
+
+
 @dataclass
 class TokenizerConfig:
     """Complete tokenizer configuration."""
@@ -111,6 +129,7 @@ class TokenizerConfig:
     controller: ControllerConfig = field(default_factory=ControllerConfig)
     train: TrainConfig = field(default_factory=TrainConfig)
     eval: EvalConfig = field(default_factory=EvalConfig)
+    hhc: HHCConfig = field(default_factory=HHCConfig)
 
     def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
@@ -127,6 +146,7 @@ class TokenizerConfig:
             controller=ControllerConfig(**d.get("controller", {})),
             train=TrainConfig(**d.get("train", {})),
             eval=EvalConfig(**d.get("eval", {})),
+            hhc=HHCConfig(**d.get("hhc", {})),
         )
 
 
