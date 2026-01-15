@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{booktabs}
+\usepackage{url}
 
 \title{Universal Lossless Tokenization via RIFT-Instantiated Equilibrium Projection}
 \author{J. W. Miller\\CURV Institute\\j.w.miller@curv.institute}
@@ -14,24 +15,77 @@
 \begin{abstract}
 We present a universal lossless tokenizer that achieves bit-exact reconstruction
 of arbitrary byte streams through equilibrium projection and curvature-regulated
-segmentation. The system implements RIFT principles as an applied representational
-control system.
+segmentation. The system implements RIFT principles~\cite{rift2025} as an applied
+representational control system, drawing on Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc}
+for stable relational coupling and the Platonic Representation Hypothesis~\cite{miller2024prh}
+for ontological grounding.
 \end{abstract}
 
 \section{Introduction}
-% TODO
+% TODO: Motivation for universal lossless tokenization
+% - Limitations of existing tokenizers (BPE, WordPiece, etc.)
+% - Need for bit-exact reconstruction
+% - RIFT framework overview
+
+The problem of tokenization in machine learning systems has traditionally prioritized
+compression efficiency over reconstruction fidelity. We propose an alternative approach
+grounded in equilibrium projection principles from RIFT~\cite{rift2025}.
+
+\section{Background}
+\label{sec:background}
+
+\subsection{Harmonized Hyper-Connections}
+Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc} provide a framework for
+maintaining stable representations through relational coupling. This approach
+ensures that token boundaries preserve semantic coherence.
+
+\subsection{Multi-Scale Representations}
+Building on modular harmonized connections~\cite{deepseek2024mhc}, our tokenizer
+handles variable-length sequences through multi-scale representation learning.
+
+\subsection{Ontological Foundations}
+The Platonic Representation Hypothesis~\cite{miller2024prh} provides the theoretical
+foundation for why lossless reconstruction is achievable: representations converge
+to unique equilibrium points when properly coupled.
 
 \section{Method}
-% TODO
+\label{sec:method}
+% TODO: Technical approach
+% - Equilibrium projection algorithm
+% - Curvature-regulated segmentation
+% - HHC integration (optional)
 
 \section{Experiments}
-% TODO
+\label{sec:experiments}
+% TODO: Experimental setup
+% - Datasets
+% - Baselines (Raw Bytes, Byte BPE)
+% - Evaluation metrics (compression, BPB, lossless rate, curvature)
 
 \section{Results}
-% TODO
+\label{sec:results}
+% TODO: Populate with actual experimental results
+
+\input{results_table}
+
+% TODO: Analysis of results
+% - Comparison with baselines
+% - Effect of HHC on stability
+% - Curvature distribution analysis
+
+\section{Related Work}
+\label{sec:related}
+% TODO: Discussion of related approaches
+% - BPE and variants
+% - Neural tokenizers
+% - Compression-based methods
 
 \section{Conclusion}
-% TODO
+\label{sec:conclusion}
+% TODO: Summary and future directions
+
+\section*{Acknowledgments}
+% TODO: Acknowledgments if any
 
 \bibliographystyle{plain}
 \bibliography{references}

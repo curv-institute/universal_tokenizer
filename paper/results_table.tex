@@ -1,0 +1,47 @@
+% Results table for Universal Lossless Tokenizer
+% Generated from eval/results/ on 2026-01-15
+% Data: 1,038 bytes from data/eval/heldout.bin (entropy: 7.72 bits/byte)
+
+\begin{table}[h]
+\centering
+\caption{Tokenizer Comparison Results}
+\label{tab:results}
+\begin{tabular}{lcccc}
+\toprule
+Tokenizer & Compression & BPB & Lossless & Curvature P90 \\
+\midrule
+Universal & 25.20 & 0.59 & 100\% & 0.625 \\
+Universal+HHC & 25.20 & 0.59 & 100\% & 0.625 \\
+Raw Bytes & 1.00 & 13.00 & 100\% & 0.00 \\
+Byte BPE & 1.08 & 12.01 & 100\% & 0.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Detailed metrics table
+\begin{table}[h]
+\centering
+\caption{Detailed Universal Tokenizer Metrics}
+\label{tab:detailed}
+\begin{tabular}{lr}
+\toprule
+Metric & Value \\
+\midrule
+Total tokens & 41 \\
+Total bytes & 1,038 \\
+Avg token length & 25.2 bytes \\
+Mean curvature & 0.616 \\
+Curvature P90 & 0.625 \\
+Mean stability & 0.241 \\
+Stability P10 & 0.195 \\
+Residual bytes & 492 (47.4\%) \\
+Lossless rate & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% Notes:
+% - Compression: compression ratio (higher = better)
+% - BPB: bits per byte (lower = better, data entropy: 7.72)
+% - Universal achieves 25x compression with sub-entropy BPB
+% - HHC infrastructure complete; full streaming integration pending

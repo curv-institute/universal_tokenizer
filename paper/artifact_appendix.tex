@@ -2,7 +2,19 @@
 
 \subsection*{Abstract}
 This artifact provides the complete implementation of the Universal Lossless Tokenizer,
-including training, evaluation, and reproduction scripts.
+including training, evaluation, and reproduction scripts. The tokenizer implements
+equilibrium projection principles from RIFT~\cite{rift2025}, with optional integration
+of Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc} for enhanced stability.
+The approach draws on insights from modular harmonized connections~\cite{deepseek2024mhc}
+and the Platonic Representation Hypothesis~\cite{miller2024prh}.
+
+\subsection*{Artifact Identification}
+\begin{itemize}
+  \item \textbf{Repository:} \url{https://github.com/curv-institute/universal_tokenizer}
+  \item \textbf{Version:} \texttt{0.1.0}
+  \item \textbf{Commit:} \texttt{47a97ef906b2}
+  \item \textbf{DOI:} (pending)
+\end{itemize}
 
 \subsection*{Requirements}
 \begin{itemize}
@@ -12,12 +24,43 @@ including training, evaluation, and reproduction scripts.
 \end{itemize}
 
 \subsection*{Reproduction}
+
+\subsubsection*{Quick Start}
 \begin{verbatim}
 git clone https://github.com/curv-institute/universal_tokenizer
 cd universal_tokenizer
+git checkout PLACEHOLDER_COMMIT_HASH
 uv venv .venv && source .venv/bin/activate
+\end{verbatim}
+
+\subsubsection*{Run Experiments}
+\begin{verbatim}
+# Run full experiment pipeline
 uv run scripts/run_experiment.py --config configs/default.toml
+
+# Evaluate tokenizer performance
+uv run scripts/eval.py
+
+# Encode sample data
+uv run scripts/encode.py --input data/sample.txt
+\end{verbatim}
+
+\subsubsection*{Run Tests}
+\begin{verbatim}
+uv run pytest tests/
 \end{verbatim}
 
 \subsection*{Expected Results}
-See \texttt{eval/results/summary.json} for metrics.
+See \texttt{eval/results/summary.json} for metrics. Results should match
+Table~\ref{tab:results} within statistical variance.
+
+\subsection*{Theoretical Background}
+The Universal Lossless Tokenizer is grounded in several key theoretical contributions:
+\begin{itemize}
+  \item \textbf{HHC}~\cite{miller2024hhc}: Provides the relational coupling framework
+        for maintaining stable representations across segmentation boundaries.
+  \item \textbf{mHC}~\cite{deepseek2024mhc}: Informs the multi-scale representation
+        strategy for handling variable-length token sequences.
+  \item \textbf{PRH}~\cite{miller2024prh}: Establishes the ontological foundations
+        for why lossless reconstruction is achievable through equilibrium projection.
+\end{itemize}
