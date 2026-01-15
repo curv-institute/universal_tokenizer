@@ -1,0 +1,52 @@
+# Small CPU-friendly configuration for testing and development
+
+[model]
+input_dim = 256
+embed_dim = 64
+hidden_dim = 128
+latent_dim = 32
+num_layers = 1
+dropout = 0.0
+
+[equilibrium]
+num_steps = 5
+eta = 0.5
+tolerance = 1e-5
+use_residual = true
+
+[codebook]
+num_codes = 1024
+code_dim = 32
+init_scale = 0.1
+ema_decay = 0.99
+commitment_weight = 0.25
+
+[segmentation]
+min_span = 1
+max_span = 16
+beta_curvature = 0.1
+gamma_stability = 0.1
+lookahead = 2
+
+[controller]
+target_avg_len = 4.0
+target_bpb = 1.0
+target_curvature = 0.5
+gain = 0.01
+update_interval = 50
+
+[train]
+batch_size = 16
+learning_rate = 1e-3
+weight_decay = 1e-5
+max_steps = 1000
+warmup_steps = 50
+eval_interval = 100
+checkpoint_interval = 500
+seed = 42
+device = "cpu"
+
+[eval]
+batch_size = 32
+max_samples = 100
+seed = 42
