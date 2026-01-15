@@ -53,13 +53,16 @@ class CurvatureEstimator(nn.Module):
         if neighbors is not None:
             self.set_neighbors(neighbors)
 
-        # HHC statistics tracking
+        # HHC statistics tracking (legacy format for backward compat)
         self._hhc_stats: dict[str, list[float]] = {
             "hhc_contribution_mean": [],
             "hhc_contribution_max": [],
             "neighbor_variance_mean": [],
             "local_curvature_mean": [],
         }
+
+        # New HHC diagnostics per-call tracking
+        self._hhc_diagnostics: list[dict[str, float]] = []
 
         # Curvature prediction network (fast approximation)
         self.curv_net = nn.Sequential(
@@ -87,59 +90,123 @@ class CurvatureEstimator(nn.Module):
         """Clear neighbor latents."""
         self._neighbor_latents = None
 
-    def get_hhc_stats(self) -> dict[str, list[float]]:
-        """Get accumulated HHC statistics.
+    def get_hhc_stats(self) -> dict[str, Any]:
+        """Get aggregated HHC statistics.
 
         Returns:
-            Dictionary of stat name to list of values
+            Dictionary with aggregated stats:
+            - hhc_active_fraction: fraction of calls with neighbors > 0
+            - hhc_mean_num_neighbors: mean number of neighbors used
+            - hhc_mean_curvature_delta: mean K_hhc - K_local
+            - hhc_nonzero_delta_fraction: fraction of calls with delta > 0
+            - Legacy stats (hhc_contribution_mean, etc.) also included
         """
-        return self._hhc_stats.copy()
+        result: dict[str, Any] = {}
+
+        # Aggregated diagnostics from new per-call tracking
+        if self._hhc_diagnostics:
+            num_calls = len(self._hhc_diagnostics)
+            active_calls = sum(
+                1 for d in self._hhc_diagnostics if d.get("num_neighbors", 0) > 0
+            )
+            nonzero_delta_calls = sum(
+                1 for d in self._hhc_diagnostics if d.get("hhc_curvature_delta", 0) > 0
+            )
+
+            result["hhc_active_fraction"] = active_calls / num_calls
+            result["hhc_mean_num_neighbors"] = sum(
+                d.get("num_neighbors", 0) for d in self._hhc_diagnostics
+            ) / num_calls
+            result["hhc_mean_curvature_delta"] = sum(
+                d.get("hhc_curvature_delta", 0) for d in self._hhc_diagnostics
+            ) / num_calls
+            result["hhc_nonzero_delta_fraction"] = nonzero_delta_calls / num_calls
+            result["hhc_mean_disharmony"] = sum(
+                d.get("disharmony", 0) for d in self._hhc_diagnostics
+            ) / num_calls
+        else:
+            result["hhc_active_fraction"] = 0.0
+            result["hhc_mean_num_neighbors"] = 0.0
+            result["hhc_mean_curvature_delta"] = 0.0
+            result["hhc_nonzero_delta_fraction"] = 0.0
+            result["hhc_mean_disharmony"] = 0.0
+
+        # Include legacy stats
+        result["_legacy_stats"] = self._hhc_stats.copy()
+
+        return result
+
+    def get_hhc_diagnostics(self) -> list[dict[str, float]]:
+        """Get per-call HHC diagnostics.
+
+        Returns:
+            List of per-call diagnostic dicts with:
+            - hhc_curvature_delta: K_hhc - K_local
+            - num_neighbors: number of neighbors used
+            - disharmony: Var_r(||z - z_r||) value
+        """
+        return self._hhc_diagnostics.copy()
 
     def reset_hhc_stats(self) -> None:
         """Reset HHC statistics tracking."""
         for key in self._hhc_stats:
             self._hhc_stats[key] = []
+        self._hhc_diagnostics = []
 
-    def _compute_neighbor_variance(self, z: Tensor) -> Tensor:
-        """Compute variance of distances to neighbor latents.
+    def _compute_disharmony(
+        self, z: Tensor, neighbors: Tensor | None = None
+    ) -> tuple[Tensor, int]:
+        """Compute disharmony = Var_r(||z - z_r||) for neighbor latents.
 
         Args:
             z: Latent tensor (batch, latent_dim)
+            neighbors: Optional neighbor latent tensor (num_neighbors, latent_dim).
+                       If None, falls back to self._neighbor_latents.
 
         Returns:
-            Variance of neighbor distances (batch,)
+            Tuple of (disharmony tensor (batch,), num_neighbors used)
         """
-        if self._neighbor_latents is None or self._neighbor_latents.shape[0] == 0:
-            return torch.zeros(z.shape[0], device=z.device, dtype=z.dtype)
+        # Determine which neighbors to use: explicit param > stored neighbors
+        neighbor_latents = neighbors if neighbors is not None else self._neighbor_latents
+
+        if neighbor_latents is None or neighbor_latents.shape[0] == 0:
+            return torch.zeros(z.shape[0], device=z.device, dtype=z.dtype), 0
+
+        num_neighbors = neighbor_latents.shape[0]
 
         # Move neighbors to same device as z
-        neighbors = self._neighbor_latents.to(z.device)
+        neighbor_latents = neighbor_latents.to(z.device)
 
         # Compute distances: (batch, num_neighbors)
         # z: (batch, latent_dim), neighbors: (num_neighbors, latent_dim)
         # Expand for broadcasting: z -> (batch, 1, latent_dim), neighbors -> (1, num_neighbors, latent_dim)
         z_expanded = z.unsqueeze(1)  # (batch, 1, latent_dim)
-        neighbors_expanded = neighbors.unsqueeze(0)  # (1, num_neighbors, latent_dim)
+        neighbors_expanded = neighbor_latents.unsqueeze(0)  # (1, num_neighbors, latent_dim)
 
         # L2 distances to each neighbor
         distances = (z_expanded - neighbors_expanded).norm(dim=-1)  # (batch, num_neighbors)
 
-        # Variance across neighbors for each sample
-        variance = distances.var(dim=-1)  # (batch,)
+        # Variance across neighbors for each sample (disharmony)
+        disharmony = distances.var(dim=-1)  # (batch,)
 
-        return variance
+        return disharmony, num_neighbors
 
-    def estimate(self, z: Tensor, context: Tensor | None = None) -> Tensor:
+    def estimate(
+        self, z: Tensor, context: Tensor | None = None, neighbors: Tensor | None = None
+    ) -> Tensor:
         """Estimate curvature at latent points.
 
         Uses learned approximation for efficiency. When HHC is enabled
-        (hhc_config.enabled and hhc_config.apply_curvature), extends
-        curvature with relational disharmony:
-            K_hhc(z) = K_local(z) + alpha * Var_neighbors(||z - z_r||)
+        (hhc_config.enabled and hhc_config.apply_curvature) and neighbors
+        are provided, extends curvature with relational disharmony:
+            K_hhc(z) = K_local(z) + alpha * disharmony
+        where disharmony = Var_r(||z - z_r||) for each z_r in neighbors.
 
         Args:
             z: Latent tensor (batch, latent_dim)
             context: Optional context tensor (unused, for protocol)
+            neighbors: Optional neighbor latent tensor (num_neighbors, latent_dim).
+                       If None, falls back to stored neighbors from set_neighbors().
 
         Returns:
             Curvature scores (batch,)
@@ -151,14 +218,30 @@ class CurvatureEstimator(nn.Module):
         if not self.hhc_config.enabled or not self.hhc_config.apply_curvature:
             return k_local
 
-        # HHC: Add relational disharmony
+        # HHC: Compute relational disharmony
         alpha = self.hhc_config.alpha_curvature
-        neighbor_variance = self._compute_neighbor_variance(z)
-        hhc_contribution = alpha * neighbor_variance
+        disharmony, num_neighbors = self._compute_disharmony(z, neighbors)
 
-        k_hhc = k_local + hhc_contribution
+        # Only add HHC contribution if we have neighbors
+        if num_neighbors > 0:
+            hhc_contribution = alpha * disharmony
+            k_hhc = k_local + hhc_contribution
+        else:
+            hhc_contribution = torch.zeros_like(k_local)
+            k_hhc = k_local
 
-        # Log HHC stats if enabled
+        # Track per-call diagnostics
+        with torch.no_grad():
+            curvature_delta = (k_hhc - k_local).mean().item()
+            disharmony_mean = disharmony.mean().item() if num_neighbors > 0 else 0.0
+
+            self._hhc_diagnostics.append({
+                "hhc_curvature_delta": curvature_delta,
+                "num_neighbors": float(num_neighbors),
+                "disharmony": disharmony_mean,
+            })
+
+        # Log HHC stats if enabled (legacy format)
         if self.hhc_config.log_hhc_stats:
             with torch.no_grad():
                 self._hhc_stats["hhc_contribution_mean"].append(
@@ -168,15 +251,16 @@ class CurvatureEstimator(nn.Module):
                     hhc_contribution.max().item()
                 )
                 self._hhc_stats["neighbor_variance_mean"].append(
-                    neighbor_variance.mean().item()
+                    disharmony.mean().item() if num_neighbors > 0 else 0.0
                 )
                 self._hhc_stats["local_curvature_mean"].append(k_local.mean().item())
 
                 logger.debug(
-                    "HHC curvature: local=%.4f, hhc_contrib=%.4f, total=%.4f",
+                    "HHC curvature: local=%.4f, hhc_contrib=%.4f, total=%.4f, neighbors=%d",
                     k_local.mean().item(),
                     hhc_contribution.mean().item(),
                     k_hhc.mean().item(),
+                    num_neighbors,
                 )
 
         return k_hhc
