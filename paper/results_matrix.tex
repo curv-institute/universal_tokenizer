@@ -1,0 +1,79 @@
+% Evaluation Matrix Results
+% Generated from eval/results/matrix on 2026-01-15
+% Datasets: smoke (1KB), core 1MB, core 10MB
+
+\begin{table}[h]
+\centering
+\caption{Evaluation Matrix: Baseline vs HHC across Dataset Tiers}
+\label{tab:matrix}
+\begin{tabular}{lccccc}
+\toprule
+Dataset & Config & E2E BPB & Struct BPB & Curv P90 & Lossless \\
+\midrule
+\multirow{2}{*}{Smoke (1KB)}
+  & Baseline & 4.83 & 0.46 & 0.625 & 100\% \\
+  & HHC      & 4.83 & 0.46 & 0.625 & 100\% \\
+\midrule
+\multirow{2}{*}{Core (1MB)}
+  & Baseline & 3.35 & 0.32 & 0.626 & 100\% \\
+  & HHC      & 3.35 & 0.32 & 0.626 & 100\% \\
+\midrule
+\multirow{2}{*}{Core (10MB)}
+  & Baseline & 3.35 & 0.32 & 0.626 & 100\% \\
+  & HHC      & 3.35 & 0.32 & 0.626 & 100\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\footnotesize{E2E BPB = End-to-end bits per byte (primary lossless metric).
+Struct BPB = Structural bits per byte (token representation only).
+HHC = Harmonized Hyper-Connections enabled.}
+
+\vspace{0.5em}
+\textbf{Observations:}
+\begin{itemize}
+  \item 100\% lossless reconstruction across all tiers and configurations
+  \item E2E BPB improves with larger datasets (4.83 $\rightarrow$ 3.35)
+  \item Curvature P90 remains stable ($\approx$0.625) across tiers
+  \item HHC shows identical results (infrastructure complete, bundle integration pending)
+\end{itemize}
+\end{table}
+
+% BPB vs Dataset Size
+\begin{table}[h]
+\centering
+\caption{BPB Scaling with Dataset Size}
+\label{tab:scaling}
+\begin{tabular}{lrrrrr}
+\toprule
+Dataset & Size & Tokens & E2E BPB & Compress vs Raw & Throughput \\
+\midrule
+Smoke   & 1 KB   & 41     & 4.83 & 1.66$\times$ & -- \\
+Core    & 1 MB   & 32,912 & 3.35 & 2.39$\times$ & 28.8 KB/s \\
+Core    & 10 MB  & 329,120 & 3.35 & 2.39$\times$ & 28.8 KB/s \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\footnotesize{Compression vs raw = 8.0 / E2E BPB. Throughput measured on CPU.}
+\end{table}
+
+% Baseline Comparison
+\begin{table}[h]
+\centering
+\caption{Comparison with Baselines (10MB Dataset)}
+\label{tab:baselines}
+\begin{tabular}{lccccc}
+\toprule
+Tokenizer & Vocab & E2E BPB & Struct BPB & Compress & Lossless \\
+\midrule
+Universal     & 1024  & 3.35 & 0.32 & 2.39$\times$ & 100\% \\
+Raw Bytes     & 256   & 8.00 & 8.00 & 1.00$\times$ & 100\% \\
+Byte BPE      & 1024  & 2.01 & 2.01 & 3.98$\times$ & 100\% \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\footnotesize{Note: Byte BPE was trained on the evaluation data, giving it an advantage.
+Universal tokenizer was untrained (evaluating zero-shot generalization).}
+\end{table}
