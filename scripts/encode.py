@@ -8,7 +8,7 @@
 #   "tqdm",
 # ]
 # ///
-"""Tokenize data using Universal Lossless Tokenizer."""
+"""Encode data using Universal Lossless Tokenizer."""
 
 from __future__ import annotations
 
