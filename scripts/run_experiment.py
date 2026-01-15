@@ -130,6 +130,8 @@ def run_experiment(
     output_dir: Path = Path("eval/results"),
     skip_train: bool = False,
     skip_eval: bool = False,
+    data_path: Path | None = None,
+    eval_path: Path | None = None,
 ) -> None:
     """Run complete experiment.
 
@@ -139,6 +141,8 @@ def run_experiment(
         output_dir: Output directory
         skip_train: Skip training
         skip_eval: Skip evaluation
+        data_path: Path to training data directory
+        eval_path: Path to evaluation data
     """
     scripts_dir = Path(__file__).parent
 
@@ -200,6 +204,9 @@ def run_experiment(
         if model_path.exists():
             eval_args.extend(["--model", str(model_path)])
 
+        if eval_path:
+            eval_args.extend(["--data", str(eval_path)])
+
         result = subprocess.run(eval_args)
         if result.returncode != 0:
             print("Evaluation failed!")
@@ -251,6 +258,18 @@ def main() -> None:
         action="store_true",
         help="Skip evaluation",
     )
+    parser.add_argument(
+        "--data",
+        type=Path,
+        default=None,
+        help="Training data directory",
+    )
+    parser.add_argument(
+        "--eval",
+        type=Path,
+        default=None,
+        help="Evaluation data path",
+    )
 
     args = parser.parse_args()
     run_experiment(
@@ -259,6 +278,8 @@ def main() -> None:
         args.output,
         args.skip_train,
         args.skip_eval,
+        args.data,
+        getattr(args, "eval"),
     )
 
 

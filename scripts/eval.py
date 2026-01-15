@@ -64,9 +64,18 @@ def evaluate(
 
     # Load or generate data
     if data_path and data_path.exists():
-        print(f"Loading eval data from {data_path}")
-        with open(data_path, "rb") as f:
-            data = f.read()
+        if data_path.is_dir():
+            print(f"Loading eval data from directory {data_path}")
+            data = b""
+            for file in sorted(data_path.iterdir()):
+                if file.is_file():
+                    print(f"  Loading {file.name}")
+                    with open(file, "rb") as f:
+                        data += f.read()
+        else:
+            print(f"Loading eval data from {data_path}")
+            with open(data_path, "rb") as f:
+                data = f.read()
     else:
         print("Generating eval data...")
         data = generate_text_like(10_000, seed=config.eval.seed)

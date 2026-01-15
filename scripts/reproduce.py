@@ -6,6 +6,7 @@
 #   "numpy",
 #   "pyyaml",
 #   "tqdm",
+#   "tomli-w",
 # ]
 # ///
 """Reproduce an experiment from a manifest."""
