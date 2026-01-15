@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Universal Lossless Tokenizer"
+version: 0.1.0
+date-released: 2025-01-15
+license: Apache-2.0
+repository-code: "https://github.com/curv-institute/universal_tokenizer"
+authors:
+  - family-names: Miller
+    given-names: J. W.
+    email: j.w.miller@curv.institute
+    affiliation: CURV Institute
+keywords:
+  - tokenization
+  - lossless compression
+  - machine learning
+  - RIFT
+abstract: >-
+  A universal lossless tokenizer implementing RIFT-instantiated
+  representational control for bit-exact reconstruction of arbitrary
+  byte streams.

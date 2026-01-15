@@ -1,0 +1,23 @@
+\section*{Artifact Appendix}
+
+\subsection*{Abstract}
+This artifact provides the complete implementation of the Universal Lossless Tokenizer,
+including training, evaluation, and reproduction scripts.
+
+\subsection*{Requirements}
+\begin{itemize}
+  \item Python $\geq$ 3.12
+  \item uv package manager
+  \item CPU (GPU optional)
+\end{itemize}
+
+\subsection*{Reproduction}
+\begin{verbatim}
+git clone https://github.com/curv-institute/universal_tokenizer
+cd universal_tokenizer
+uv venv .venv && source .venv/bin/activate
+uv run scripts/run_experiment.py --config configs/default.toml
+\end{verbatim}
+
+\subsection*{Expected Results}
+See \texttt{eval/results/summary.json} for metrics.
