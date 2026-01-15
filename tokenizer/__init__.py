@@ -12,6 +12,7 @@ from .interfaces import (
     TokenizerConfig,
     TokenizerBundle,
 )
+from .equilibrium import HHCStats
 
 __all__ = [
     "__version__",
@@ -20,4 +21,5 @@ __all__ = [
     "DecodeResult",
     "TokenizerConfig",
     "TokenizerBundle",
+    "HHCStats",
 ]

@@ -2,17 +2,25 @@
 
 Implements local sensitivity/brittleness diagnostics.
 Curvature correlates with unstable merges and token churn.
+
+HHC Extension:
+When HHC is enabled (config.hhc.enabled and config.hhc.apply_curvature),
+curvature includes relational disharmony:
+    K_hhc(z) = K_local(z) + alpha * Var_neighbors(||z - z_r||)
 """
 
 from __future__ import annotations
 
+import logging
 from typing import Any
 
 import torch
 import torch.nn as nn
 from torch import Tensor
 
-from .interfaces import ModelConfig
+from .interfaces import ModelConfig, HHCConfig
+
+logger = logging.getLogger(__name__)
 
 
 class CurvatureEstimator(nn.Module):
@@ -20,12 +28,38 @@ class CurvatureEstimator(nn.Module):
 
     Implements GRIT proxy - measures local sensitivity of the representation.
     High curvature indicates unstable regions prone to token churn.
+
+    When HHC is enabled, extends curvature to include relational disharmony:
+        K_hhc(z) = K_local(z) + alpha * Var_neighbors(||z - z_r||)
     """
 
-    def __init__(self, config: ModelConfig, num_hutchinson_samples: int = 4):
+    def __init__(
+        self,
+        config: ModelConfig,
+        num_hutchinson_samples: int = 4,
+        hhc_config: HHCConfig | None = None,
+        neighbors: Tensor | None = None,
+    ):
         super().__init__()
         self.latent_dim = config.latent_dim
         self.num_samples = num_hutchinson_samples
+
+        # HHC configuration (defaults to disabled)
+        self.hhc_config = hhc_config if hhc_config is not None else HHCConfig()
+
+        # Neighbor latents for HHC relational disharmony
+        # Shape: (num_neighbors, latent_dim) or None
+        self._neighbor_latents: Tensor | None = None
+        if neighbors is not None:
+            self.set_neighbors(neighbors)
+
+        # HHC statistics tracking
+        self._hhc_stats: dict[str, list[float]] = {
+            "hhc_contribution_mean": [],
+            "hhc_contribution_max": [],
+            "neighbor_variance_mean": [],
+            "local_curvature_mean": [],
+        }
 
         # Curvature prediction network (fast approximation)
         self.curv_net = nn.Sequential(
@@ -35,10 +69,73 @@ class CurvatureEstimator(nn.Module):
             nn.Softplus(),  # Ensure non-negative
         )
 
+    def set_neighbors(self, neighbors: Tensor) -> None:
+        """Set neighbor latents for HHC relational disharmony computation.
+
+        Args:
+            neighbors: Neighbor latent tensor (num_neighbors, latent_dim)
+        """
+        if neighbors.dim() != 2:
+            raise ValueError(f"neighbors must be 2D, got {neighbors.dim()}D")
+        if neighbors.shape[1] != self.latent_dim:
+            raise ValueError(
+                f"neighbors latent_dim {neighbors.shape[1]} != {self.latent_dim}"
+            )
+        self._neighbor_latents = neighbors.detach()
+
+    def clear_neighbors(self) -> None:
+        """Clear neighbor latents."""
+        self._neighbor_latents = None
+
+    def get_hhc_stats(self) -> dict[str, list[float]]:
+        """Get accumulated HHC statistics.
+
+        Returns:
+            Dictionary of stat name to list of values
+        """
+        return self._hhc_stats.copy()
+
+    def reset_hhc_stats(self) -> None:
+        """Reset HHC statistics tracking."""
+        for key in self._hhc_stats:
+            self._hhc_stats[key] = []
+
+    def _compute_neighbor_variance(self, z: Tensor) -> Tensor:
+        """Compute variance of distances to neighbor latents.
+
+        Args:
+            z: Latent tensor (batch, latent_dim)
+
+        Returns:
+            Variance of neighbor distances (batch,)
+        """
+        if self._neighbor_latents is None or self._neighbor_latents.shape[0] == 0:
+            return torch.zeros(z.shape[0], device=z.device, dtype=z.dtype)
+
+        # Move neighbors to same device as z
+        neighbors = self._neighbor_latents.to(z.device)
+
+        # Compute distances: (batch, num_neighbors)
+        # z: (batch, latent_dim), neighbors: (num_neighbors, latent_dim)
+        # Expand for broadcasting: z -> (batch, 1, latent_dim), neighbors -> (1, num_neighbors, latent_dim)
+        z_expanded = z.unsqueeze(1)  # (batch, 1, latent_dim)
+        neighbors_expanded = neighbors.unsqueeze(0)  # (1, num_neighbors, latent_dim)
+
+        # L2 distances to each neighbor
+        distances = (z_expanded - neighbors_expanded).norm(dim=-1)  # (batch, num_neighbors)
+
+        # Variance across neighbors for each sample
+        variance = distances.var(dim=-1)  # (batch,)
+
+        return variance
+
     def estimate(self, z: Tensor, context: Tensor | None = None) -> Tensor:
         """Estimate curvature at latent points.
 
-        Uses learned approximation for efficiency.
+        Uses learned approximation for efficiency. When HHC is enabled
+        (hhc_config.enabled and hhc_config.apply_curvature), extends
+        curvature with relational disharmony:
+            K_hhc(z) = K_local(z) + alpha * Var_neighbors(||z - z_r||)
 
         Args:
             z: Latent tensor (batch, latent_dim)
@@ -47,7 +144,42 @@ class CurvatureEstimator(nn.Module):
         Returns:
             Curvature scores (batch,)
         """
-        return self.curv_net(z).squeeze(-1)
+        # Local curvature (baseline)
+        k_local = self.curv_net(z).squeeze(-1)
+
+        # If HHC disabled, return baseline (bitwise identical)
+        if not self.hhc_config.enabled or not self.hhc_config.apply_curvature:
+            return k_local
+
+        # HHC: Add relational disharmony
+        alpha = self.hhc_config.alpha_curvature
+        neighbor_variance = self._compute_neighbor_variance(z)
+        hhc_contribution = alpha * neighbor_variance
+
+        k_hhc = k_local + hhc_contribution
+
+        # Log HHC stats if enabled
+        if self.hhc_config.log_hhc_stats:
+            with torch.no_grad():
+                self._hhc_stats["hhc_contribution_mean"].append(
+                    hhc_contribution.mean().item()
+                )
+                self._hhc_stats["hhc_contribution_max"].append(
+                    hhc_contribution.max().item()
+                )
+                self._hhc_stats["neighbor_variance_mean"].append(
+                    neighbor_variance.mean().item()
+                )
+                self._hhc_stats["local_curvature_mean"].append(k_local.mean().item())
+
+                logger.debug(
+                    "HHC curvature: local=%.4f, hhc_contrib=%.4f, total=%.4f",
+                    k_local.mean().item(),
+                    hhc_contribution.mean().item(),
+                    k_hhc.mean().item(),
+                )
+
+        return k_hhc
 
     def estimate_jacobian(
         self, z: Tensor, transform_fn: callable
