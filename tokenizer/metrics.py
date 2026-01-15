@@ -19,7 +19,9 @@ class TokenizationMetrics:
     num_tokens: int = 0
     num_bytes: int = 0
     compression_ratio: float = 1.0
-    bits_per_byte: float = 8.0
+    bits_per_byte: float = 8.0  # DEPRECATED: Use end_to_end_bpb instead
+    end_to_end_bpb: float = 8.0  # PRIMARY: Full compression metric including residuals
+    structural_bpb: float = 8.0  # SECONDARY: Token representation efficiency (excludes residuals)
     avg_token_length: float = 1.0
     avg_curvature: float = 0.0
     max_curvature: float = 0.0
@@ -40,7 +42,9 @@ class AggregateMetrics:
     total_tokens: int = 0
     total_bytes: int = 0
     mean_compression_ratio: float = 1.0
-    mean_bits_per_byte: float = 8.0
+    mean_bits_per_byte: float = 8.0  # DEPRECATED: Use mean_end_to_end_bpb instead
+    mean_end_to_end_bpb: float = 8.0  # PRIMARY: Full compression metric including residuals
+    mean_structural_bpb: float = 8.0  # SECONDARY: Token representation efficiency
     mean_avg_token_length: float = 1.0
     mean_curvature: float = 0.0
     curvature_p90: float = 0.0
@@ -58,18 +62,91 @@ class AggregateMetrics:
         return d
 
 
-def compute_metrics(result: EncodeResult, original: bytes) -> TokenizationMetrics:
+def compute_end_to_end_bpb(
+    num_tokens: int,
+    residual_bytes: int,
+    original_bytes: int,
+    vocab_size: int = 8192,
+) -> float:
+    """Compute end-to-end bits per byte including residuals.
+
+    This is the PRIMARY metric for compression claims. It represents the
+    actual bits needed to losslessly represent the original data.
+
+    Formula: (ceil(log2(vocab_size)) * num_tokens + residual_bytes * 8) / original_bytes
+
+    IMPORTANT: This metric MUST be >= empirical entropy for valid lossless compression.
+    Values below entropy indicate a bug in the computation.
+
+    Args:
+        num_tokens: Number of tokens in encoding
+        residual_bytes: Number of residual bytes for lossless reconstruction
+        original_bytes: Original data size in bytes
+        vocab_size: Token vocabulary size (default 8192)
+
+    Returns:
+        End-to-end bits per byte (must be >= entropy for valid compression)
+    """
+    if original_bytes == 0:
+        return 8.0
+
+    bits_per_token = math.ceil(math.log2(vocab_size))  # 13 bits for vocab_size=8192
+    token_bits = bits_per_token * num_tokens
+    residual_bits = residual_bytes * 8
+
+    return (token_bits + residual_bits) / original_bytes
+
+
+def compute_structural_bpb(
+    num_tokens: int,
+    original_bytes: int,
+    vocab_size: int = 8192,
+) -> float:
+    """Compute structural bits per byte (token representation efficiency).
+
+    This is a SECONDARY metric that measures how efficiently the tokenizer
+    represents the data structure, EXCLUDING residual correction bytes.
+
+    Formula: (ceil(log2(vocab_size)) * num_tokens) / original_bytes
+
+    NOTE: This metric CAN be less than entropy - it is NOT a compression claim.
+    It measures representational efficiency before residual correction.
+
+    Args:
+        num_tokens: Number of tokens in encoding
+        original_bytes: Original data size in bytes
+        vocab_size: Token vocabulary size (default 8192)
+
+    Returns:
+        Structural bits per byte (can be < entropy, not a compression claim)
+    """
+    if original_bytes == 0:
+        return 8.0
+
+    bits_per_token = math.ceil(math.log2(vocab_size))  # 13 bits for vocab_size=8192
+    token_bits = bits_per_token * num_tokens
+
+    return token_bits / original_bytes
+
+
+def compute_metrics(
+    result: EncodeResult,
+    original: bytes,
+    vocab_size: int = 8192,
+) -> TokenizationMetrics:
     """Compute metrics for a single tokenization result.
 
     Args:
         result: Tokenization result
         original: Original byte sequence
+        vocab_size: Token vocabulary size (default 8192)
 
     Returns:
         TokenizationMetrics
     """
     num_tokens = len(result.tokens)
     num_bytes = len(original)
+    residual_bytes = len(result.residuals)
 
     if num_tokens == 0:
         return TokenizationMetrics(num_bytes=num_bytes)
@@ -77,10 +154,15 @@ def compute_metrics(result: EncodeResult, original: bytes) -> TokenizationMetric
     # Compression ratio
     compression_ratio = num_bytes / num_tokens if num_tokens > 0 else 1.0
 
-    # Bits per byte (assuming log2(vocab_size) bits per token)
-    # Using 8192 as default vocab size -> ~13 bits per token
-    bits_per_token = 13.0  # log2(8192)
-    bits_per_byte = (bits_per_token * num_tokens) / num_bytes if num_bytes > 0 else 8.0
+    # Compute both BPB metrics using the standalone functions
+    end_to_end_bpb = compute_end_to_end_bpb(
+        num_tokens, residual_bytes, num_bytes, vocab_size
+    )
+    structural_bpb = compute_structural_bpb(num_tokens, num_bytes, vocab_size)
+
+    # DEPRECATED: Keep bits_per_byte for backward compatibility
+    # This maps to end_to_end_bpb (the correct lossless metric)
+    bits_per_byte = end_to_end_bpb
 
     # Token length stats
     avg_token_length = num_bytes / num_tokens if num_tokens > 0 else 1.0
@@ -96,7 +178,6 @@ def compute_metrics(result: EncodeResult, original: bytes) -> TokenizationMetric
     min_stability = min(stabilities) if stabilities else 1.0
 
     # Residual stats
-    residual_bytes = len(result.residuals)
     residual_ratio = residual_bytes / num_bytes if num_bytes > 0 else 0.0
 
     return TokenizationMetrics(
@@ -104,6 +185,8 @@ def compute_metrics(result: EncodeResult, original: bytes) -> TokenizationMetric
         num_bytes=num_bytes,
         compression_ratio=compression_ratio,
         bits_per_byte=bits_per_byte,
+        end_to_end_bpb=end_to_end_bpb,
+        structural_bpb=structural_bpb,
         avg_token_length=avg_token_length,
         avg_curvature=avg_curvature,
         max_curvature=max_curvature,
@@ -135,6 +218,8 @@ def aggregate_metrics(metrics: Sequence[TokenizationMetrics]) -> AggregateMetric
     # Means
     mean_compression = sum(m.compression_ratio for m in metrics) / n
     mean_bpb = sum(m.bits_per_byte for m in metrics) / n
+    mean_end_to_end_bpb = sum(m.end_to_end_bpb for m in metrics) / n
+    mean_structural_bpb = sum(m.structural_bpb for m in metrics) / n
     mean_avg_len = sum(m.avg_token_length for m in metrics) / n
     mean_curv = sum(m.avg_curvature for m in metrics) / n
     mean_stab = sum(m.avg_stability for m in metrics) / n
@@ -158,6 +243,8 @@ def aggregate_metrics(metrics: Sequence[TokenizationMetrics]) -> AggregateMetric
         total_bytes=total_bytes,
         mean_compression_ratio=mean_compression,
         mean_bits_per_byte=mean_bpb,
+        mean_end_to_end_bpb=mean_end_to_end_bpb,
+        mean_structural_bpb=mean_structural_bpb,
         mean_avg_token_length=mean_avg_len,
         mean_curvature=mean_curv,
         curvature_p90=curv_p90,
@@ -216,20 +303,33 @@ def compression_overhead(
     residual_bytes: int,
     vocab_size: int = 8192,
 ) -> float:
-    """Compute compression overhead.
+    """Compute compression overhead ratio including residuals.
+
+    This computes the actual storage overhead by comparing the total encoded
+    size (token bits packed into bytes + residual bytes) against the original
+    data size. This properly accounts for residuals in the compression claim.
+
+    Formula:
+        token_bits = ceil(log2(vocab_size)) * num_tokens
+        token_bytes = ceil(token_bits / 8)
+        total_encoded = token_bytes + residual_bytes
+        overhead = total_encoded / original_bytes
 
     Args:
-        original_bytes: Original data size
-        num_tokens: Number of tokens
-        residual_bytes: Residual size
-        vocab_size: Token vocabulary size
+        original_bytes: Original data size in bytes
+        num_tokens: Number of tokens in encoding
+        residual_bytes: Number of residual bytes for lossless reconstruction
+        vocab_size: Token vocabulary size (default 8192)
 
     Returns:
-        Overhead ratio (1.0 = same size, <1.0 = compression, >1.0 = expansion)
+        Overhead ratio:
+        - 1.0 = same size as original
+        - <1.0 = compression achieved
+        - >1.0 = expansion (encoded larger than original)
     """
-    bits_per_token = math.ceil(math.log2(vocab_size))
+    bits_per_token = math.ceil(math.log2(vocab_size))  # 13 bits for vocab_size=8192
     token_bits = num_tokens * bits_per_token
-    token_bytes = (token_bits + 7) // 8
+    token_bytes = (token_bits + 7) // 8  # Round up to whole bytes
 
     total_encoded = token_bytes + residual_bytes
     return total_encoded / original_bytes if original_bytes > 0 else 1.0
