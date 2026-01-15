@@ -68,31 +68,47 @@ def generate_markdown_report(summary: dict) -> str:
         "",
         "## Results",
         "",
-        "| Tokenizer | Compression | BPB | Lossless |",
-        "|-----------|-------------|-----|----------|",
+        "| Tokenizer | Lossless BPB* | Struct BPB | Compression | Lossless |",
+        "|-----------|---------------|------------|-------------|----------|",
     ]
 
     results = summary.get("results", {})
     for name, metrics in results.items():
+        # Primary metric: end-to-end BPB (lossless compression)
+        e2e_bpb = metrics.get("mean_end_to_end_bpb", metrics.get("mean_bits_per_byte", 0))
+        # Secondary metric: structural BPB (token representation only)
+        struct_bpb = metrics.get("mean_structural_bpb", metrics.get("mean_bits_per_byte", 0))
         comp = metrics.get("mean_compression_ratio", 0)
-        bpb = metrics.get("mean_bits_per_byte", 0)
         lossless = metrics.get("lossless_rate", 0)
-        lines.append(f"| {name} | {comp:.2f} | {bpb:.2f} | {lossless:.1%} |")
+        lines.append(f"| {name} | {e2e_bpb:.2f} | {struct_bpb:.2f} | {comp:.2f} | {lossless:.1%} |")
 
     lines.extend([
+        "",
+        "*\\*Primary compression metric*",
+        "",
+        "**Metric Definitions:** End-to-end BPB (Lossless BPB) measures the true lossless "
+        "encoding cost including token IDs and residual bytes. Structural BPB measures "
+        "representational efficiency prior to residual correction and should not be "
+        "interpreted as a standalone compression ratio. All compression claims in this "
+        "work are based on end-to-end lossless BPB.",
         "",
         "## Detailed Metrics",
         "",
     ])
 
     for name, metrics in results.items():
+        # Get both BPB metrics with fallback for backward compatibility
+        e2e_bpb = metrics.get("mean_end_to_end_bpb", metrics.get("mean_bits_per_byte", 0))
+        struct_bpb = metrics.get("mean_structural_bpb", metrics.get("mean_bits_per_byte", 0))
         lines.extend([
             f"### {name}",
             "",
             f"- Total tokens: {metrics.get('total_tokens', 'N/A')}",
             f"- Total bytes: {metrics.get('total_bytes', 'N/A')}",
+            f"- **Lossless BPB (E2E):** {e2e_bpb:.4f}",
+            f"- Structural BPB: {struct_bpb:.4f}",
+            f"- Total residual bytes: {metrics.get('total_residual_bytes', 'N/A')}",
             f"- Mean compression ratio: {metrics.get('mean_compression_ratio', 0):.4f}",
-            f"- Mean bits per byte: {metrics.get('mean_bits_per_byte', 0):.4f}",
             f"- Mean avg token length: {metrics.get('mean_avg_token_length', 0):.4f}",
             f"- Mean curvature: {metrics.get('mean_curvature', 0):.4f}",
             f"- Curvature P90: {metrics.get('curvature_p90', 0):.4f}",
@@ -110,6 +126,10 @@ def generate_paper_artifact(summary: dict) -> str:
     results = summary.get("results", {})
     universal = results.get("universal", {})
 
+    # Primary metric: end-to-end BPB (with fallback for backward compatibility)
+    e2e_bpb = universal.get("mean_end_to_end_bpb", universal.get("mean_bits_per_byte", 0))
+    struct_bpb = universal.get("mean_structural_bpb", universal.get("mean_bits_per_byte", 0))
+
     lines = [
         "# Paper Artifact - Universal Lossless Tokenizer",
         "",
@@ -126,12 +146,17 @@ def generate_paper_artifact(summary: dict) -> str:
         "",
         "## Key Results",
         "",
-        "| Metric | Value |",
-        "|--------|-------|",
-        f"| Compression Ratio | {universal.get('mean_compression_ratio', 0):.2f} |",
-        f"| Bits per Byte | {universal.get('mean_bits_per_byte', 0):.2f} |",
-        f"| Lossless Rate | {universal.get('lossless_rate', 0):.1%} |",
-        f"| Avg Token Length | {universal.get('mean_avg_token_length', 0):.2f} |",
+        "| Metric | Value | Description |",
+        "|--------|-------|-------------|",
+        f"| **Lossless BPB** | {e2e_bpb:.2f} | End-to-end compression (primary) |",
+        f"| Structural BPB | {struct_bpb:.2f} | Token representation only |",
+        f"| Compression Ratio | {universal.get('mean_compression_ratio', 0):.2f} | Bytes per token |",
+        f"| Lossless Rate | {universal.get('lossless_rate', 0):.1%} | Exact reconstruction |",
+        f"| Avg Token Length | {universal.get('mean_avg_token_length', 0):.2f} | Mean bytes per token |",
+        "",
+        "**Note:** Lossless BPB is the primary compression metric and includes both token IDs "
+        "and residual bytes required for exact reconstruction. Structural BPB measures token "
+        "representation efficiency only and should not be cited as a compression ratio.",
         "",
         "## Reproducibility",
         "",
