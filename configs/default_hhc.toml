@@ -1,0 +1,67 @@
+# Default configuration for Universal Lossless Tokenizer with HHC enabled
+# This is the reference configuration for paper experiments
+
+[model]
+input_dim = 256        # Byte vocabulary
+embed_dim = 128        # Embedding dimension
+hidden_dim = 256       # Hidden layer dimension
+latent_dim = 64        # Latent space dimension
+num_layers = 2         # Encoder layers
+dropout = 0.0          # No dropout for determinism
+
+[equilibrium]
+num_steps = 10         # Fixed unroll steps
+eta = 0.5              # Contraction rate
+tolerance = 1e-6       # Convergence tolerance
+use_residual = true    # Residual connections
+
+[codebook]
+num_codes = 8192       # Token vocabulary size
+code_dim = 64          # Must match latent_dim
+init_scale = 0.1       # Initialization scale
+ema_decay = 0.99       # EMA decay for updates
+commitment_weight = 0.25
+
+[segmentation]
+min_span = 1           # Minimum span (bytes)
+max_span = 32          # Maximum span (bytes)
+beta_curvature = 0.1   # Curvature penalty
+gamma_stability = 0.1  # Stability penalty
+lookahead = 4          # Boundary lookahead
+
+[controller]
+target_avg_len = 4.0   # Target token length
+target_bpb = 1.0       # Target bits per byte
+target_curvature = 0.5 # Target curvature
+gain = 0.01            # Control gain
+update_interval = 100  # Steps between updates
+
+[train]
+batch_size = 32
+learning_rate = 1e-3
+weight_decay = 1e-5
+max_steps = 10000
+warmup_steps = 100
+eval_interval = 500
+checkpoint_interval = 1000
+seed = 42
+device = "cpu"
+
+[eval]
+batch_size = 64
+max_samples = 1000
+seed = 42
+
+[hhc]
+enabled = true
+apply_equilibrium = true
+apply_curvature = true
+apply_harmonizer = true
+window_tokens = 8
+overlap_bytes = 16
+adjacency = true
+lambda_equilibrium = 0.05
+alpha_curvature = 0.10
+max_neighbor_norm = 10.0
+max_delta_per_step = 0.25
+log_hhc_stats = true
