@@ -28,8 +28,8 @@ source .venv/bin/activate
 # Train tokenizer
 uv run scripts/train.py --config configs/default.toml
 
-# Tokenize data
-uv run scripts/tokenize.py --input data.txt --output tokens.json
+# Encode data
+uv run scripts/encode.py data.txt --output tokens.json
 
 # Evaluate
 uv run scripts/eval.py --config configs/default.toml
