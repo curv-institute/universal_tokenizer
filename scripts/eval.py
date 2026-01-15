@@ -113,11 +113,14 @@ def evaluate(
         metrics_list = []
         lossless_count = 0
 
+        # Get vocab_size for correct BPB calculation
+        vocab_size = getattr(tok, "vocab_size", config.codebook.num_codes)
+
         for chunk in tqdm(chunks, desc=name):
             result = tok.encode(chunk)
             decoded = tok.decode(result)
 
-            metrics = compute_metrics(result, chunk)
+            metrics = compute_metrics(result, chunk, vocab_size=vocab_size)
             metrics_list.append(metrics)
 
             if verify_lossless(chunk, decoded.data):
@@ -129,7 +132,8 @@ def evaluate(
         results[name] = agg.to_dict()
 
         print(f"  Compression ratio: {agg.mean_compression_ratio:.2f}")
-        print(f"  Bits per byte: {agg.mean_bits_per_byte:.2f}")
+        print(f"  End-to-end BPB: {agg.mean_end_to_end_bpb:.2f} (lossless)")
+        print(f"  Structural BPB: {agg.mean_structural_bpb:.2f} (representational)")
         print(f"  Lossless rate: {agg.lossless_rate:.1%}")
 
     # Save results
