@@ -5,10 +5,12 @@ Assembles all components into the complete Universal Lossless Tokenizer.
 
 from __future__ import annotations
 
+from collections import deque
 from pathlib import Path
 from typing import Iterator, Any
 
 import torch
+from torch import Tensor
 
 from .interfaces import (
     TokenizerConfig,
@@ -38,11 +40,13 @@ class UniversalTokenizer:
     def __init__(self, config: TokenizerConfig):
         self._config = config
 
-        # Initialize components
+        # Initialize components with HHC config
         self.encoder = ByteEncoder(config.model)
-        self.equilibrium = EquilibriumProjector(config.equilibrium, config.model)
+        self.equilibrium = EquilibriumProjector(
+            config.equilibrium, config.model, config.hhc
+        )
         self.codebook = TokenCodebook(config.codebook)
-        self.curvature = CurvatureEstimator(config.model)
+        self.curvature = CurvatureEstimator(config.model, hhc_config=config.hhc)
         self.controller = HarmonizerController(config.controller)
         self.residual_coder = ResidualCoder()
 
@@ -53,6 +57,12 @@ class UniversalTokenizer:
             self.equilibrium,
             self.codebook,
             self.curvature,
+        )
+
+        # Streaming-local neighbor buffer for HHC
+        # Stores (token_id, span_len, z_canonical) tuples
+        self._neighbor_buffer: deque[tuple[int, int, Tensor]] = deque(
+            maxlen=config.hhc.window_tokens
         )
 
         # Device management
@@ -87,6 +97,62 @@ class UniversalTokenizer:
         """Set evaluation mode."""
         return self.train_mode(False)
 
+    def _get_neighbor_latents(self) -> Tensor | None:
+        """Get stacked neighbor latents from buffer.
+
+        Returns:
+            Tensor of shape (n, latent_dim) if buffer has entries,
+            None if buffer is empty.
+        """
+        if not self._neighbor_buffer:
+            return None
+
+        # Stack the z_canonical tensors from buffer
+        latents = [entry[2] for entry in self._neighbor_buffer]
+        return torch.stack(latents, dim=0)
+
+    def _update_neighbor_buffer(
+        self, token_id: int, span_len: int, z_canonical: Tensor
+    ) -> None:
+        """Add a committed token to the neighbor buffer.
+
+        Args:
+            token_id: The token ID
+            span_len: Length of the span in bytes
+            z_canonical: The canonical latent tensor (latent_dim,)
+        """
+        # Ensure tensor is detached and on CPU for storage efficiency
+        z_stored = z_canonical.detach().clone()
+        if z_stored.dim() == 2 and z_stored.size(0) == 1:
+            z_stored = z_stored.squeeze(0)
+        self._neighbor_buffer.append((token_id, span_len, z_stored))
+
+    def _set_neighbor_context(self) -> None:
+        """Set neighbor latents on equilibrium and curvature components.
+
+        Passes current buffer contents to components that use HHC.
+        """
+        if not self._config.hhc.enabled:
+            return
+
+        neighbor_latents = self._get_neighbor_latents()
+
+        if neighbor_latents is not None:
+            # Move to device for computation
+            neighbor_latents = neighbor_latents.to(self._device)
+
+            # Set on equilibrium projector
+            if self._config.hhc.apply_equilibrium:
+                self.equilibrium.set_neighbors(list(neighbor_latents))
+
+            # Set on curvature estimator
+            if self._config.hhc.apply_curvature:
+                self.curvature.set_neighbors(neighbor_latents)
+        else:
+            # Clear neighbors if buffer is empty
+            self.equilibrium.clear_neighbors()
+            self.curvature.clear_neighbors()
+
     def encode(self, data: bytes) -> EncodeResult:
         """Encode bytes to tokens with lossless residuals.
 
@@ -101,6 +167,12 @@ class UniversalTokenizer:
         tokens = []
         all_residuals = b""
 
+        # Clear neighbor buffer at start of encode
+        if self._config.hhc.enabled:
+            self._neighbor_buffer.clear()
+            self.equilibrium.clear_neighbors()
+            self.curvature.clear_neighbors()
+
         # Segment and encode
         with torch.no_grad():
             for start, end, curv, stab in self.segmenter.segment_with_scores(data):
@@ -109,12 +181,20 @@ class UniversalTokenizer:
                 # Encode span to latent
                 z = self.encoder.encode([span])
 
-                # Project to equilibrium
+                # Set neighbor context before projection (if HHC enabled)
+                if self._config.hhc.enabled:
+                    self._set_neighbor_context()
+
+                # Project to equilibrium (uses neighbors if HHC enabled)
                 z_eq = self.equilibrium.project(z)
 
                 # Quantize to token
                 _, ids = self.codebook.quantize(z_eq)
                 token_id = ids[0].item()
+
+                # Update neighbor buffer with committed token (if HHC enabled)
+                if self._config.hhc.enabled:
+                    self._update_neighbor_buffer(token_id, len(span), z_eq)
 
                 # For reconstruction, we need the residual
                 # Since decoder doesn't exist yet, store original span
@@ -203,6 +283,12 @@ class UniversalTokenizer:
         self.eval_mode()
         buffer = b""
 
+        # Clear neighbor buffer at start of new stream (if HHC enabled)
+        if self._config.hhc.enabled:
+            self._neighbor_buffer.clear()
+            self.equilibrium.clear_neighbors()
+            self.curvature.clear_neighbors()
+
         with torch.no_grad():
             for chunk in stream:
                 buffer += chunk
@@ -222,13 +308,23 @@ class UniversalTokenizer:
 
                     span = buffer[start:end]
                     z = self.encoder.encode([span])
+
+                    # Set neighbor context before projection (if HHC enabled)
+                    if self._config.hhc.enabled:
+                        self._set_neighbor_context()
+
                     z_eq = self.equilibrium.project(z)
                     _, ids = self.codebook.quantize(z_eq)
+                    token_id = ids[0].item()
+
+                    # Update neighbor buffer with committed token (if HHC enabled)
+                    if self._config.hhc.enabled:
+                        self._update_neighbor_buffer(token_id, len(span), z_eq)
 
                     residual = self.residual_coder.encode_residual(span, span)
 
                     yield Token(
-                        id=ids[0].item(),
+                        id=token_id,
                         span=span,
                         start=start,
                         end=end,
@@ -244,13 +340,23 @@ class UniversalTokenizer:
                 for start, end, curv, stab in self.segmenter.segment_with_scores(buffer):
                     span = buffer[start:end]
                     z = self.encoder.encode([span])
+
+                    # Set neighbor context before projection (if HHC enabled)
+                    if self._config.hhc.enabled:
+                        self._set_neighbor_context()
+
                     z_eq = self.equilibrium.project(z)
                     _, ids = self.codebook.quantize(z_eq)
+                    token_id = ids[0].item()
+
+                    # Update neighbor buffer with committed token (if HHC enabled)
+                    if self._config.hhc.enabled:
+                        self._update_neighbor_buffer(token_id, len(span), z_eq)
 
                     residual = self.residual_coder.encode_residual(span, span)
 
                     yield Token(
-                        id=ids[0].item(),
+                        id=token_id,
                         span=span,
                         start=start,
                         end=end,

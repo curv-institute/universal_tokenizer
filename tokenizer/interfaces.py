@@ -285,15 +285,25 @@ class EquilibriumProjector(Protocol):
 
     Implements LoRE instantiation as deterministic contraction mapping:
     z_{t+1} = (1-eta) * z_t + eta * F(z_t, span_features)
+
+    With optional HHC (Harmonized Hyper-Connections) for neighbor coupling:
+    z* = project(z) + lambda * (z_bar - z)
+    where z_bar = mean(clamp_norm(neighbors, max_neighbor_norm))
     """
 
     @abstractmethod
-    def project(self, z: Tensor, span_features: Tensor | None = None) -> Tensor:
+    def project(
+        self,
+        z: Tensor,
+        span_features: Tensor | None = None,
+        neighbors: list[Tensor] | None = None,
+    ) -> Tensor:
         """Project latent to equilibrium attractor.
 
         Args:
             z: Initial latent tensor (batch, latent_dim)
             span_features: Optional conditioning features
+            neighbors: Optional list of neighbor latent tensors for HHC coupling
 
         Returns:
             Equilibrium latent tensor (batch, latent_dim)
@@ -302,9 +312,17 @@ class EquilibriumProjector(Protocol):
 
     @abstractmethod
     def project_with_trajectory(
-        self, z: Tensor, span_features: Tensor | None = None
+        self,
+        z: Tensor,
+        span_features: Tensor | None = None,
+        neighbors: list[Tensor] | None = None,
     ) -> tuple[Tensor, list[Tensor]]:
         """Project with full trajectory for analysis.
+
+        Args:
+            z: Initial latent tensor (batch, latent_dim)
+            span_features: Optional conditioning features
+            neighbors: Optional list of neighbor latent tensors for HHC coupling
 
         Returns:
             Final equilibrium and list of intermediate states
