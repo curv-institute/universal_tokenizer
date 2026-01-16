@@ -50,7 +50,7 @@ ULT achieves 100\% bit-exact reconstruction across mixed text, code, JSON, Unico
 \section{Relational Regularization with Harmonized Hyper-Connections}
 \label{sec:hhc-stability}
 \subsection{Method}
-Local optimality in tokenization leads to global brittleness. Harmonized Hyper-Connections (HHC) introduce bounded relational coupling between neighboring representations during equilibrium projection, along with relative curvature diagnostics. A closed-loop stability controller regulates trade-offs between efficiency and stability. These diagnostics were developed as part of a broader internal CURV Institute representation-first framework; only the operational components relevant to the experiments are used here.
+Local optimality in tokenization leads to global brittleness. Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc} introduce bounded relational coupling between neighboring representations during equilibrium projection, along with relative curvature diagnostics. A closed-loop stability controller regulates trade-offs between efficiency and stability. These diagnostics were developed as part of a broader internal CURV Institute representation-first framework; only the operational components relevant to the experiments are used here.
 
 \subsection{Results}
 Under regime-shift stress streams, HHC produces a clear trade-off: a 10.5\% increase in end-to-end bits per byte in exchange for a 36\% improvement in stability margin and a 9\% reduction in mean curvature. HHC is fully active and non-degenerate, while only minimal controller interventions are required.
