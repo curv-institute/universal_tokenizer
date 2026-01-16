@@ -31,7 +31,7 @@ Each macro maps a verbose pattern to a single-byte reference that expands determ
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{figures/lil_qualitative_example.pdf}
+\includegraphics[width=\columnwidth]{figures/lil_qualitative_example.pdf}
 \caption{Qualitative example illustrating the Language Interface Layer (LIL).
 \textbf{Panel A} shows a raw prompt with repeated scaffolding and implicit role boundaries.
 \textbf{Panel B} shows the reversible LIL wire format with explicit role markers (SYS, USR)
@@ -42,7 +42,7 @@ tokens are isolated, whereas baseline representations exhibit churn (red) throug
 \label{fig:lil-example}
 \end{figure}
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \caption{LIL Evaluation Results. Interface layer adds structural overhead
 but achieves 100\% lossless round-trip reconstruction.}
@@ -62,7 +62,7 @@ LIL Size Ratio$^\ddagger$ & -- & 107\% & -- \\
 \vspace{0.5em}
 \footnotesize{$^\dagger$ End-to-end bits per byte (lower is better).}\\
 \footnotesize{$^\ddagger$ Packed size / original size; $<$100\% indicates macro savings.}
-\end{table}
+\end{table*}
 
 \paragraph{Prompt Extension Stability.}
 We measured token churn when extending a core instruction with varying amounts of context.

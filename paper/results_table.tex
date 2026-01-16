@@ -3,7 +3,7 @@
 % Data: 1,038 bytes from data/eval/heldout.bin (entropy: 7.72 bits/byte)
 % Config: cpu_small.toml (vocab_size=1024, 10 bits/token)
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \caption{Tokenizer Comparison Results. E2E BPB (end-to-end bits per byte) measures the
 complete lossless encoding cost including token IDs and compressed residual data.
@@ -27,7 +27,7 @@ Byte BPE (1024) & 9.24 & 9.24 & 100\% & 0.00 \\
 \textbf{Note:} Structural BPB measures representational efficiency prior to residual
 correction and should not be interpreted as a standalone compression ratio. All compression
 claims are based on end-to-end lossless BPB. Residuals are compressed with zlib.
-\end{table}
+\end{table*}
 
 % Detailed metrics table
 \begin{table}[h]

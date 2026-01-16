@@ -1,6 +1,4 @@
 % Downstream LM Proxy Evaluation
-% Template for language model proxy experiments
-% Placeholder values marked with TODO: will be filled from eval/results/lm_proxy
 
 \subsection{Downstream LM Proxy Evaluation}
 \label{sec:lm-proxy}
@@ -13,7 +11,7 @@ This proxy task isolates the effect of tokenization on training dynamics without
 conflating it with model-scale effects. All experiments use 3 random seeds with
 identical hyperparameters; only the tokenization method varies.
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \caption{LM Proxy Task: Baseline vs HHC Tokenization. Lower loss and variance
 indicate more stable training dynamics.}
@@ -32,12 +30,11 @@ Convergence Rate & 100\% & 100\% \\
 \vspace{0.5em}
 \footnotesize{Trained on 50KB shift dataset (3,200 tokens), 200 steps, 4-layer transformer (256H, 4A).
 Lower loss and variance indicate more learnable token distributions.}
-\end{table}
+\end{table*}
 
 \begin{figure}[h]
 \centering
-% TODO: Generate figure with: uv run scripts/generate_lm_proxy_figure.py
-\includegraphics[width=0.8\textwidth]{figures/lm_proxy_loss_curves.pdf}
+\includegraphics[width=\columnwidth]{figures/lm_proxy_loss_curves.pdf}
 \caption{Training loss curves for baseline (dashed) and HHC (solid) tokenization
 across 3 seeds. Shaded regions show $\pm$1 standard deviation. Baseline tokens
 converge to lower loss (1.02 vs 1.37) with tighter variance, suggesting HHC's
@@ -61,9 +58,3 @@ bytes processed (508KB for both). Under this protocol, the negative result \text
 baseline tokens achieve 1.15 $\pm$ 0.03 loss vs HHC's 1.76 $\pm$ 0.08 (52.6\% higher).
 Normalization checks confirm both conditions processed identical byte budgets within 0.03\%.
 This rules out token-budget artifacts as a confound.
-
-% Notes for integration:
-% - Run LM proxy experiments: uv run scripts/run_lm_proxy.py --seeds 3
-% - Results will be saved to eval/results/lm_proxy/
-% - Generate figure: uv run scripts/generate_lm_proxy_figure.py
-% - Update TODO placeholders with values from results JSON
