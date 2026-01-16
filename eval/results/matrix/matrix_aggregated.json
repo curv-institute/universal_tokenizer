@@ -1,0 +1,506 @@
+{
+  "tiers": [
+    "10mb_baseline",
+    "10mb_hhc",
+    "1mb_baseline",
+    "1mb_hhc",
+    "smoke_baseline",
+    "smoke_hhc"
+  ],
+  "configs": [
+    "baseline",
+    "hhc"
+  ],
+  "data": {
+    "smoke_baseline": {
+      "baseline": {
+        "metrics": {
+          "num_samples": {
+            "mean": 5.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 41.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 1038.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 25.2,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 4.826785714285714,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 4.826785714285714,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.4553571428571429,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 25.2,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.6158941768109798,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6248788833618164,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.24087118385008505,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.1952670197597973,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 492.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "hhc": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    },
+    "smoke_hhc": {
+      "hhc": {
+        "metrics": {
+          "num_samples": {
+            "mean": 5.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 41.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 1038.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 25.2,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 4.826785714285714,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 4.826785714285714,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.4553571428571429,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 25.2,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.6158941768109798,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6248788833618164,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.24087118385008505,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.1952670197597973,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 492.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "baseline": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    },
+    "1mb_baseline": {
+      "baseline": {
+        "metrics": {
+          "num_samples": {
+            "mean": 100.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 808.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 25600.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.315625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.618988948687911,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6258506774902344,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.234398397137649,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.20318896475162534,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 9696.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "hhc": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    },
+    "1mb_hhc": {
+      "hhc": {
+        "metrics": {
+          "num_samples": {
+            "mean": 100.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 808.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 25600.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.315625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.618988948687911,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6258506774902344,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.234398397137649,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.20318896475162534,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 9696.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "baseline": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    },
+    "10mb_baseline": {
+      "baseline": {
+        "metrics": {
+          "num_samples": {
+            "mean": 100.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 808.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 25600.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.315625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.618988948687911,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6258506774902344,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.234398397137649,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.20318896475162534,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 9696.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "hhc": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    },
+    "10mb_hhc": {
+      "hhc": {
+        "metrics": {
+          "num_samples": {
+            "mean": 100.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_tokens": {
+            "mean": 808.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_bytes": {
+            "mean": 25600.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_compression_ratio": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_bits_per_byte": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_end_to_end_bpb": {
+            "mean": 3.345625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_structural_bpb": {
+            "mean": 0.315625,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_avg_token_length": {
+            "mean": 31.84,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_curvature": {
+            "mean": 0.618988948687911,
+            "std": 0.0,
+            "n": 1
+          },
+          "curvature_p90": {
+            "mean": 0.6258506774902344,
+            "std": 0.0,
+            "n": 1
+          },
+          "mean_stability": {
+            "mean": 0.234398397137649,
+            "std": 0.0,
+            "n": 1
+          },
+          "stability_p10": {
+            "mean": 0.20318896475162534,
+            "std": 0.0,
+            "n": 1
+          },
+          "total_residual_bytes": {
+            "mean": 9696.0,
+            "std": 0.0,
+            "n": 1
+          },
+          "lossless_rate": {
+            "mean": 1.0,
+            "std": 0.0,
+            "n": 1
+          }
+        },
+        "num_runs": 1
+      },
+      "baseline": {
+        "metrics": {},
+        "num_runs": 0
+      }
+    }
+  },
+  "metadata": {
+    "total_runs": 6,
+    "aggregation_timestamp": "2026-01-15T20:18:45.250186"
+  }
+}

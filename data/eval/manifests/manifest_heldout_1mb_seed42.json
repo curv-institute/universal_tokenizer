@@ -1,0 +1,268 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-01-15T20:15:23.359297Z",
+  "seed": 42,
+  "profile": "core",
+  "target_size_bytes": 1048576,
+  "actual_size_bytes": 1048576,
+  "num_blocks": 21,
+  "block_summary": {
+    "text": {
+      "count": 5,
+      "total_bytes": 221014
+    },
+    "code": {
+      "count": 4,
+      "total_bytes": 212357
+    },
+    "jsonl": {
+      "count": 4,
+      "total_bytes": 213217
+    },
+    "binary": {
+      "count": 4,
+      "total_bytes": 176395
+    },
+    "logs": {
+      "count": 4,
+      "total_bytes": 225593
+    }
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "start": 0,
+      "length": 84834,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 84834,
+      "length": 34270,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 119104,
+      "length": 43315,
+      "metadata": {
+        "num_records": 265
+      }
+    },
+    {
+      "type": "binary",
+      "start": 162419,
+      "length": 6194,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 168613,
+      "length": 71903,
+      "metadata": {
+        "format": "log",
+        "num_lines": 872
+      }
+    },
+    {
+      "type": "text",
+      "start": 240516,
+      "length": 42629,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 283145,
+      "length": 92383,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 375528,
+      "length": 73824,
+      "metadata": {
+        "num_records": 454
+      }
+    },
+    {
+      "type": "binary",
+      "start": 449352,
+      "length": 51897,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 501249,
+      "length": 54592,
+      "metadata": {
+        "format": "log",
+        "num_lines": 662
+      }
+    },
+    {
+      "type": "text",
+      "start": 555841,
+      "length": 22505,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 578346,
+      "length": 43803,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 622149,
+      "length": 8125,
+      "metadata": {
+        "num_records": 50
+      }
+    },
+    {
+      "type": "binary",
+      "start": 630274,
+      "length": 50440,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 680714,
+      "length": 71033,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1979
+      }
+    },
+    {
+      "type": "text",
+      "start": 751747,
+      "length": 54261,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 806008,
+      "length": 41901,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 847909,
+      "length": 87953,
+      "metadata": {
+        "num_records": 537
+      }
+    },
+    {
+      "type": "binary",
+      "start": 935862,
+      "length": 67864,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 1003726,
+      "length": 28065,
+      "metadata": {
+        "format": "log",
+        "num_lines": 340
+      }
+    },
+    {
+      "type": "text",
+      "start": 1031791,
+      "length": 16785,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    }
+  ],
+  "output_file": "data/eval/heldout_1mb.bin",
+  "sha256": "b3ac41dbb387d6c1fdf23ef0206101dcf07dc9ddc7b31a805b0e01fe6d1f6593"
+}

@@ -1,0 +1,331 @@
+{
+  "timestamp": "2026-01-16T02:37:08.078193",
+  "config": "configs/cpu_small.toml",
+  "config_hhc": "configs/cpu_small_hhc.toml",
+  "macros_enabled": true,
+  "num_macros": 23,
+  "experiments": {
+    "prompt_extension": {
+      "baseline": {
+        "results": [
+          {
+            "extension_bytes": 0,
+            "total_bytes": 70,
+            "tokens": 5,
+            "core_tokens": 3
+          },
+          {
+            "extension_bytes": 19,
+            "total_bytes": 89,
+            "tokens": 3,
+            "core_tokens": 3
+          },
+          {
+            "extension_bytes": 73,
+            "total_bytes": 143,
+            "tokens": 5,
+            "core_tokens": 3
+          },
+          {
+            "extension_bytes": 401,
+            "total_bytes": 471,
+            "tokens": 15,
+            "core_tokens": 3
+          },
+          {
+            "extension_bytes": 1101,
+            "total_bytes": 1171,
+            "tokens": 37,
+            "core_tokens": 3
+          }
+        ],
+        "avg_token_churn": 2.2,
+        "max_token_churn": 6.4
+      },
+      "lil": {
+        "results": [
+          {
+            "extension_bytes": 0,
+            "total_bytes": 84,
+            "tokens": 3,
+            "lil_ratio": 1.2
+          },
+          {
+            "extension_bytes": 19,
+            "total_bytes": 103,
+            "tokens": 4,
+            "lil_ratio": 1.1573033707865168
+          },
+          {
+            "extension_bytes": 73,
+            "total_bytes": 157,
+            "tokens": 5,
+            "lil_ratio": 1.097902097902098
+          },
+          {
+            "extension_bytes": 401,
+            "total_bytes": 485,
+            "tokens": 16,
+            "lil_ratio": 1.029723991507431
+          },
+          {
+            "extension_bytes": 1101,
+            "total_bytes": 1185,
+            "tokens": 38,
+            "lil_ratio": 1.0119555935098206
+          }
+        ],
+        "avg_token_churn": 4.25,
+        "max_token_churn": 11.666666666666666,
+        "avg_lil_ratio": 1.0993770107411733
+      },
+      "lil_hhc": {
+        "results": [
+          {
+            "extension_bytes": 0,
+            "tokens": 7
+          },
+          {
+            "extension_bytes": 19,
+            "tokens": 5
+          },
+          {
+            "extension_bytes": 73,
+            "tokens": 6
+          },
+          {
+            "extension_bytes": 401,
+            "tokens": 17
+          },
+          {
+            "extension_bytes": 1101,
+            "tokens": 38
+          }
+        ]
+      }
+    },
+    "role_boundary": {
+      "baseline": {
+        "results": [
+          {
+            "num_segments": 2,
+            "num_boundaries": 1,
+            "bytes": 23,
+            "tokens": 1,
+            "bytes_per_token": 23.0
+          },
+          {
+            "num_segments": 3,
+            "num_boundaries": 2,
+            "bytes": 33,
+            "tokens": 2,
+            "bytes_per_token": 16.5
+          },
+          {
+            "num_segments": 5,
+            "num_boundaries": 4,
+            "bytes": 62,
+            "tokens": 2,
+            "bytes_per_token": 31.0
+          }
+        ],
+        "avg_bytes_per_token": 23.5
+      },
+      "lil": {
+        "results": [
+          {
+            "num_segments": 2,
+            "num_boundaries": 1,
+            "bytes": 43,
+            "tokens": 2,
+            "bytes_per_token": 21.5,
+            "lil_ratio": 1.9545454545454546,
+            "lossless": true
+          },
+          {
+            "num_segments": 3,
+            "num_boundaries": 2,
+            "bytes": 59,
+            "tokens": 2,
+            "bytes_per_token": 29.5,
+            "lil_ratio": 1.903225806451613,
+            "lossless": true
+          },
+          {
+            "num_segments": 5,
+            "num_boundaries": 4,
+            "bytes": 100,
+            "tokens": 4,
+            "bytes_per_token": 25.0,
+            "lil_ratio": 1.7241379310344827,
+            "lossless": true
+          }
+        ],
+        "avg_bytes_per_token": 25.333333333333332,
+        "all_lossless": true
+      },
+      "lil_hhc": {
+        "results": [
+          {
+            "num_boundaries": 1,
+            "tokens": 2
+          },
+          {
+            "num_boundaries": 2,
+            "tokens": 2
+          },
+          {
+            "num_boundaries": 4,
+            "tokens": 5
+          }
+        ]
+      }
+    },
+    "efficiency": {
+      "baseline": {
+        "results": [
+          {
+            "name": "simple_user",
+            "bytes": 30,
+            "tokens": 1,
+            "e2e_bpb": 3.533333333333333,
+            "structural_bpb": 0.3333333333333333,
+            "lossless": true
+          },
+          {
+            "name": "system_user",
+            "bytes": 55,
+            "tokens": 2,
+            "e2e_bpb": 3.8545454545454545,
+            "structural_bpb": 0.36363636363636365,
+            "lossless": true
+          },
+          {
+            "name": "full_conversation",
+            "bytes": 142,
+            "tokens": 5,
+            "e2e_bpb": 3.732394366197183,
+            "structural_bpb": 0.352112676056338,
+            "lossless": true
+          },
+          {
+            "name": "code_prompt",
+            "bytes": 137,
+            "tokens": 5,
+            "e2e_bpb": 4.218978102189781,
+            "structural_bpb": 0.36496350364963503,
+            "lossless": true
+          },
+          {
+            "name": "json_schema",
+            "bytes": 141,
+            "tokens": 5,
+            "e2e_bpb": 3.7588652482269502,
+            "structural_bpb": 0.3546099290780142,
+            "lossless": true
+          }
+        ],
+        "avg_e2e_bpb": 3.8196233008985403,
+        "avg_structural_bpb": 0.3537311611507369,
+        "avg_tokens": 3.6,
+        "lossless_rate": 1.0
+      },
+      "lil": {
+        "results": [
+          {
+            "name": "simple_user",
+            "original_bytes": 30,
+            "packed_bytes": 44,
+            "tokens": 2,
+            "e2e_bpb": 4.818181818181818,
+            "structural_bpb": 0.45454545454545453,
+            "lil_ratio": 1.4666666666666666,
+            "full_lossless": true
+          },
+          {
+            "name": "system_user",
+            "original_bytes": 54,
+            "packed_bytes": 50,
+            "tokens": 2,
+            "e2e_bpb": 4.24,
+            "structural_bpb": 0.4,
+            "lil_ratio": 0.9259259259259259,
+            "full_lossless": true
+          },
+          {
+            "name": "full_conversation",
+            "original_bytes": 139,
+            "packed_bytes": 127,
+            "tokens": 4,
+            "e2e_bpb": 3.338582677165354,
+            "structural_bpb": 0.31496062992125984,
+            "lil_ratio": 0.9136690647482014,
+            "full_lossless": true
+          },
+          {
+            "name": "code_prompt",
+            "original_bytes": 136,
+            "packed_bytes": 149,
+            "tokens": 5,
+            "e2e_bpb": 3.557046979865772,
+            "structural_bpb": 0.33557046979865773,
+            "lil_ratio": 1.0955882352941178,
+            "full_lossless": true
+          },
+          {
+            "name": "json_schema",
+            "original_bytes": 140,
+            "packed_bytes": 135,
+            "tokens": 5,
+            "e2e_bpb": 4.162962962962963,
+            "structural_bpb": 0.37037037037037035,
+            "lil_ratio": 0.9642857142857143,
+            "full_lossless": true
+          }
+        ],
+        "avg_e2e_bpb": 4.023354887635182,
+        "avg_structural_bpb": 0.3750893849271485,
+        "avg_tokens": 3.6,
+        "avg_lil_ratio": 1.0732271213841253,
+        "full_lossless_rate": 1.0
+      },
+      "lil_hhc": {
+        "results": [
+          {
+            "name": "simple_user",
+            "tokens": 2,
+            "e2e_bpb": 4.818181818181818,
+            "structural_bpb": 0.45454545454545453
+          },
+          {
+            "name": "system_user",
+            "tokens": 2,
+            "e2e_bpb": 4.24,
+            "structural_bpb": 0.4
+          },
+          {
+            "name": "full_conversation",
+            "tokens": 5,
+            "e2e_bpb": 4.047244094488189,
+            "structural_bpb": 0.3937007874015748
+          },
+          {
+            "name": "code_prompt",
+            "tokens": 6,
+            "e2e_bpb": 4.1610738255033555,
+            "structural_bpb": 0.40268456375838924
+          },
+          {
+            "name": "json_schema",
+            "tokens": 6,
+            "e2e_bpb": 4.770370370370371,
+            "structural_bpb": 0.4444444444444444
+          }
+        ],
+        "avg_e2e_bpb": 4.407374021708746,
+        "avg_structural_bpb": 0.41907505002997264,
+        "avg_tokens": 4.2
+      }
+    }
+  }
+}

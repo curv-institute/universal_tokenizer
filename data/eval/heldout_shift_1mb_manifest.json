@@ -1,0 +1,721 @@
+{
+  "version": "1.0",
+  "type": "shift_dataset",
+  "generated_at": "2026-01-15T21:26:54.803339Z",
+  "seed": 42,
+  "target_size_mb": 1,
+  "target_size_bytes": 1048576,
+  "actual_size_bytes": 1048576,
+  "sha256": "571d6eecff612506c00f4a4f83957076710f55bf459e25b487b38bd02c0db024",
+  "num_blocks": 24,
+  "num_boundaries": 23,
+  "block_summary": {
+    "text": {
+      "count": 5,
+      "total_bytes": 227173
+    },
+    "binary": {
+      "count": 5,
+      "total_bytes": 181783
+    },
+    "code": {
+      "count": 5,
+      "total_bytes": 232129
+    },
+    "jsonl": {
+      "count": 5,
+      "total_bytes": 225397
+    },
+    "logs": {
+      "count": 4,
+      "total_bytes": 182094
+    }
+  },
+  "boundary_summary": {
+    "text->binary": 5,
+    "binary->code": 5,
+    "code->jsonl": 5,
+    "jsonl->logs": 4,
+    "logs->text": 4
+  },
+  "domain_cycle": [
+    "text",
+    "binary",
+    "code",
+    "jsonl",
+    "logs"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "start": 0,
+      "length": 63309,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 63309,
+      "length": 46104,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 109413,
+      "length": 49379,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 158792,
+      "length": 58665,
+      "metadata": {
+        "num_records": 358
+      }
+    },
+    {
+      "type": "logs",
+      "start": 217457,
+      "length": 57047,
+      "metadata": {
+        "format": "log",
+        "num_lines": 691
+      }
+    },
+    {
+      "type": "text",
+      "start": 274504,
+      "length": 24134,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 298638,
+      "length": 51446,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 350084,
+      "length": 25431,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 375515,
+      "length": 24268,
+      "metadata": {
+        "num_records": 145
+      }
+    },
+    {
+      "type": "logs",
+      "start": 399783,
+      "length": 57189,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1598
+      }
+    },
+    {
+      "type": "text",
+      "start": 456972,
+      "length": 26429,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 483401,
+      "length": 38640,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 522041,
+      "length": 54183,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 576224,
+      "length": 65448,
+      "metadata": {
+        "num_records": 403
+      }
+    },
+    {
+      "type": "logs",
+      "start": 641672,
+      "length": 41697,
+      "metadata": {
+        "format": "log",
+        "num_lines": 508
+      }
+    },
+    {
+      "type": "text",
+      "start": 683369,
+      "length": 56559,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 739928,
+      "length": 21706,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 761634,
+      "length": 38960,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 800594,
+      "length": 65498,
+      "metadata": {
+        "num_records": 402
+      }
+    },
+    {
+      "type": "logs",
+      "start": 866092,
+      "length": 26161,
+      "metadata": {
+        "format": "log",
+        "num_lines": 319
+      }
+    },
+    {
+      "type": "text",
+      "start": 892253,
+      "length": 56742,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 948995,
+      "length": 23887,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 972882,
+      "length": 64176,
+      "metadata": {
+        "languages": [
+          "rust",
+          "python",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 1037058,
+      "length": 11518,
+      "metadata": {
+        "num_records": 71
+      }
+    }
+  ],
+  "boundaries": [
+    {
+      "offset": 63309,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 109413,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 158792,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 217457,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 274504,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 298638,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 350084,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 375515,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 399783,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 456972,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 483401,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 522041,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 576224,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 641672,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 683369,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 739928,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 761634,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 800594,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 866092,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 892253,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 948995,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 972882,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 1037058,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    }
+  ],
+  "motifs": [
+    {
+      "motif_id": 0,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030305f31343039",
+      "occurrences": 7,
+      "locations": [
+        {
+          "offset": 146999,
+          "domain": "code",
+          "block_index": 2
+        },
+        {
+          "offset": 440986,
+          "domain": "logs",
+          "block_index": 9
+        },
+        {
+          "offset": 545659,
+          "domain": "code",
+          "block_index": 12
+        },
+        {
+          "offset": 648087,
+          "domain": "logs",
+          "block_index": 14
+        },
+        {
+          "offset": 873425,
+          "domain": "logs",
+          "block_index": 19
+        },
+        {
+          "offset": 940301,
+          "domain": "text",
+          "block_index": 20
+        },
+        {
+          "offset": 944344,
+          "domain": "text",
+          "block_index": 20
+        }
+      ]
+    },
+    {
+      "motif_id": 1,
+      "motif_bytes": "52455045415445445f53455155454e43455f47414d4d415f303030315f35303132",
+      "occurrences": 8,
+      "locations": [
+        {
+          "offset": 120366,
+          "domain": "code",
+          "block_index": 2
+        },
+        {
+          "offset": 167415,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 555753,
+          "domain": "code",
+          "block_index": 12
+        },
+        {
+          "offset": 624591,
+          "domain": "jsonl",
+          "block_index": 13
+        },
+        {
+          "offset": 738457,
+          "domain": "text",
+          "block_index": 15
+        },
+        {
+          "offset": 719573,
+          "domain": "text",
+          "block_index": 15
+        },
+        {
+          "offset": 805041,
+          "domain": "jsonl",
+          "block_index": 18
+        },
+        {
+          "offset": 1027633,
+          "domain": "code",
+          "block_index": 22
+        }
+      ]
+    },
+    {
+      "motif_id": 2,
+      "motif_bytes": "43524f53535f444f4d41494e5f5041545445524e5f424554415f303030325f33323836",
+      "occurrences": 1,
+      "locations": [
+        {
+          "offset": 364226,
+          "domain": "code",
+          "block_index": 7
+        }
+      ]
+    },
+    {
+      "motif_id": 3,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030335f39393335",
+      "occurrences": 2,
+      "locations": [
+        {
+          "offset": 182723,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 458668,
+          "domain": "text",
+          "block_index": 10
+        }
+      ]
+    },
+    {
+      "motif_id": 4,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030345f37393132",
+      "occurrences": 4,
+      "locations": [
+        {
+          "offset": 146281,
+          "domain": "code",
+          "block_index": 2
+        },
+        {
+          "offset": 977479,
+          "domain": "code",
+          "block_index": 22
+        },
+        {
+          "offset": 1037765,
+          "domain": "jsonl",
+          "block_index": 23
+        },
+        {
+          "offset": 1041187,
+          "domain": "jsonl",
+          "block_index": 23
+        }
+      ]
+    },
+    {
+      "motif_id": 5,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030355f31343838",
+      "occurrences": 5,
+      "locations": [
+        {
+          "offset": 228757,
+          "domain": "logs",
+          "block_index": 4
+        },
+        {
+          "offset": 385586,
+          "domain": "jsonl",
+          "block_index": 8
+        },
+        {
+          "offset": 653517,
+          "domain": "logs",
+          "block_index": 14
+        },
+        {
+          "offset": 666752,
+          "domain": "logs",
+          "block_index": 14
+        },
+        {
+          "offset": 717918,
+          "domain": "text",
+          "block_index": 15
+        }
+      ]
+    },
+    {
+      "motif_id": 6,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030365f34353832",
+      "occurrences": 5,
+      "locations": [
+        {
+          "offset": 22312,
+          "domain": "text",
+          "block_index": 0
+        },
+        {
+          "offset": 188542,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 218206,
+          "domain": "logs",
+          "block_index": 4
+        },
+        {
+          "offset": 275988,
+          "domain": "text",
+          "block_index": 5
+        },
+        {
+          "offset": 877830,
+          "domain": "logs",
+          "block_index": 19
+        }
+      ]
+    },
+    {
+      "motif_id": 7,
+      "motif_bytes": "43524f53535f444f4d41494e5f5041545445524e5f424554415f303030375f39323739",
+      "occurrences": 4,
+      "locations": [
+        {
+          "offset": 360775,
+          "domain": "code",
+          "block_index": 7
+        },
+        {
+          "offset": 762307,
+          "domain": "code",
+          "block_index": 17
+        },
+        {
+          "offset": 821493,
+          "domain": "jsonl",
+          "block_index": 18
+        },
+        {
+          "offset": 873860,
+          "domain": "logs",
+          "block_index": 19
+        }
+      ]
+    },
+    {
+      "motif_id": 8,
+      "motif_bytes": "424f554e444152595f4d41524b45525f455053494c4f4e5f303030385f31343334",
+      "occurrences": 5,
+      "locations": [
+        {
+          "offset": 270392,
+          "domain": "logs",
+          "block_index": 4
+        },
+        {
+          "offset": 285354,
+          "domain": "text",
+          "block_index": 5
+        },
+        {
+          "offset": 763377,
+          "domain": "code",
+          "block_index": 17
+        },
+        {
+          "offset": 994689,
+          "domain": "code",
+          "block_index": 22
+        },
+        {
+          "offset": 1038027,
+          "domain": "jsonl",
+          "block_index": 23
+        }
+      ]
+    },
+    {
+      "motif_id": 9,
+      "motif_bytes": "424f554e444152595f4d41524b45525f455053494c4f4e5f303030395f34323537",
+      "occurrences": 3,
+      "locations": [
+        {
+          "offset": 276539,
+          "domain": "text",
+          "block_index": 5
+        },
+        {
+          "offset": 462885,
+          "domain": "text",
+          "block_index": 10
+        },
+        {
+          "offset": 804028,
+          "domain": "jsonl",
+          "block_index": 18
+        }
+      ]
+    }
+  ],
+  "output_file": "data/eval/heldout_shift_1mb.bin"
+}

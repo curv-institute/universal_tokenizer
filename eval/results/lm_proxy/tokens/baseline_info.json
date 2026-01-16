@@ -1,0 +1,10 @@
+{
+  "vocab_size": 1024,
+  "num_tokens": 3200,
+  "num_bytes": 51200,
+  "config_path": "configs/cpu_small.toml",
+  "hhc_enabled": false,
+  "hhc_window_tokens": null,
+  "compression_ratio": 16.0,
+  "bytes_per_token": 16.0
+}

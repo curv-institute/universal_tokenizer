@@ -1,0 +1,2170 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-01-15T20:15:29.155035Z",
+  "seed": 42,
+  "profile": "core",
+  "target_size_bytes": 10485760,
+  "actual_size_bytes": 10485760,
+  "num_blocks": 197,
+  "block_summary": {
+    "text": {
+      "count": 40,
+      "total_bytes": 2306490
+    },
+    "code": {
+      "count": 40,
+      "total_bytes": 2166134
+    },
+    "jsonl": {
+      "count": 39,
+      "total_bytes": 1992540
+    },
+    "binary": {
+      "count": 39,
+      "total_bytes": 2071965
+    },
+    "logs": {
+      "count": 39,
+      "total_bytes": 1948631
+    }
+  },
+  "blocks": [
+    {
+      "type": "text",
+      "start": 0,
+      "length": 84834,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 84834,
+      "length": 34270,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 119104,
+      "length": 43315,
+      "metadata": {
+        "num_records": 265
+      }
+    },
+    {
+      "type": "binary",
+      "start": 162419,
+      "length": 6194,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 168613,
+      "length": 71903,
+      "metadata": {
+        "format": "log",
+        "num_lines": 872
+      }
+    },
+    {
+      "type": "text",
+      "start": 240516,
+      "length": 42629,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 283145,
+      "length": 92383,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 375528,
+      "length": 73824,
+      "metadata": {
+        "num_records": 454
+      }
+    },
+    {
+      "type": "binary",
+      "start": 449352,
+      "length": 51897,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 501249,
+      "length": 54592,
+      "metadata": {
+        "format": "log",
+        "num_lines": 662
+      }
+    },
+    {
+      "type": "text",
+      "start": 555841,
+      "length": 22505,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 578346,
+      "length": 43803,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 622149,
+      "length": 8125,
+      "metadata": {
+        "num_records": 50
+      }
+    },
+    {
+      "type": "binary",
+      "start": 630274,
+      "length": 50440,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 680714,
+      "length": 71033,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1979
+      }
+    },
+    {
+      "type": "text",
+      "start": 751747,
+      "length": 54261,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 806008,
+      "length": 41901,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 847909,
+      "length": 87953,
+      "metadata": {
+        "num_records": 537
+      }
+    },
+    {
+      "type": "binary",
+      "start": 935862,
+      "length": 67864,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 1003726,
+      "length": 28065,
+      "metadata": {
+        "format": "log",
+        "num_lines": 340
+      }
+    },
+    {
+      "type": "text",
+      "start": 1031791,
+      "length": 58123,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 1089914,
+      "length": 3554,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 1093468,
+      "length": 89237,
+      "metadata": {
+        "num_records": 540
+      }
+    },
+    {
+      "type": "binary",
+      "start": 1182705,
+      "length": 76530,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 1259235,
+      "length": 53461,
+      "metadata": {
+        "format": "log",
+        "num_lines": 649
+      }
+    },
+    {
+      "type": "text",
+      "start": 1312696,
+      "length": 95200,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 1407896,
+      "length": 18493,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 1426389,
+      "length": 22826,
+      "metadata": {
+        "num_records": 139
+      }
+    },
+    {
+      "type": "binary",
+      "start": 1449215,
+      "length": 28204,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 1477419,
+      "length": 67311,
+      "metadata": {
+        "format": "log",
+        "num_lines": 815
+      }
+    },
+    {
+      "type": "text",
+      "start": 1544730,
+      "length": 100885,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 1645615,
+      "length": 72266,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 1717881,
+      "length": 94613,
+      "metadata": {
+        "num_records": 573
+      }
+    },
+    {
+      "type": "binary",
+      "start": 1812494,
+      "length": 24260,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 1836754,
+      "length": 13589,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 386
+      }
+    },
+    {
+      "type": "text",
+      "start": 1850343,
+      "length": 75292,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 1925635,
+      "length": 64555,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 1990190,
+      "length": 40067,
+      "metadata": {
+        "num_records": 245
+      }
+    },
+    {
+      "type": "binary",
+      "start": 2030257,
+      "length": 71135,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 2101392,
+      "length": 102069,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 2830
+      }
+    },
+    {
+      "type": "text",
+      "start": 2203461,
+      "length": 84405,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 2287866,
+      "length": 61969,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 2349835,
+      "length": 39254,
+      "metadata": {
+        "num_records": 245
+      }
+    },
+    {
+      "type": "binary",
+      "start": 2389089,
+      "length": 64897,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 2453986,
+      "length": 18071,
+      "metadata": {
+        "format": "log",
+        "num_lines": 218
+      }
+    },
+    {
+      "type": "text",
+      "start": 2472057,
+      "length": 57628,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 2529685,
+      "length": 23046,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 2552731,
+      "length": 12880,
+      "metadata": {
+        "num_records": 78
+      }
+    },
+    {
+      "type": "binary",
+      "start": 2565611,
+      "length": 58224,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 2623835,
+      "length": 62523,
+      "metadata": {
+        "format": "log",
+        "num_lines": 756
+      }
+    },
+    {
+      "type": "text",
+      "start": 2686358,
+      "length": 40006,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 2726364,
+      "length": 80591,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 2806955,
+      "length": 30217,
+      "metadata": {
+        "num_records": 185
+      }
+    },
+    {
+      "type": "binary",
+      "start": 2837172,
+      "length": 81172,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 2918344,
+      "length": 60389,
+      "metadata": {
+        "format": "log",
+        "num_lines": 726
+      }
+    },
+    {
+      "type": "text",
+      "start": 2978733,
+      "length": 94367,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 3073100,
+      "length": 66962,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 3140062,
+      "length": 82961,
+      "metadata": {
+        "num_records": 502
+      }
+    },
+    {
+      "type": "binary",
+      "start": 3223023,
+      "length": 98414,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 3321437,
+      "length": 82293,
+      "metadata": {
+        "format": "log",
+        "num_lines": 991
+      }
+    },
+    {
+      "type": "text",
+      "start": 3403730,
+      "length": 24513,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 3428243,
+      "length": 10943,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 3439186,
+      "length": 57152,
+      "metadata": {
+        "num_records": 347
+      }
+    },
+    {
+      "type": "binary",
+      "start": 3496338,
+      "length": 61278,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 3557616,
+      "length": 59556,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1664
+      }
+    },
+    {
+      "type": "text",
+      "start": 3617172,
+      "length": 33693,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 3650865,
+      "length": 90226,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 3741091,
+      "length": 54661,
+      "metadata": {
+        "num_records": 335
+      }
+    },
+    {
+      "type": "binary",
+      "start": 3795752,
+      "length": 20745,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 3816497,
+      "length": 93641,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 2598
+      }
+    },
+    {
+      "type": "text",
+      "start": 3910138,
+      "length": 11425,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 3921563,
+      "length": 29754,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 3951317,
+      "length": 15388,
+      "metadata": {
+        "num_records": 93
+      }
+    },
+    {
+      "type": "binary",
+      "start": 3966705,
+      "length": 33701,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 4000406,
+      "length": 12286,
+      "metadata": {
+        "format": "log",
+        "num_lines": 148
+      }
+    },
+    {
+      "type": "text",
+      "start": 4012692,
+      "length": 18604,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 4031296,
+      "length": 81465,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 4112761,
+      "length": 92134,
+      "metadata": {
+        "num_records": 566
+      }
+    },
+    {
+      "type": "binary",
+      "start": 4204895,
+      "length": 95297,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 4300192,
+      "length": 8550,
+      "metadata": {
+        "format": "log",
+        "num_lines": 104
+      }
+    },
+    {
+      "type": "text",
+      "start": 4308742,
+      "length": 99469,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 4408211,
+      "length": 94185,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 4502396,
+      "length": 43054,
+      "metadata": {
+        "num_records": 261
+      }
+    },
+    {
+      "type": "binary",
+      "start": 4545450,
+      "length": 91992,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 4637442,
+      "length": 16728,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 473
+      }
+    },
+    {
+      "type": "text",
+      "start": 4654170,
+      "length": 94675,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 4748845,
+      "length": 56867,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 4805712,
+      "length": 13944,
+      "metadata": {
+        "num_records": 87
+      }
+    },
+    {
+      "type": "binary",
+      "start": 4819656,
+      "length": 23363,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 4843019,
+      "length": 33640,
+      "metadata": {
+        "format": "log",
+        "num_lines": 405
+      }
+    },
+    {
+      "type": "text",
+      "start": 4876659,
+      "length": 43183,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 4919842,
+      "length": 31230,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 4951072,
+      "length": 81469,
+      "metadata": {
+        "num_records": 500
+      }
+    },
+    {
+      "type": "binary",
+      "start": 5032541,
+      "length": 14270,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5046811,
+      "length": 54160,
+      "metadata": {
+        "format": "log",
+        "num_lines": 654
+      }
+    },
+    {
+      "type": "text",
+      "start": 5100971,
+      "length": 62136,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 5163107,
+      "length": 28968,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 5192075,
+      "length": 26602,
+      "metadata": {
+        "num_records": 164
+      }
+    },
+    {
+      "type": "binary",
+      "start": 5218677,
+      "length": 5922,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5224599,
+      "length": 91277,
+      "metadata": {
+        "format": "log",
+        "num_lines": 1106
+      }
+    },
+    {
+      "type": "text",
+      "start": 5315876,
+      "length": 65538,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 5381414,
+      "length": 38944,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 5420358,
+      "length": 48779,
+      "metadata": {
+        "num_records": 301
+      }
+    },
+    {
+      "type": "binary",
+      "start": 5469137,
+      "length": 10559,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5479696,
+      "length": 20901,
+      "metadata": {
+        "format": "log",
+        "num_lines": 254
+      }
+    },
+    {
+      "type": "text",
+      "start": 5500597,
+      "length": 65088,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 5565685,
+      "length": 7963,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 5573648,
+      "length": 26627,
+      "metadata": {
+        "num_records": 164
+      }
+    },
+    {
+      "type": "binary",
+      "start": 5600275,
+      "length": 22959,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5623234,
+      "length": 65868,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1835
+      }
+    },
+    {
+      "type": "text",
+      "start": 5689102,
+      "length": 32194,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 5721296,
+      "length": 38331,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 5759627,
+      "length": 26519,
+      "metadata": {
+        "num_records": 162
+      }
+    },
+    {
+      "type": "binary",
+      "start": 5786146,
+      "length": 46284,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5832430,
+      "length": 48547,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1361
+      }
+    },
+    {
+      "type": "text",
+      "start": 5880977,
+      "length": 54026,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 5935003,
+      "length": 77110,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 6012113,
+      "length": 72506,
+      "metadata": {
+        "num_records": 444
+      }
+    },
+    {
+      "type": "binary",
+      "start": 6084619,
+      "length": 46505,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 6131124,
+      "length": 98568,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 2734
+      }
+    },
+    {
+      "type": "text",
+      "start": 6229692,
+      "length": 52334,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 6282026,
+      "length": 34712,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 6316738,
+      "length": 36323,
+      "metadata": {
+        "num_records": 218
+      }
+    },
+    {
+      "type": "binary",
+      "start": 6353061,
+      "length": 98581,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 6451642,
+      "length": 19271,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 547
+      }
+    },
+    {
+      "type": "text",
+      "start": 6470913,
+      "length": 87094,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 6558007,
+      "length": 60472,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 6618479,
+      "length": 27644,
+      "metadata": {
+        "num_records": 168
+      }
+    },
+    {
+      "type": "binary",
+      "start": 6646123,
+      "length": 63714,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 6709837,
+      "length": 96515,
+      "metadata": {
+        "format": "log",
+        "num_lines": 1170
+      }
+    },
+    {
+      "type": "text",
+      "start": 6806352,
+      "length": 58305,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 6864657,
+      "length": 82805,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 6947462,
+      "length": 72023,
+      "metadata": {
+        "num_records": 436
+      }
+    },
+    {
+      "type": "binary",
+      "start": 7019485,
+      "length": 32720,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 7052205,
+      "length": 39230,
+      "metadata": {
+        "format": "log",
+        "num_lines": 476
+      }
+    },
+    {
+      "type": "text",
+      "start": 7091435,
+      "length": 57008,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 7148443,
+      "length": 81022,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 7229465,
+      "length": 99815,
+      "metadata": {
+        "num_records": 601
+      }
+    },
+    {
+      "type": "binary",
+      "start": 7329280,
+      "length": 94826,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 7424106,
+      "length": 79938,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 2222
+      }
+    },
+    {
+      "type": "text",
+      "start": 7504044,
+      "length": 100923,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 7604967,
+      "length": 94083,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 7699050,
+      "length": 70943,
+      "metadata": {
+        "num_records": 430
+      }
+    },
+    {
+      "type": "binary",
+      "start": 7769993,
+      "length": 45966,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 7815959,
+      "length": 43700,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1228
+      }
+    },
+    {
+      "type": "text",
+      "start": 7859659,
+      "length": 19862,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 7879521,
+      "length": 10755,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 7890276,
+      "length": 100280,
+      "metadata": {
+        "num_records": 611
+      }
+    },
+    {
+      "type": "binary",
+      "start": 7990556,
+      "length": 39972,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8030528,
+      "length": 6547,
+      "metadata": {
+        "format": "log",
+        "num_lines": 79
+      }
+    },
+    {
+      "type": "text",
+      "start": 8037075,
+      "length": 17202,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 8054277,
+      "length": 97555,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 8151832,
+      "length": 73188,
+      "metadata": {
+        "num_records": 447
+      }
+    },
+    {
+      "type": "binary",
+      "start": 8225020,
+      "length": 42408,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8267428,
+      "length": 11108,
+      "metadata": {
+        "format": "log",
+        "num_lines": 137
+      }
+    },
+    {
+      "type": "text",
+      "start": 8278536,
+      "length": 12203,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 8290739,
+      "length": 82245,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 8372984,
+      "length": 20393,
+      "metadata": {
+        "num_records": 125
+      }
+    },
+    {
+      "type": "binary",
+      "start": 8393377,
+      "length": 89099,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8482476,
+      "length": 3451,
+      "metadata": {
+        "format": "log",
+        "num_lines": 41
+      }
+    },
+    {
+      "type": "text",
+      "start": 8485927,
+      "length": 80314,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 8566241,
+      "length": 22828,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 8589069,
+      "length": 29121,
+      "metadata": {
+        "num_records": 180
+      }
+    },
+    {
+      "type": "binary",
+      "start": 8618190,
+      "length": 31005,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8649195,
+      "length": 10698,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 304
+      }
+    },
+    {
+      "type": "text",
+      "start": 8659893,
+      "length": 92137,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 8752030,
+      "length": 70461,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 8822491,
+      "length": 20513,
+      "metadata": {
+        "num_records": 126
+      }
+    },
+    {
+      "type": "binary",
+      "start": 8843004,
+      "length": 101147,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8944151,
+      "length": 52769,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 1478
+      }
+    },
+    {
+      "type": "text",
+      "start": 8996920,
+      "length": 81736,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 9078656,
+      "length": 46380,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 9125036,
+      "length": 32382,
+      "metadata": {
+        "num_records": 198
+      }
+    },
+    {
+      "type": "binary",
+      "start": 9157418,
+      "length": 70775,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 9228193,
+      "length": 55002,
+      "metadata": {
+        "format": "log",
+        "num_lines": 671
+      }
+    },
+    {
+      "type": "text",
+      "start": 9283195,
+      "length": 58681,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 9341876,
+      "length": 86027,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 9427903,
+      "length": 96301,
+      "metadata": {
+        "num_records": 584
+      }
+    },
+    {
+      "type": "binary",
+      "start": 9524204,
+      "length": 95003,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 9619207,
+      "length": 100037,
+      "metadata": {
+        "format": "log",
+        "num_lines": 1216
+      }
+    },
+    {
+      "type": "text",
+      "start": 9719244,
+      "length": 51586,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 9770830,
+      "length": 2214,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 9773044,
+      "length": 23373,
+      "metadata": {
+        "num_records": 142
+      }
+    },
+    {
+      "type": "binary",
+      "start": 9796417,
+      "length": 6564,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 9802981,
+      "length": 15743,
+      "metadata": {
+        "format": "log",
+        "num_lines": 192
+      }
+    },
+    {
+      "type": "text",
+      "start": 9818724,
+      "length": 45396,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 9864120,
+      "length": 78053,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 9942173,
+      "length": 83931,
+      "metadata": {
+        "num_records": 512
+      }
+    },
+    {
+      "type": "binary",
+      "start": 10026104,
+      "length": 84669,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 10110773,
+      "length": 95265,
+      "metadata": {
+        "format": "log",
+        "num_lines": 1155
+      }
+    },
+    {
+      "type": "text",
+      "start": 10206038,
+      "length": 9463,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 10215501,
+      "length": 100892,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 10316393,
+      "length": 22203,
+      "metadata": {
+        "num_records": 138
+      }
+    },
+    {
+      "type": "binary",
+      "start": 10338596,
+      "length": 23410,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "logs",
+      "start": 10362006,
+      "length": 30336,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 858
+      }
+    },
+    {
+      "type": "text",
+      "start": 10392342,
+      "length": 67567,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "code",
+      "start": 10459909,
+      "length": 25851,
+      "metadata": {
+        "languages": [
+          "python",
+          "c",
+          "rust"
+        ]
+      }
+    }
+  ],
+  "output_file": "data/eval/heldout_10mb.bin",
+  "sha256": "d7bbec7d2789cb92b419ce4cf12a010190c13960f810dfa68b497381f81c3e94"
+}

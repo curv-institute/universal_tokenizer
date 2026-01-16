@@ -1,0 +1,1 @@
+HHC slightly increases compression cost (3.70 BPB vs 3.35 BPB baseline) but improves stability under regime shifts: token churn remained stable by N/A, substring stability remained stable by N/A, and boundary curvature spikes remained stable by N/A. Harmonizer interventions changed from 0 to 2.

@@ -1,0 +1,18 @@
+{
+  "final_loss": 1.1671810150146484,
+  "steps": 31,
+  "epochs": 1,
+  "bytes_processed": 507904.0,
+  "tokens_processed": 31744,
+  "time_elapsed_s": 3.2370266914367676,
+  "seed": 43,
+  "hhc_enabled": false,
+  "normalization": {
+    "target_context_bytes": 2048,
+    "actual_context_bytes": 2048.0,
+    "context_tokens": 128,
+    "bytes_per_token": 16.0,
+    "target_total_bytes": 500000,
+    "bytes_per_sample": 2048.0
+  }
+}

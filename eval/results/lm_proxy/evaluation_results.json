@@ -1,0 +1,152 @@
+{
+  "experiment_dir": "eval/results/lm_proxy",
+  "convergence": {
+    "baseline": {
+      "seed_42": {
+        "run_name": "seed_42",
+        "config_type": "baseline",
+        "seed": 42,
+        "total_steps": 200,
+        "final_loss": 1.018576746582985,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 1.5155623507499696,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.0075778117537498475,
+        "loss_trajectory_length": 2
+      },
+      "seed_43": {
+        "run_name": "seed_43",
+        "config_type": "baseline",
+        "seed": 43,
+        "total_steps": 200,
+        "final_loss": 1.0185671520233155,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 1.5119975298643111,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.0075599876493215555,
+        "loss_trajectory_length": 2
+      },
+      "seed_44": {
+        "run_name": "seed_44",
+        "config_type": "baseline",
+        "seed": 44,
+        "total_steps": 200,
+        "final_loss": 1.0174893540143968,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 1.5406631684303285,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.007703315842151642,
+        "loss_trajectory_length": 2
+      }
+    },
+    "hhc": {
+      "seed_42": {
+        "run_name": "seed_42",
+        "config_type": "hhc",
+        "seed": 42,
+        "total_steps": 200,
+        "final_loss": 1.363553729057312,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 2.038385105133057,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.010191925525665285,
+        "loss_trajectory_length": 2
+      },
+      "seed_43": {
+        "run_name": "seed_43",
+        "config_type": "hhc",
+        "seed": 43,
+        "total_steps": 200,
+        "final_loss": 1.3691804492473603,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 2.0574308860301973,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.010287154430150986,
+        "loss_trajectory_length": 2
+      },
+      "seed_44": {
+        "run_name": "seed_44",
+        "config_type": "hhc",
+        "seed": 44,
+        "total_steps": 200,
+        "final_loss": 1.37715984582901,
+        "steps_to_4_0": 100,
+        "steps_to_3_5": 100,
+        "steps_to_3_0": 100,
+        "steps_to_2_5": 100,
+        "early_loss_mean": 1.9956201636791229,
+        "early_loss_std": 0.0,
+        "late_loss_mean": 0.0,
+        "late_loss_std": 0.0,
+        "loss_drop_rate": 0.009978100818395614,
+        "loss_trajectory_length": 2
+      }
+    }
+  },
+  "extension": {},
+  "variance": {
+    "baseline": {
+      "config_type": "baseline",
+      "num_seeds": 3,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "final_loss_mean": 1.018211084206899,
+      "final_loss_std": 0.0005103553448143447,
+      "final_loss_min": 1.0174893540143968,
+      "final_loss_max": 1.018576746582985,
+      "steps_to_3_5_mean": 100.0,
+      "steps_to_3_5_std": 0.0,
+      "steps_to_3_5_min": 100,
+      "steps_to_3_5_max": 100,
+      "convergence_success_rate": 1.0,
+      "late_loss_std_mean": 0.0
+    },
+    "hhc": {
+      "config_type": "hhc",
+      "num_seeds": 3,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "final_loss_mean": 1.3699646747112275,
+      "final_loss_std": 0.005582285110651539,
+      "final_loss_min": 1.363553729057312,
+      "final_loss_max": 1.37715984582901,
+      "steps_to_3_5_mean": 100.0,
+      "steps_to_3_5_std": 0.0,
+      "steps_to_3_5_min": 100,
+      "steps_to_3_5_max": 100,
+      "convergence_success_rate": 1.0,
+      "late_loss_std_mean": 0.0
+    }
+  }
+}

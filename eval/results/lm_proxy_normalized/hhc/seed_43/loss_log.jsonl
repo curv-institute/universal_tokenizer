@@ -1,0 +1,3 @@
+{"step": 10, "epoch": 1, "loss": 3.7282772064208984, "bytes_processed": 163788.8159950016, "tokens_processed": 10240}
+{"step": 20, "epoch": 1, "loss": 2.0473055839538574, "bytes_processed": 327577.63199000317, "tokens_processed": 20480}
+{"step": 30, "epoch": 1, "loss": 1.760500192642212, "bytes_processed": 491366.4479850045, "tokens_processed": 30720}

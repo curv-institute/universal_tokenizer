@@ -1,0 +1,34 @@
+{
+  "timestamp": "2026-01-15T23:27:01.763280",
+  "baseline": {
+    "final_loss_mean": 1.018211084206899,
+    "final_loss_std": 0.0005103553448143447,
+    "final_loss_min": 1.0174893540143968,
+    "final_loss_max": 1.018576746582985,
+    "steps_to_3.5": 100.0,
+    "steps_to_3.5_std": 0.0,
+    "convergence_success_rate": 1.0,
+    "late_loss_std_mean": 0.0,
+    "num_seeds": 3
+  },
+  "hhc": {
+    "final_loss_mean": 1.3699646747112275,
+    "final_loss_std": 0.005582285110651539,
+    "final_loss_min": 1.363553729057312,
+    "final_loss_max": 1.37715984582901,
+    "steps_to_3.5": 100.0,
+    "steps_to_3.5_std": 0.0,
+    "convergence_success_rate": 1.0,
+    "late_loss_std_mean": 0.0,
+    "num_seeds": 3
+  },
+  "comparison": {
+    "loss_improvement": -0.35175359050432853,
+    "loss_improvement_pct": -34.54623466197238,
+    "stability_improvement": -0.005071929765837195,
+    "variance_reduction": -9.938035953522235,
+    "variance_reduction_pct": -993.8035953522235,
+    "extension_stability_improvement": 0.0
+  },
+  "title": "LM Proxy Experiment"
+}

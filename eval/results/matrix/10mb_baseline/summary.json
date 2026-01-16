@@ -1,0 +1,57 @@
+{
+  "timestamp": "20260115_201759",
+  "config": "configs/cpu_small.toml",
+  "model": null,
+  "num_samples": 100,
+  "data_entropy": 6.763768070904662,
+  "results": {
+    "universal": {
+      "num_samples": 100,
+      "total_tokens": 808,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 31.84,
+      "mean_bits_per_byte": 3.345625,
+      "mean_end_to_end_bpb": 3.345625,
+      "mean_structural_bpb": 0.315625,
+      "mean_avg_token_length": 31.84,
+      "mean_curvature": 0.618988948687911,
+      "curvature_p90": 0.6258506774902344,
+      "mean_stability": 0.234398397137649,
+      "stability_p10": 0.20318896475162534,
+      "total_residual_bytes": 9696,
+      "lossless_rate": 1.0
+    },
+    "raw_bytes": {
+      "num_samples": 100,
+      "total_tokens": 25600,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 1.0,
+      "mean_bits_per_byte": 8.0,
+      "mean_end_to_end_bpb": 8.0,
+      "mean_structural_bpb": 8.0,
+      "mean_avg_token_length": 1.0,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    },
+    "byte_bpe": {
+      "num_samples": 100,
+      "total_tokens": 5147,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 6.581301932951018,
+      "mean_bits_per_byte": 2.010546875,
+      "mean_end_to_end_bpb": 2.010546875,
+      "mean_structural_bpb": 2.010546875,
+      "mean_avg_token_length": 6.581301932951018,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    }
+  }
+}

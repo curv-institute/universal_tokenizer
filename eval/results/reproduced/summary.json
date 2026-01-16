@@ -1,0 +1,51 @@
+{
+  "timestamp": "20260115_181818",
+  "config": "/tmp/tmp_oh22xs_.toml",
+  "model": "eval/results/reproduced/checkpoints/reproduce_baseline_v0_1/final.pt",
+  "num_samples": 40,
+  "data_entropy": 6.56057287649093,
+  "results": {
+    "universal": {
+      "num_samples": 40,
+      "total_tokens": 321,
+      "total_bytes": 10000,
+      "mean_compression_ratio": 31.2,
+      "mean_bits_per_byte": 0.4265625,
+      "mean_avg_token_length": 31.2,
+      "mean_curvature": 0.6129249221645295,
+      "curvature_p90": 0.6130927205085754,
+      "mean_stability": 0.25256198760903825,
+      "stability_p10": 0.23524709547516356,
+      "total_residual_bytes": 3852,
+      "lossless_rate": 1.0
+    },
+    "raw_bytes": {
+      "num_samples": 40,
+      "total_tokens": 10000,
+      "total_bytes": 10000,
+      "mean_compression_ratio": 1.0,
+      "mean_bits_per_byte": 13.0,
+      "mean_avg_token_length": 1.0,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    },
+    "byte_bpe": {
+      "num_samples": 40,
+      "total_tokens": 7721,
+      "total_bytes": 10000,
+      "mean_compression_ratio": 1.3061569942610052,
+      "mean_bits_per_byte": 10.0115234375,
+      "mean_avg_token_length": 1.3061569942610052,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    }
+  }
+}

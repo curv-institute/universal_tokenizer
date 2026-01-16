@@ -1,0 +1,549 @@
+{
+  "version": "1.0",
+  "type": "shift_dataset",
+  "generated_at": "2026-01-15T21:08:06.986772Z",
+  "seed": 42,
+  "target_size_mb": 10,
+  "target_size_bytes": 10485760,
+  "actual_size_bytes": 10485760,
+  "sha256": "21d891c06ba0f58e70bea9222676b044876d165dac05b97bb653170c89249f26",
+  "num_blocks": 18,
+  "num_boundaries": 17,
+  "block_summary": {
+    "text": {
+      "count": 4,
+      "total_bytes": 2600120
+    },
+    "binary": {
+      "count": 4,
+      "total_bytes": 2289827
+    },
+    "code": {
+      "count": 4,
+      "total_bytes": 2656231
+    },
+    "jsonl": {
+      "count": 3,
+      "total_bytes": 1482006
+    },
+    "logs": {
+      "count": 3,
+      "total_bytes": 1457576
+    }
+  },
+  "boundary_summary": {
+    "text->binary": 4,
+    "binary->code": 4,
+    "code->jsonl": 3,
+    "jsonl->logs": 3,
+    "logs->text": 3
+  },
+  "domain_cycle": [
+    "text",
+    "binary",
+    "code",
+    "jsonl",
+    "logs"
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "start": 0,
+      "length": 1012944,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 1012944,
+      "length": 830729,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 1843673,
+      "length": 487372,
+      "metadata": {
+        "languages": [
+          "python",
+          "rust",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 2331045,
+      "length": 595656,
+      "metadata": {
+        "num_records": 3618
+      }
+    },
+    {
+      "type": "logs",
+      "start": 2926701,
+      "length": 575137,
+      "metadata": {
+        "format": "log",
+        "num_lines": 6953
+      }
+    },
+    {
+      "type": "text",
+      "start": 3501838,
+      "length": 311707,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 3813545,
+      "length": 357990,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 4171535,
+      "length": 1012435,
+      "metadata": {
+        "languages": [
+          "python",
+          "rust",
+          "c"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 5183970,
+      "length": 338773,
+      "metadata": {
+        "num_records": 2055
+      }
+    },
+    {
+      "type": "logs",
+      "start": 5522743,
+      "length": 375716,
+      "metadata": {
+        "format": "csv",
+        "num_lines": 10323
+      }
+    },
+    {
+      "type": "text",
+      "start": 5898459,
+      "length": 356139,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 6254598,
+      "length": 536295,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 6790893,
+      "length": 878358,
+      "metadata": {
+        "languages": [
+          "rust",
+          "c",
+          "python"
+        ]
+      }
+    },
+    {
+      "type": "jsonl",
+      "start": 7669251,
+      "length": 547577,
+      "metadata": {
+        "num_records": 3312
+      }
+    },
+    {
+      "type": "logs",
+      "start": 8216828,
+      "length": 506723,
+      "metadata": {
+        "format": "log",
+        "num_lines": 6139
+      }
+    },
+    {
+      "type": "text",
+      "start": 8723551,
+      "length": 919330,
+      "metadata": {
+        "languages": [
+          "en",
+          "zh",
+          "ar",
+          "ru",
+          "ja",
+          "ko",
+          "he",
+          "el"
+        ]
+      }
+    },
+    {
+      "type": "binary",
+      "start": 9642881,
+      "length": 564813,
+      "metadata": {
+        "random": true
+      }
+    },
+    {
+      "type": "code",
+      "start": 10207694,
+      "length": 278066,
+      "metadata": {
+        "languages": [
+          "rust",
+          "c",
+          "python"
+        ]
+      }
+    }
+  ],
+  "boundaries": [
+    {
+      "offset": 1012944,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 1843673,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 2331045,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 2926701,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 3501838,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 3813545,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 4171535,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 5183970,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 5522743,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 5898459,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 6254598,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 6790893,
+      "from_domain": "binary",
+      "to_domain": "code"
+    },
+    {
+      "offset": 7669251,
+      "from_domain": "code",
+      "to_domain": "jsonl"
+    },
+    {
+      "offset": 8216828,
+      "from_domain": "jsonl",
+      "to_domain": "logs"
+    },
+    {
+      "offset": 8723551,
+      "from_domain": "logs",
+      "to_domain": "text"
+    },
+    {
+      "offset": 9642881,
+      "from_domain": "text",
+      "to_domain": "binary"
+    },
+    {
+      "offset": 10207694,
+      "from_domain": "binary",
+      "to_domain": "code"
+    }
+  ],
+  "motifs": [
+    {
+      "motif_id": 0,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030305f31343039",
+      "occurrences": 3,
+      "locations": [
+        {
+          "offset": 5362592,
+          "domain": "jsonl",
+          "block_index": 8
+        },
+        {
+          "offset": 9096232,
+          "domain": "text",
+          "block_index": 15
+        },
+        {
+          "offset": 10449817,
+          "domain": "code",
+          "block_index": 17
+        }
+      ]
+    },
+    {
+      "motif_id": 1,
+      "motif_bytes": "52455045415445445f53455155454e43455f47414d4d415f303030315f35303132",
+      "occurrences": 4,
+      "locations": [
+        {
+          "offset": 2684948,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 2342409,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 8186517,
+          "domain": "jsonl",
+          "block_index": 13
+        },
+        {
+          "offset": 9326730,
+          "domain": "text",
+          "block_index": 15
+        }
+      ]
+    },
+    {
+      "motif_id": 2,
+      "motif_bytes": "43524f53535f444f4d41494e5f5041545445524e5f424554415f303030325f33323836",
+      "occurrences": 1,
+      "locations": [
+        {
+          "offset": 5176909,
+          "domain": "code",
+          "block_index": 7
+        }
+      ]
+    },
+    {
+      "motif_id": 3,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030335f39393335",
+      "occurrences": 4,
+      "locations": [
+        {
+          "offset": 3271004,
+          "domain": "logs",
+          "block_index": 4
+        },
+        {
+          "offset": 5019107,
+          "domain": "code",
+          "block_index": 7
+        },
+        {
+          "offset": 5332598,
+          "domain": "jsonl",
+          "block_index": 8
+        },
+        {
+          "offset": 10483057,
+          "domain": "code",
+          "block_index": 17
+        }
+      ]
+    },
+    {
+      "motif_id": 4,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030345f37393132",
+      "occurrences": 4,
+      "locations": [
+        {
+          "offset": 2028495,
+          "domain": "code",
+          "block_index": 2
+        },
+        {
+          "offset": 3394862,
+          "domain": "logs",
+          "block_index": 4
+        },
+        {
+          "offset": 3624859,
+          "domain": "text",
+          "block_index": 5
+        },
+        {
+          "offset": 8714302,
+          "domain": "logs",
+          "block_index": 14
+        }
+      ]
+    },
+    {
+      "motif_id": 5,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030355f31343838",
+      "occurrences": 1,
+      "locations": [
+        {
+          "offset": 4586555,
+          "domain": "code",
+          "block_index": 7
+        }
+      ]
+    },
+    {
+      "motif_id": 6,
+      "motif_bytes": "554e4956455253414c5f544f4b454e495a45525f4d4f5449465f414c5048415f303030365f34353832",
+      "occurrences": 7,
+      "locations": [
+        {
+          "offset": 987436,
+          "domain": "text",
+          "block_index": 0
+        },
+        {
+          "offset": 2791820,
+          "domain": "jsonl",
+          "block_index": 3
+        },
+        {
+          "offset": 3629777,
+          "domain": "text",
+          "block_index": 5
+        },
+        {
+          "offset": 5625163,
+          "domain": "logs",
+          "block_index": 9
+        },
+        {
+          "offset": 6022553,
+          "domain": "text",
+          "block_index": 10
+        },
+        {
+          "offset": 7455106,
+          "domain": "code",
+          "block_index": 12
+        },
+        {
+          "offset": 9127080,
+          "domain": "text",
+          "block_index": 15
+        }
+      ]
+    },
+    {
+      "motif_id": 7,
+      "motif_bytes": "43524f53535f444f4d41494e5f5041545445524e5f424554415f303030375f39323739",
+      "occurrences": 1,
+      "locations": [
+        {
+          "offset": 1947869,
+          "domain": "code",
+          "block_index": 2
+        }
+      ]
+    },
+    {
+      "motif_id": 8,
+      "motif_bytes": "424f554e444152595f4d41524b45525f455053494c4f4e5f303030385f31343334",
+      "occurrences": 1,
+      "locations": [
+        {
+          "offset": 3025769,
+          "domain": "logs",
+          "block_index": 4
+        }
+      ]
+    },
+    {
+      "motif_id": 9,
+      "motif_bytes": "424f554e444152595f4d41524b45525f455053494c4f4e5f303030395f34323537",
+      "occurrences": 2,
+      "locations": [
+        {
+          "offset": 7761107,
+          "domain": "jsonl",
+          "block_index": 13
+        },
+        {
+          "offset": 8671964,
+          "domain": "logs",
+          "block_index": 14
+        }
+      ]
+    }
+  ],
+  "output_file": "data/eval/heldout_shift_10mb.bin"
+}

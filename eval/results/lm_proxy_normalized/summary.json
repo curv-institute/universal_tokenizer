@@ -1,0 +1,35 @@
+{
+  "timestamp": "2026-01-16",
+  "normalization_type": "byte_budget",
+  "baseline": {
+    "final_loss_mean": 1.1543208758036296,
+    "final_loss_std": 0.027108846311321697,
+    "bytes_processed_mean": 507904.0,
+    "context_bytes": 2048.0,
+    "context_tokens": 128,
+    "bytes_per_token": 16.0,
+    "steps": 31,
+    "num_seeds": 3
+  },
+  "hhc": {
+    "final_loss_mean": 1.7617089748382568,
+    "final_loss_std": 0.0837727785174087,
+    "bytes_processed_mean": 507745.32958450465,
+    "context_bytes": 2047.3601999375196,
+    "context_tokens": 128,
+    "bytes_per_token": 15.995001562011872,
+    "steps": 31,
+    "num_seeds": 3
+  },
+  "normalization_checks": {
+    "bytes_processed_match": true,
+    "bytes_processed_diff_pct": 0.03124023742584183,
+    "context_bytes_match": true,
+    "steps_match": true
+  },
+  "comparison": {
+    "loss_diff": 0.6073880990346272,
+    "loss_diff_pct": 52.61865325027308,
+    "negative_result_persists": true
+  }
+}

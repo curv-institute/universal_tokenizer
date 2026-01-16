@@ -1,0 +1,19 @@
+{
+  "config_type": "baseline",
+  "num_seeds": 3,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "final_loss_mean": 1.018211084206899,
+  "final_loss_std": 0.0005103553448143447,
+  "final_loss_min": 1.0174893540143968,
+  "final_loss_max": 1.018576746582985,
+  "steps_to_3_5_mean": 100.0,
+  "steps_to_3_5_std": 0.0,
+  "steps_to_3_5_min": 100,
+  "steps_to_3_5_max": 100,
+  "convergence_success_rate": 1.0,
+  "late_loss_std_mean": 0.0
+}

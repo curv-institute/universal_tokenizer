@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "generated": "2026-01-15T21:52:33.710693",
+    "description": "Boundary analysis figure data for HHC comparison",
+    "units": {
+      "distance_bins": "bytes from domain boundary",
+      "churn": "token churn rate (0-1, lower is better)",
+      "curvature": "mean curvature (lower is more stable)"
+    }
+  },
+  "distance_bins": [
+    0,
+    16,
+    32,
+    64,
+    128,
+    256
+  ],
+  "baseline": {
+    "churn_by_distance": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "curvature_by_distance": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "aggregate": {
+      "token_churn_rate": 0.0,
+      "substring_stability_rate": 0.0,
+      "boundary_curvature_delta": 0.0,
+      "curvature_p90": 0.626236081123352
+    }
+  },
+  "hhc": {
+    "churn_by_distance": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "curvature_by_distance": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "aggregate": {
+      "token_churn_rate": 0.0,
+      "substring_stability_rate": 0.0,
+      "boundary_curvature_delta": 0.0,
+      "curvature_p90": 0.6832301616668701
+    }
+  },
+  "comparison": {
+    "churn_reduction": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "curvature_reduction": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "summary": {
+      "churn_rate_delta": 0.0,
+      "stability_rate_delta": 0.0,
+      "curvature_p90_delta": 0.056994080543518066
+    }
+  }
+}

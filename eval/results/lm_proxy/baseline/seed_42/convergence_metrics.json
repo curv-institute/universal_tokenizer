@@ -1,0 +1,17 @@
+{
+  "run_name": "seed_42",
+  "config_type": "baseline",
+  "seed": 42,
+  "total_steps": 200,
+  "final_loss": 1.018576746582985,
+  "steps_to_4_0": 100,
+  "steps_to_3_5": 100,
+  "steps_to_3_0": 100,
+  "steps_to_2_5": 100,
+  "early_loss_mean": 1.5155623507499696,
+  "early_loss_std": 0.0,
+  "late_loss_mean": 0.0,
+  "late_loss_std": 0.0,
+  "loss_drop_rate": 0.0075778117537498475,
+  "loss_trajectory_length": 2
+}

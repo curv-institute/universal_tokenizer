@@ -1,0 +1,66 @@
+{
+  "timestamp": "20260115_204723",
+  "config": "configs/cpu_small_hhc.toml",
+  "model": null,
+  "num_samples": 100,
+  "data_entropy": 6.654974203865975,
+  "results": {
+    "universal": {
+      "num_samples": 100,
+      "total_tokens": 908,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 28.310588235294116,
+      "mean_bits_per_byte": 3.6971875,
+      "mean_end_to_end_bpb": 3.6971875,
+      "mean_structural_bpb": 0.3546875,
+      "mean_avg_token_length": 28.310588235294116,
+      "mean_curvature": 0.5608131593777463,
+      "curvature_p90": 0.6787800192832947,
+      "mean_stability": 0.31828578560962895,
+      "stability_p10": 0.2021481540374164,
+      "total_residual_bytes": 10696,
+      "lossless_rate": 1.0
+    },
+    "raw_bytes": {
+      "num_samples": 100,
+      "total_tokens": 25600,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 1.0,
+      "mean_bits_per_byte": 8.0,
+      "mean_end_to_end_bpb": 8.0,
+      "mean_structural_bpb": 8.0,
+      "mean_avg_token_length": 1.0,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    },
+    "byte_bpe": {
+      "num_samples": 100,
+      "total_tokens": 5147,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 6.581301932951018,
+      "mean_bits_per_byte": 2.010546875,
+      "mean_end_to_end_bpb": 2.010546875,
+      "mean_structural_bpb": 2.010546875,
+      "mean_avg_token_length": 6.581301932951018,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    }
+  },
+  "hhc_enabled": true,
+  "hhc_diagnostics": {
+    "hhc_active_fraction": 1.0,
+    "hhc_mean_num_neighbors": 8.0,
+    "hhc_mean_neighbor_dist": 0.7308303117752075,
+    "hhc_var_neighbor_dist": 0.11325882877223194,
+    "hhc_mean_curvature_delta": 0.02754781998693943,
+    "hhc_nonzero_delta_fraction": 1.0
+  }
+}

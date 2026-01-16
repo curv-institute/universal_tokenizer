@@ -1,0 +1,19 @@
+{
+  "config_type": "hhc",
+  "num_seeds": 3,
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "final_loss_mean": 1.3699646747112275,
+  "final_loss_std": 0.005582285110651539,
+  "final_loss_min": 1.363553729057312,
+  "final_loss_max": 1.37715984582901,
+  "steps_to_3_5_mean": 100.0,
+  "steps_to_3_5_std": 0.0,
+  "steps_to_3_5_min": 100,
+  "steps_to_3_5_max": 100,
+  "convergence_success_rate": 1.0,
+  "late_loss_std_mean": 0.0
+}

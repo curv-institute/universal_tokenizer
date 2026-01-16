@@ -48,6 +48,7 @@ ULT achieves 100\% bit-exact reconstruction across mixed text, code, JSON, Unico
 \input{results_table}
 
 \section{Relational Regularization with Harmonized Hyper-Connections}
+\label{sec:hhc-stability}
 \subsection{Method}
 Local optimality in tokenization leads to global brittleness. Harmonized Hyper-Connections (HHC) introduce bounded relational coupling between neighboring representations during equilibrium projection, along with relative curvature diagnostics. A closed-loop stability controller regulates trade-offs between efficiency and stability. These diagnostics were developed as part of a broader internal CURV Institute representation-first framework; only the operational components relevant to the experiments are used here.
 
@@ -56,28 +57,10 @@ Under regime-shift stress streams, HHC produces a clear trade-off: a 10.5\% incr
 
 \input{results_hhc_stability}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.9\textwidth]{figures/boundary_analysis.pdf}
-\caption{Boundary analysis: token churn and curvature versus distance from domain transitions.
-HHC (solid) shows reduced churn and smoother curvature compared to baseline (dashed),
-particularly at regime boundaries.}
-\label{fig:boundary}
-\end{figure}
-
 \section{Downstream Language-Model Proxy}
 To test whether stability-optimized representations improve learnability, we train a small autoregressive language-model proxy on baseline and HHC token streams. A byte-normalized rerun equalizes context bytes, total bytes processed, and training steps. Despite strict normalization, HHC tokens yield substantially higher loss (approximately 50\% increase) and greater variance across seeds. This negative result aligns with PRH: representations optimized for global stability and relational coherence are not necessarily aligned with local next-token predictability.
 
 \input{results_lm_proxy}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/lm_proxy_normalized_loss.pdf}
-\caption{Byte-normalized LM proxy training loss. HHC tokens (orange) consistently
-yield higher loss than baseline (blue) despite equal byte budgets, confirming
-the stability--learnability trade-off predicted by PRH.}
-\label{fig:lm-proxy}
-\end{figure}
 
 \section{Language Interface Layer}
 \subsection{Design}
@@ -87,16 +70,6 @@ The Language Interface Layer (LIL) is a reversible, deterministic transformation
 LIL preserves 100\% lossless round-trip reconstruction when composed with ULT. It introduces a modest structural overhead (approximately 5\% bits per byte) that diminishes with prompt length and is partially offset by macro compaction. Both quantitative metrics and a qualitative example demonstrate that LIL stabilizes interface structure under prompt extension without altering underlying representation.
 
 \input{results_lil}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{figures/lil_qualitative_example.pdf}
-\caption{Qualitative LIL example. \textbf{(A)} Raw prompt with implicit boundaries.
-\textbf{(B)} LIL wire format with explicit role markers and macro compaction.
-\textbf{(C)} Tokenization stability: LIL isolates extension from core instruction,
-preserving token stability (green) while baseline exhibits churn (red).}
-\label{fig:lil-example}
-\end{figure}
 
 \section{Discussion}
 The experiments support PRH's core claims. Stable representations exist and are measurable independently of semantics and learning. Enforcing relational constraints increases stability while trading off compression efficiency and learnability. Interface stability can be achieved orthogonally via reversible structure normalization. Negative downstream results are not failures but confirmations of objective misalignment.

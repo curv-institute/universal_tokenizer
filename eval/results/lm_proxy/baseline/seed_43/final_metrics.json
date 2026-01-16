@@ -1,0 +1,9 @@
+{
+  "final_loss": 1.020255011320114,
+  "total_steps": 200,
+  "elapsed_time_seconds": 22.838207960128784,
+  "vocab_size": 1024,
+  "context_len": 128,
+  "batch_size": 8,
+  "seed": 43
+}

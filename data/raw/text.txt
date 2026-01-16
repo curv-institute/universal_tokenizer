@@ -1,0 +1,29 @@
+The Universal Lossless Tokenizer represents a new approach to tokenization grounded in representational invariance theory. Unlike traditional tokenizers that make hard segmentation decisions based on frequency statistics, this system treats tokenization as a dynamical control problem.
+
+At its core, the tokenizer implements equilibrium projection: each byte span is mapped to a latent representation, which is then iteratively refined via a contraction mapping until it converges to a stable attractor. These attractors correspond to tokens in the codebook.
+
+The key insight is that tokenization boundaries should be placed where the representational geometry is locally flat - regions of low curvature indicate stable, consistent representations that will generalize well. Conversely, high-curvature regions signal inconsistency and potential failure modes.
+
+The Harmonizer control loop monitors rolling statistics and adjusts parameters to maintain operational stability. When curvature tails grow too heavy or token churn increases, the controller intervenes to restore equilibrium.
+
+This approach offers several advantages:
+1. Lossless reconstruction via residual coding
+2. Principled handling of arbitrary byte sequences
+3. Adaptive behavior across domains
+4. Theoretical grounding in dynamical systems
+
+The implementation uses PyTorch for the neural components and pure Python for the control logic. All operations are deterministic given a fixed seed, enabling reproducible research.
+
+Natural language processing has long struggled with the tension between fixed vocabularies and open-ended text. Subword tokenization methods like BPE and WordPiece offer a compromise, but they remain fundamentally statistical - they capture what is frequent, not what is stable.
+
+The curvature-based approach inverts this logic: segment where representations are geometrically consistent, regardless of frequency. A rare but structurally coherent span deserves its own token just as much as a common one.
+
+Consider the word "internationalization" - a traditional tokenizer might split it into subwords based on training corpus statistics. But if the latent representation of the full word is stable and low-curvature, why split it? The Universal Tokenizer makes this decision based on geometry, not counting.
+
+This has implications for multilingual and cross-domain applications. A tokenizer trained on English will struggle with Chinese or code because the frequency distributions differ. But geometric stability is more universal - a well-formed Chinese character or a syntactically valid code block will exhibit low curvature in any sufficiently expressive representation space.
+
+The streaming architecture enables online tokenization of unbounded inputs. The segmenter maintains a sliding window and commits boundaries when confident. Lookahead provides robustness against local optima.
+
+Error handling follows the principle of graceful degradation. If the encoder produces a high-curvature representation, the segmenter can fall back to shorter spans. If the codebook lacks a good match, the residual coder captures the difference. The system never fails silently - it quantifies its uncertainty through the curvature diagnostic.
+
+Future work will explore learned curvature estimators, hierarchical tokenization, and integration with language model training objectives. The framework is designed to be extensible while maintaining its core guarantees.

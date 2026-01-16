@@ -1,0 +1,17 @@
+{
+  "run_name": "seed_43",
+  "config_type": "hhc",
+  "seed": 43,
+  "total_steps": 200,
+  "final_loss": 1.3691804492473603,
+  "steps_to_4_0": 100,
+  "steps_to_3_5": 100,
+  "steps_to_3_0": 100,
+  "steps_to_2_5": 100,
+  "early_loss_mean": 2.0574308860301973,
+  "early_loss_std": 0.0,
+  "late_loss_mean": 0.0,
+  "late_loss_std": 0.0,
+  "loss_drop_rate": 0.010287154430150986,
+  "loss_trajectory_length": 2
+}

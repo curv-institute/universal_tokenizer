@@ -1,0 +1,20 @@
+{"id": 1, "type": "config", "model": {"hidden_dim": 256, "num_layers": 4, "dropout": 0.1}, "training": {"lr": 0.001, "batch_size": 32}}
+{"id": 2, "type": "metrics", "loss": 0.0234, "accuracy": 0.9812, "curvature_mean": 0.0456, "curvature_p90": 0.1234}
+{"id": 3, "type": "token", "span": "hello", "encoding": [0.123, -0.456, 0.789, -0.012], "codebook_id": 1234}
+{"id": 4, "type": "event", "timestamp": "2025-01-15T10:30:00Z", "action": "encode", "input_bytes": 1024, "output_tokens": 256}
+{"id": 5, "type": "checkpoint", "step": 10000, "model_hash": "a1b2c3d4e5f6", "metrics": {"train_loss": 0.0123, "val_loss": 0.0234}}
+{"id": 6, "type": "config", "codebook": {"num_codes": 8192, "code_dim": 64, "init_scale": 0.1, "ema_decay": 0.99}}
+{"id": 7, "type": "batch", "samples": [{"text": "hello world", "tokens": [1, 2, 3]}, {"text": "foo bar", "tokens": [4, 5]}]}
+{"id": 8, "type": "experiment", "name": "paper_v0_1", "seed": 42, "device": "cpu", "results": {"compression": 4.2, "bpb": 1.8}}
+{"id": 9, "type": "error", "code": "E001", "message": "Curvature exceeded threshold", "context": {"value": 0.95, "threshold": 0.5}}
+{"id": 10, "type": "metadata", "version": "0.1.0", "author": "J. W. Miller", "license": "Apache-2.0", "url": "https://github.com/curv-institute/universal_tokenizer"}
+{"id": 11, "type": "segmentation", "boundaries": [[0, 5], [5, 10], [10, 15]], "curvatures": [0.1, 0.2, 0.15], "stability": [0.9, 0.85, 0.88]}
+{"id": 12, "type": "harmonizer", "step": 500, "params": {"K_max": 4096, "beta_curv": 0.12, "gamma_stab": 0.08, "max_span": 24}}
+{"id": 13, "type": "residual", "original_bytes": 100, "residual_bytes": 5, "compression_ratio": 20.0}
+{"id": 14, "type": "baseline", "name": "raw_bytes", "vocab_size": 256, "bpb": 8.0, "compression": 1.0}
+{"id": 15, "type": "baseline", "name": "byte_bpe", "vocab_size": 8192, "bpb": 2.5, "compression": 3.2, "merges": 7936}
+{"id": 16, "type": "trajectory", "initial": [0.1, 0.2, 0.3], "steps": [[0.15, 0.18, 0.28], [0.16, 0.17, 0.27], [0.165, 0.168, 0.268]]}
+{"id": 17, "type": "embedding", "token_id": 42, "vector": [0.1, -0.2, 0.3, -0.4, 0.5, -0.6, 0.7, -0.8]}
+{"id": 18, "type": "stats", "total_tokens": 1000000, "unique_tokens": 5432, "avg_frequency": 184.2, "max_frequency": 12345}
+{"id": 19, "type": "eval", "dataset": "heldout", "samples": 100, "lossless_rate": 1.0, "mean_curvature": 0.234}
+{"id": 20, "type": "commit", "hash": "a1b2c3d4", "message": "Add evaluation metrics", "files_changed": 5, "insertions": 234, "deletions": 45}

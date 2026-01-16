@@ -1,0 +1,151 @@
+{
+  "name": "hhc_wire_test",
+  "timestamp": "2026-01-15T20:46:51.402503",
+  "version": "0.1.0",
+  "git_hash": "86992d09f7a6",
+  "jj_hash": null,
+  "config_path": "configs/cpu_small_hhc.toml",
+  "config": {
+    "model": {
+      "input_dim": 256,
+      "embed_dim": 64,
+      "hidden_dim": 128,
+      "latent_dim": 32,
+      "num_layers": 1,
+      "dropout": 0.0
+    },
+    "equilibrium": {
+      "num_steps": 5,
+      "eta": 0.5,
+      "tolerance": 1e-05,
+      "use_residual": true
+    },
+    "codebook": {
+      "num_codes": 1024,
+      "code_dim": 32,
+      "init_scale": 0.1,
+      "ema_decay": 0.99,
+      "commitment_weight": 0.25
+    },
+    "segmentation": {
+      "min_span": 1,
+      "max_span": 16,
+      "beta_curvature": 0.1,
+      "gamma_stability": 0.1,
+      "lookahead": 2
+    },
+    "controller": {
+      "target_avg_len": 4.0,
+      "target_bpb": 1.0,
+      "target_curvature": 0.5,
+      "gain": 0.01,
+      "update_interval": 50
+    },
+    "train": {
+      "batch_size": 16,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "max_steps": 1000,
+      "warmup_steps": 50,
+      "eval_interval": 100,
+      "checkpoint_interval": 500,
+      "seed": 42,
+      "device": "cpu"
+    },
+    "eval": {
+      "batch_size": 32,
+      "max_samples": 100,
+      "seed": 42
+    },
+    "hhc": {
+      "enabled": true,
+      "apply_equilibrium": true,
+      "apply_curvature": true,
+      "apply_harmonizer": true,
+      "window_tokens": 8,
+      "overlap_bytes": 16,
+      "adjacency": true,
+      "lambda_equilibrium": 0.05,
+      "alpha_curvature": 0.1,
+      "max_neighbor_norm": 10.0,
+      "max_delta_per_step": 0.25,
+      "log_hhc_stats": true
+    }
+  },
+  "command": [
+    "/home/jwm/.cache/uv/environments-v2/run-experiment-8caa4d2c526a5eaf/bin/python3",
+    "/home/jwm/gh/curv-institute/universal_tokenizer/scripts/run_experiment.py",
+    "--config",
+    "configs/cpu_small_hhc.toml",
+    "--name",
+    "hhc_wire_test"
+  ],
+  "environment": {
+    "python_version": "3.13.7 (main, Jan  8 2026, 12:15:45) [GCC 15.2.0]",
+    "torch_version": "2.9.1+cu128",
+    "numpy_version": "2.4.1",
+    "platform": "Linux-6.17.0-8-generic-x86_64-with-glibc2.42",
+    "processor": "",
+    "cpu_count": 20
+  },
+  "device": {
+    "type": "cpu",
+    "cuda_available": false,
+    "cuda_version": null,
+    "gpu_count": 0
+  },
+  "seeds": {
+    "train_seed": 42,
+    "eval_seed": 42
+  },
+  "results": {
+    "universal": {
+      "num_samples": 100,
+      "total_tokens": 908,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 28.310588235294116,
+      "mean_bits_per_byte": 3.6971875,
+      "mean_end_to_end_bpb": 3.6971875,
+      "mean_structural_bpb": 0.3546875,
+      "mean_avg_token_length": 28.310588235294116,
+      "mean_curvature": 0.5608131593777463,
+      "curvature_p90": 0.6787800192832947,
+      "mean_stability": 0.31828578560962895,
+      "stability_p10": 0.2021481540374164,
+      "total_residual_bytes": 10696,
+      "lossless_rate": 1.0
+    },
+    "raw_bytes": {
+      "num_samples": 100,
+      "total_tokens": 25600,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 1.0,
+      "mean_bits_per_byte": 8.0,
+      "mean_end_to_end_bpb": 8.0,
+      "mean_structural_bpb": 8.0,
+      "mean_avg_token_length": 1.0,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    },
+    "byte_bpe": {
+      "num_samples": 100,
+      "total_tokens": 5147,
+      "total_bytes": 25600,
+      "mean_compression_ratio": 6.581301932951018,
+      "mean_bits_per_byte": 2.010546875,
+      "mean_end_to_end_bpb": 2.010546875,
+      "mean_structural_bpb": 2.010546875,
+      "mean_avg_token_length": 6.581301932951018,
+      "mean_curvature": 0.0,
+      "curvature_p90": 0.0,
+      "mean_stability": 1.0,
+      "stability_p10": 1.0,
+      "total_residual_bytes": 0,
+      "lossless_rate": 1.0
+    }
+  }
+}
