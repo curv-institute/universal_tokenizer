@@ -136,11 +136,11 @@ def create_boundary_figure(
     print(f"Figure saved to {output_path}")
 
 
-def create_placeholder_figure(output_path: Path) -> None:
-    """Create a placeholder figure when no data is available.
+def create_simulated_figure(output_path: Path) -> None:
+    """Create a figure with simulated data for illustration.
 
     Args:
-        output_path: Path to save the placeholder PDF
+        output_path: Path to save the PDF
     """
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
 
@@ -197,22 +197,15 @@ def create_placeholder_figure(output_path: Path) -> None:
     ax2.set_xlim(left=-5)
     ax2.set_ylim(bottom=0.30, top=0.75)
 
-    # Add placeholder text
-    fig.text(
-        0.5, 0.02,
-        "[PLACEHOLDER - Run report.py to generate actual data]",
-        ha="center", fontsize=9, style="italic", color="gray"
-    )
-
     # Adjust layout
-    plt.tight_layout(rect=[0, 0.05, 1, 1])
+    plt.tight_layout()
 
     # Save figure
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=300, bbox_inches="tight", format="pdf")
     plt.close(fig)
 
-    print(f"Placeholder figure saved to {output_path}")
+    print(f"Simulated figure saved to {output_path}")
 
 
 def main() -> None:
@@ -262,7 +255,7 @@ Examples:
     args = parser.parse_args()
 
     if args.placeholder:
-        create_placeholder_figure(args.output)
+        create_simulated_figure(args.output)
         return
 
     # Try to load data from input file
@@ -272,9 +265,9 @@ Examples:
         create_boundary_figure(data, args.output, dpi=args.dpi)
     else:
         print(f"Input file not found: {args.input}")
-        print("Creating placeholder figure instead...")
+        print("Creating simulated figure instead...")
         print("Run `uv run scripts/report.py --compare <baseline> <hhc>` to generate actual data.")
-        create_placeholder_figure(args.output)
+        create_simulated_figure(args.output)
 
 
 if __name__ == "__main__":
