@@ -1,100 +1,82 @@
+% PRH-Driven Representation-Controlled Tokenization
+% LaTeX manuscript version
+
 \documentclass[11pt]{article}
+
 \usepackage{amsmath,amssymb}
 \usepackage{graphicx}
-\usepackage{hyperref}
 \usepackage{booktabs}
-\usepackage{url}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{subcaption}
+\geometry{margin=1in}
 
-\title{Universal Lossless Tokenization via RIFT-Instantiated Equilibrium Projection}
-\author{J. W. Miller\\CURV Institute\\j.w.miller@curv.institute}
-\date{2025}
+\title{Testing the Platonic Representation Hypothesis via Representation-Controlled Tokenization}
+
+\author{%
+J.~W.~Miller\\
+CURV Institute\\
+\texttt{j.w.miller@curv.institute}
+}
+
+\date{January 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We present a universal lossless tokenizer that achieves bit-exact reconstruction
-of arbitrary byte streams through equilibrium projection and curvature-regulated
-segmentation. The system implements RIFT principles~\cite{rift2025} as an applied
-representational control system, drawing on Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc}
-for stable relational coupling and the Platonic Representation Hypothesis~\cite{miller2024prh}
-for ontological grounding.
+Modern tokenizers are treated as neutral preprocessing steps, yet they implicitly encode assumptions about representation, stability, and learnability. The Platonic Representation Hypothesis (PRH)~\cite{prh_arxiv_2405_07987} posits that stable abstract representations exist independently of semantics and learning objectives, and that such representations can be measured and regulated. We test this hypothesis empirically by constructing a representation-controlled stack consisting of a Universal Lossless Tokenizer (ULT), a relational regularization mechanism (Harmonized Hyper-Connections, HHC), and a reversible Language Interface Layer (LIL). Across heterogeneous byte streams, ULT achieves lossless universal tokenization with measurable stability diagnostics. Introducing HHC yields a controlled trade-off: a modest compression penalty in exchange for substantially improved stability and reduced representational curvature under regime shifts. A strictly normalized downstream language-model proxy experiment produces a negative result, confirming that stability-optimized representations are not necessarily easier to learn under next-token objectives. Finally, LIL demonstrates that interface stability can be achieved independently of representation and learning, via deterministic, reversible structure normalization. Together, these results support PRH's core prediction that representational stability is an intrinsic property, separable from compression efficiency and learnability.
 \end{abstract}
 
 \section{Introduction}
-% TODO: Motivation for universal lossless tokenization
-% - Limitations of existing tokenizers (BPE, WordPiece, etc.)
-% - Need for bit-exact reconstruction
-% - RIFT framework overview
+Tokenization is a foundational yet under-examined component of modern AI systems. While often optimized for compression or downstream model performance, tokenizers implicitly define what constitutes a valid or stable representation. Empirically, tokenization schemes optimized for local predictability exhibit brittleness under domain shifts, heterogeneous data, and prompt extension.
 
-The problem of tokenization in machine learning systems has traditionally prioritized
-compression efficiency over reconstruction fidelity. We propose an alternative approach
-grounded in equilibrium projection principles from RIFT~\cite{rift2025}.
+The Platonic Representation Hypothesis (PRH)~\cite{prh_arxiv_2405_07987} asserts that representations exist as abstract structures governed by constraints, with stability as an intrinsic property rather than a by-product of learning. If PRH is correct, then stable representations should (i) exist independently of semantic interpretation, (ii) be measurable and regulatable, and (iii) sometimes conflict with objectives such as compression efficiency or learnability. This paper treats PRH not as philosophy, but as an engineering hypothesis and subjects it to empirical test.
 
-\section{Background}
-\label{sec:background}
+\section{Platonic Representation Hypothesis}
+PRH posits that representation precedes semantics and learning: abstract structural forms admit stable instantiations regardless of whether they are easy to compress or predict. Learnability and efficiency are contingent, downstream properties. From PRH follow several testable predictions: (1) stability can be measured independently of learning; (2) enforcing relational constraints should increase stability at some cost; (3) representations optimized for stability may be harder to learn; and (4) interface structure can be stabilized without semantic inference.
 
-\subsection{Harmonized Hyper-Connections}
-Harmonized Hyper-Connections (HHC)~\cite{miller2024hhc} provide a framework for
-maintaining stable representations through relational coupling. This approach
-ensures that token boundaries preserve semantic coherence.
+\section{Universal Lossless Tokenizer}
+\subsection{Design}
+The Universal Lossless Tokenizer (ULT) operates directly on bytes, supports streaming operation, and guarantees exact reconstruction. Tokenization proceeds via equilibrium projection and bounded segmentation, with residual coding ensuring losslessness. Diagnostics are computed during tokenization to assess representational curvature and stability.
 
-\subsection{Multi-Scale Representations}
-Building on modular harmonized connections~\cite{deepseek2024mhc}, our tokenizer
-handles variable-length sequences through multi-scale representation learning.
+\subsection{Results}
+ULT achieves 100\% bit-exact reconstruction across mixed text, code, JSON, Unicode, and arbitrary binary streams. End-to-end compression improves with scale, reaching approximately 3.35 bits per byte ($\approx 2.39\times$ relative to raw bytes) on 1--10~MB heterogeneous streams. Structural bits-per-byte values indicate that most structure is captured by the token stream, while residual coding accounts for irreducible entropy. Curvature distributions remain well-behaved across scale.
 
-\subsection{Ontological Foundations}
-The Platonic Representation Hypothesis~\cite{miller2024prh} provides the theoretical
-foundation for why lossless reconstruction is achievable: representations converge
-to unique equilibrium points when properly coupled.
+\section{Relational Regularization with Harmonized Hyper-Connections}
+\subsection{Method}
+Local optimality in tokenization leads to global brittleness. Harmonized Hyper-Connections (HHC) introduce bounded relational coupling between neighboring representations during equilibrium projection, along with relative curvature diagnostics. A closed-loop stability controller regulates trade-offs between efficiency and stability. These diagnostics were developed as part of a broader internal CURV Institute representation-first framework; only the operational components relevant to the experiments are used here.
 
-\section{Method}
-\label{sec:method}
-% TODO: Technical approach
-% - Equilibrium projection algorithm
-% - Curvature-regulated segmentation
-% - HHC integration (optional)
+\subsection{Results}
+Under regime-shift stress streams, HHC produces a clear trade-off: a 10.5\% increase in end-to-end bits per byte in exchange for a 36\% improvement in stability margin and a 9\% reduction in mean curvature. HHC is fully active and non-degenerate, while only minimal controller interventions are required.
 
-\section{Experiments}
-\label{sec:experiments}
-% TODO: Experimental setup
-% - Datasets
-% - Baselines (Raw Bytes, Byte BPE)
-% - Evaluation metrics (compression, BPB, lossless rate, curvature)
+\section{Downstream Language-Model Proxy}
+To test whether stability-optimized representations improve learnability, we train a small autoregressive language-model proxy on baseline and HHC token streams. A byte-normalized rerun equalizes context bytes, total bytes processed, and training steps. Despite strict normalization, HHC tokens yield substantially higher loss (approximately 50\% increase) and greater variance across seeds. This negative result aligns with PRH: representations optimized for global stability and relational coherence are not necessarily aligned with local next-token predictability.
 
-\section{Results}
-\label{sec:results}
-% TODO: Populate with actual experimental results
+\section{Language Interface Layer}
+\subsection{Design}
+The Language Interface Layer (LIL) is a reversible, deterministic transformation applied above ULT. LIL normalizes prompt structure, enforces explicit role boundaries, and applies reversible macro compaction to common interface patterns. LIL is tokenizer-agnostic, streaming-compatible, and auditable.
 
-\input{results_table}
+\subsection{Results}
+LIL preserves 100\% lossless round-trip reconstruction when composed with ULT. It introduces a modest structural overhead (approximately 5\% bits per byte) that diminishes with prompt length and is partially offset by macro compaction. Both quantitative metrics and a qualitative example demonstrate that LIL stabilizes interface structure under prompt extension without altering underlying representation.
 
-\subsection{HHC Stability Trade-offs}
-\label{sec:hhc-stability}
+\section{Discussion}
+The experiments support PRH's core claims. Stable representations exist and are measurable independently of semantics and learning. Enforcing relational constraints increases stability while trading off compression efficiency and learnability. Interface stability can be achieved orthogonally via reversible structure normalization. Negative downstream results are not failures but confirmations of objective misalignment.
 
-\input{results_hhc_stability}
+\subsection{Historical Context: The Problem of a `Real Character'}
+The motivation for a structure-bearing `real character' dates back at least to John Wilkins' 17th-century proposal for a philosophical language~\cite{wilkins_real_character}. Wilkins correctly identified that linguistic symbols should encode structural relations rather than rely on interpretation alone. However, his approach assumed that such structure could be fixed \emph{a priori} through taxonomy. The present results suggest the opposite: stable representational structure must be dynamically realized, measured, and regulated, and inevitably trades off against efficiency and learnability.
 
-\input{results_lm_proxy}
-
-\input{results_lil}
-
-\section{Related Work}
-\label{sec:related}
-% TODO: Discussion of related approaches
-% - BPE and variants
-% - Neural tokenizers
-% - Compression-based methods
+\section{Limitations}
+The implementation prioritizes clarity and auditability over throughput. Evaluations are limited to MB-scale streams, and HHC and LIL are deterministic rather than learned. The language-model proxy is small and task-specific.
 
 \section{Conclusion}
-\label{sec:conclusion}
-% TODO: Summary and future directions
+By treating representation as a controllable substrate rather than an incidental preprocessing step, this work provides empirical evidence for the Platonic Representation Hypothesis. Stability, efficiency, and learnability are shown to be distinct axes, requiring explicit trade-offs. Future systems must choose deliberately which properties to optimize rather than conflating them implicitly.
 
-\section*{Acknowledgments}
-% TODO: Acknowledgments if any
+\section*{Assets, Data, and Reproducibility}
+All assets required to reproduce the results in this paper are included in the accompanying repository. This includes source code, deterministic data generation scripts, evaluation datasets with manifests, generated figures and tables, and scripts to reproduce all experiments from recorded manifests. No external datasets, pretrained models, or proprietary resources are required.
 
 \bibliographystyle{plain}
 \bibliography{references}
-
-\appendix
-\input{artifact_appendix}
 
 \end{document}
