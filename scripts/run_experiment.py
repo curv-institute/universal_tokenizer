@@ -132,19 +132,26 @@ def run_experiment(
     skip_eval: bool = False,
     data_path: Path | None = None,
     eval_path: Path | None = None,
-) -> None:
-    """Run complete experiment.
+) -> Path:
+    """Run complete experiment with isolated per-run outputs.
 
     Args:
         config_path: Path to config
-        name: Experiment name
-        output_dir: Output directory
+        name: Experiment name (outputs go to output_dir/<name>/)
+        output_dir: Base output directory
         skip_train: Skip training
         skip_eval: Skip evaluation
         data_path: Path to training data directory
         eval_path: Path to evaluation data
+
+    Returns:
+        Path to the run directory (output_dir/<name>/)
     """
     scripts_dir = Path(__file__).parent
+
+    # Per-run isolation: all outputs go to output_dir/<name>/
+    run_dir = output_dir / name
+    run_dir.mkdir(parents=True, exist_ok=True)
 
     # Build command
     command = [sys.executable, str(Path(__file__))]
@@ -153,7 +160,7 @@ def run_experiment(
     # Generate manifest
     print("Generating run manifest...")
     manifest = generate_manifest(config_path, name, command)
-    manifest_path = save_manifest(manifest, output_dir)
+    manifest_path = save_manifest(manifest, run_dir)
     print(f"Manifest saved to {manifest_path}")
 
     # Set seeds
@@ -177,12 +184,12 @@ def run_experiment(
                 "--name",
                 name,
                 "--output",
-                str(output_dir / "checkpoints"),
+                str(run_dir / "checkpoints"),
             ]
         )
         if result.returncode != 0:
             print("Training failed!")
-            return
+            return run_dir
 
     # Run evaluation
     if not skip_eval:
@@ -190,7 +197,7 @@ def run_experiment(
         print("EVALUATION")
         print("=" * 50)
         eval_script = scripts_dir / "eval.py"
-        model_path = output_dir / "checkpoints" / name / "final.pt"
+        model_path = run_dir / "checkpoints" / name / "final.pt"
 
         eval_args = [
             sys.executable,
@@ -198,7 +205,7 @@ def run_experiment(
             "--config",
             str(config_path),
             "--output",
-            str(output_dir),
+            str(run_dir),
         ]
 
         if model_path.exists():
@@ -210,11 +217,11 @@ def run_experiment(
         result = subprocess.run(eval_args)
         if result.returncode != 0:
             print("Evaluation failed!")
-            return
+            return run_dir
 
     # Update manifest with results
-    if (output_dir / "summary.json").exists():
-        with open(output_dir / "summary.json") as f:
+    if (run_dir / "summary.json").exists():
+        with open(run_dir / "summary.json") as f:
             summary = json.load(f)
         manifest["results"] = summary.get("results", {})
 
@@ -223,9 +230,11 @@ def run_experiment(
 
     print("\n" + "=" * 50)
     print("EXPERIMENT COMPLETE")
-    print(f"Results: {output_dir}")
+    print(f"Results: {run_dir}")
     print(f"Manifest: {manifest_path}")
     print("=" * 50)
+
+    return run_dir
 
 
 def main() -> None:
