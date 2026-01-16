@@ -17,47 +17,47 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Boundary analysis: churn and curvature vs distance from domain transitions. Left: Token churn rate decreases with distance from boundary; HHC (solid) shows reduced churn compared to baseline (dashed) especially at boundaries. Right: Curvature follows similar pattern; HHC smooths curvature spikes at domain transitions.}}{2}{figure.caption.6}\protected@file@percent }
 \newlabel{fig:boundary}{{1}{2}{Boundary analysis: churn and curvature vs distance from domain transitions. Left: Token churn rate decreases with distance from boundary; HHC (solid) shows reduced churn compared to baseline (dashed) especially at boundaries. Right: Curvature follows similar pattern; HHC smooths curvature spikes at domain transitions}{figure.caption.6}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Downstream Language-Model Proxy}{2}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Downstream LM Proxy Evaluation}{2}{subsection.5.1}\protected@file@percent }
+\newlabel{sec:lm-proxy}{{5.1}{2}{Downstream LM Proxy Evaluation}{subsection.5.1}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Tokenizer Comparison Results. E2E BPB (end-to-end bits per byte) measures the complete lossless encoding cost including token IDs and compressed residual data. Struct BPB (structural bits per byte) measures only the token representation overhead.}}{3}{table.caption.2}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{tab:results}{{1}{3}{Tokenizer Comparison Results. E2E BPB (end-to-end bits per byte) measures the complete lossless encoding cost including token IDs and compressed residual data. Struct BPB (structural bits per byte) measures only the token representation overhead}{table.caption.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Downstream LM Proxy Evaluation}{3}{subsection.5.1}\protected@file@percent }
-\newlabel{sec:lm-proxy}{{5.1}{3}{Downstream LM Proxy Evaluation}{subsection.5.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{Summary.}{3}{section*.9}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Training loss curves for baseline (dashed) and HHC (solid) tokenization across 3 seeds. Shaded regions show $\pm $1 standard deviation. Baseline tokens converge to lower loss (1.02 vs 1.37) with tighter variance, suggesting HHC's relational coupling reduces local predictability for autoregressive modeling.}}{3}{figure.caption.8}\protected@file@percent }
 \newlabel{fig:lm-proxy}{{2}{3}{Training loss curves for baseline (dashed) and HHC (solid) tokenization across 3 seeds. Shaded regions show $\pm $1 standard deviation. Baseline tokens converge to lower loss (1.02 vs 1.37) with tighter variance, suggesting HHC's relational coupling reduces local predictability for autoregressive modeling}{figure.caption.8}{}}
+\@writefile{toc}{\contentsline {paragraph}{Summary.}{3}{section*.9}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Byte-normalized control.}{3}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Language Interface Layer}{3}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Design}{3}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Results}{3}{subsection.6.2}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Detailed Universal Tokenizer Metrics (cpu\_small config)}}{4}{table.caption.3}\protected@file@percent }
 \newlabel{tab:detailed}{{2}{4}{Detailed Universal Tokenizer Metrics (cpu\_small config)}{table.caption.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Language Interface Layer}{4}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Design}{4}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Results}{4}{subsection.6.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Language Interface Layer}{4}{subsection.6.3}\protected@file@percent }
 \newlabel{sec:lil}{{6.3}{4}{Language Interface Layer}{subsection.6.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Design Principles.}{4}{section*.11}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Wire Format.}{4}{section*.12}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Macro Compaction.}{4}{section*.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Qualitative example illustrating the Language Interface Layer (LIL). \textbf  {Panel A} shows a raw prompt with repeated scaffolding and implicit role boundaries. \textbf  {Panel B} shows the reversible LIL wire format with explicit role markers (SYS, USR) and macro-compacted interface patterns (M:helpful\_a replaces ``You are a helpful assistant''). \textbf  {Panel C} demonstrates that extending the prompt does not destabilize tokenization of the core instruction under LIL: the system segment tokens remain stable (green) while extension tokens are isolated, whereas baseline representations exhibit churn (red) throughout.}}{4}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:lil-example}{{3}{4}{Qualitative example illustrating the Language Interface Layer (LIL). \textbf {Panel A} shows a raw prompt with repeated scaffolding and implicit role boundaries. \textbf {Panel B} shows the reversible LIL wire format with explicit role markers (SYS, USR) and macro-compacted interface patterns (M:helpful\_a replaces ``You are a helpful assistant''). \textbf {Panel C} demonstrates that extending the prompt does not destabilize tokenization of the core instruction under LIL: the system segment tokens remain stable (green) while extension tokens are isolated, whereas baseline representations exhibit churn (red) throughout}{figure.caption.14}{}}
 \@writefile{toc}{\contentsline {paragraph}{Prompt Extension Stability.}{4}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Role Boundary Robustness.}{4}{section*.17}\protected@file@percent }
 \citation{wilkins_real_character}
 \@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Baseline vs HHC Stability Trade-offs. HHC improves tokenization stability at domain boundaries with a small compression cost.}}{5}{table.caption.4}\protected@file@percent }
 \newlabel{tab:hhc-stability}{{3}{5}{Baseline vs HHC Stability Trade-offs. HHC improves tokenization stability at domain boundaries with a small compression cost}{table.caption.4}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces HHC Diagnostic Statistics}}{5}{table.caption.5}\protected@file@percent }
 \newlabel{tab:hhc-diagnostics}{{4}{5}{HHC Diagnostic Statistics}{table.caption.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{Role Boundary Robustness.}{5}{section*.17}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Efficiency Trade-offs.}{5}{section*.18}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Conclusion.}{5}{section*.19}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {7}Discussion}{5}{section.7}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces LM Proxy Task: Baseline vs HHC Tokenization. Lower loss and variance indicate more stable training dynamics.}}{6}{table.caption.7}\protected@file@percent }
-\newlabel{tab:lm-proxy}{{5}{6}{LM Proxy Task: Baseline vs HHC Tokenization. Lower loss and variance indicate more stable training dynamics}{table.caption.7}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces LIL Evaluation Results. Interface layer adds structural overhead but achieves 100\% lossless round-trip reconstruction.}}{6}{table.caption.15}\protected@file@percent }
-\newlabel{tab:lil-results}{{6}{6}{LIL Evaluation Results. Interface layer adds structural overhead but achieves 100\% lossless round-trip reconstruction}{table.caption.15}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Historical Context: The Problem of a `Real Character'}{6}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{6}{section.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{6}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Historical Context: The Problem of a `Real Character'}{5}{subsection.7.1}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{references}
 \bibcite{prh_arxiv_2405_07987}{1}
 \bibcite{miller2026hhc}{2}
 \bibcite{wilkins_real_character}{3}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Qualitative example illustrating the Language Interface Layer (LIL). \textbf  {Panel A} shows a raw prompt with repeated scaffolding and implicit role boundaries. \textbf  {Panel B} shows the reversible LIL wire format with explicit role markers (SYS, USR) and macro-compacted interface patterns (M:helpful\_a replaces ``You are a helpful assistant''). \textbf  {Panel C} demonstrates that extending the prompt does not destabilize tokenization of the core instruction under LIL: the system segment tokens remain stable (green) while extension tokens are isolated, whereas baseline representations exhibit churn (red) throughout.}}{7}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:lil-example}{{3}{7}{Qualitative example illustrating the Language Interface Layer (LIL). \textbf {Panel A} shows a raw prompt with repeated scaffolding and implicit role boundaries. \textbf {Panel B} shows the reversible LIL wire format with explicit role markers (SYS, USR) and macro-compacted interface patterns (M:helpful\_a replaces ``You are a helpful assistant''). \textbf {Panel C} demonstrates that extending the prompt does not destabilize tokenization of the core instruction under LIL: the system segment tokens remain stable (green) while extension tokens are isolated, whereas baseline representations exhibit churn (red) throughout}{figure.caption.14}{}}
-\gdef \@abspage@last{7}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces LM Proxy Task: Baseline vs HHC Tokenization. Lower loss and variance indicate more stable training dynamics.}}{6}{table.caption.7}\protected@file@percent }
+\newlabel{tab:lm-proxy}{{5}{6}{LM Proxy Task: Baseline vs HHC Tokenization. Lower loss and variance indicate more stable training dynamics}{table.caption.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces LIL Evaluation Results. Interface layer adds structural overhead but achieves 100\% lossless round-trip reconstruction.}}{6}{table.caption.15}\protected@file@percent }
+\newlabel{tab:lil-results}{{6}{6}{LIL Evaluation Results. Interface layer adds structural overhead but achieves 100\% lossless round-trip reconstruction}{table.caption.15}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Limitations}{6}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{6}{section.9}\protected@file@percent }
+\gdef \@abspage@last{6}
