@@ -544,6 +544,9 @@ def add_motifs(data: bytes, rng: DeterministicRandom) -> bytes:
 # Block type cycle: text -> code -> json -> binary -> logs -> repeat
 BLOCK_TYPES = ["text", "code", "jsonl", "binary", "logs"]
 
+# Domain shift cycle for stress testing: text -> binary -> code -> json -> logs -> repeat
+SHIFT_DOMAIN_CYCLE = ["text", "binary", "code", "jsonl", "logs"]
+
 BLOCK_GENERATORS: dict[str, Callable[[DeterministicRandom, int], tuple[bytes, dict]]] = {
     "text": generate_text_block,
     "code": generate_code_block,
@@ -616,6 +619,234 @@ def generate_eval_data(
     return data, blocks
 
 
+# ============================================================================
+# Repeated motifs for cross-domain reappearance
+# ============================================================================
+
+CROSS_DOMAIN_MOTIFS = [
+    b"UNIVERSAL_TOKENIZER_MOTIF_ALPHA",
+    b"CROSS_DOMAIN_PATTERN_BETA",
+    b"REPEATED_SEQUENCE_GAMMA",
+    b"STABILITY_CHECK_DELTA",
+    b"BOUNDARY_MARKER_EPSILON",
+]
+
+
+def generate_cross_domain_motifs(rng: DeterministicRandom, num_motifs: int = 10) -> list[bytes]:
+    """Generate a set of unique motifs that will be repeated across domains."""
+    motifs = []
+    for i in range(num_motifs):
+        base_motif = rng.choice(CROSS_DOMAIN_MOTIFS)
+        # Add a unique suffix to each motif
+        suffix = f"_{i:04d}_{rng.randint(1000, 9999)}".encode("utf-8")
+        motifs.append(base_motif + suffix)
+    return motifs
+
+
+@dataclass
+class BoundaryInfo:
+    """Information about a domain boundary."""
+    offset: int
+    from_domain: str
+    to_domain: str
+
+
+@dataclass
+class MotifLocation:
+    """Information about where a motif appears in the data."""
+    motif_id: int
+    motif_bytes: str  # hex representation for JSON serialization
+    locations: list[dict]  # list of {offset: int, domain: str, block_index: int}
+
+
+def generate_shift_dataset(
+    size_mb: int,
+    seed: int = 42,
+) -> tuple[bytes, list[BlockInfo], list[BoundaryInfo], list[MotifLocation]]:
+    """Generate a domain-shift stress stream dataset.
+
+    This dataset is designed to stress-test tokenizers with repeated regime shifts
+    between different data domains. It includes repeated motifs that appear across
+    different domains to test stability.
+
+    Args:
+        size_mb: Target size in megabytes (10-50 MB typical)
+        seed: Random seed for reproducibility
+
+    Returns:
+        Tuple of (data bytes, block info list, boundary info list, motif locations)
+    """
+    rng = DeterministicRandom(seed)
+    total_size = size_mb * 1024 * 1024
+
+    # Scale block sizes based on dataset size to ensure multiple domain transitions
+    # For small datasets (<=2MB), use smaller blocks (16KB-64KB)
+    # For medium datasets (<=5MB), use medium blocks (64KB-256KB)
+    # For large datasets (>5MB), use standard blocks (256KB-1MB)
+    if size_mb <= 2:
+        min_block_size = 16 * 1024  # 16 KB
+        max_block_size = 64 * 1024  # 64 KB
+    elif size_mb <= 5:
+        min_block_size = 64 * 1024  # 64 KB
+        max_block_size = 256 * 1024  # 256 KB
+    else:
+        min_block_size = 256 * 1024  # 256 KB
+        max_block_size = 1024 * 1024  # 1 MB
+
+    # Generate cross-domain motifs that will be inserted into blocks
+    num_motifs = 10
+    motifs = generate_cross_domain_motifs(rng, num_motifs)
+    motif_locations: list[MotifLocation] = [
+        MotifLocation(
+            motif_id=i,
+            motif_bytes=motifs[i].hex(),
+            locations=[]
+        )
+        for i in range(num_motifs)
+    ]
+
+    blocks: list[BlockInfo] = []
+    boundaries: list[BoundaryInfo] = []
+    data_parts: list[bytes] = []
+    current_offset = 0
+    block_idx = 0
+    prev_domain: str | None = None
+
+    while current_offset < total_size:
+        # Cycle through domains in the shift pattern
+        domain = SHIFT_DOMAIN_CYCLE[block_idx % len(SHIFT_DOMAIN_CYCLE)]
+        generator = BLOCK_GENERATORS[domain]
+
+        # Determine block size (256KB to 1MB)
+        remaining = total_size - current_offset
+        block_size = min(rng.randint(min_block_size, max_block_size), remaining)
+
+        # Ensure we don't create tiny final blocks
+        if remaining - block_size < min_block_size // 2:
+            block_size = remaining
+
+        # Generate block
+        block_data, metadata = generator(rng, block_size)
+
+        # Insert cross-domain motifs into non-binary blocks
+        if domain != "binary" and len(block_data) > 1000:
+            block_data = bytearray(block_data)
+            # Insert 1-3 motifs per block
+            num_insertions = rng.randint(1, 3)
+            for _ in range(num_insertions):
+                motif_idx = rng.randint(0, num_motifs - 1)
+                motif = motifs[motif_idx]
+                # Choose insertion position (avoid very start/end)
+                insert_pos = rng.randint(100, max(101, len(block_data) - len(motif) - 100))
+                # Insert motif (overwrite to maintain size)
+                if insert_pos + len(motif) <= len(block_data):
+                    block_data[insert_pos:insert_pos + len(motif)] = motif
+                    # Record motif location
+                    motif_locations[motif_idx].locations.append({
+                        "offset": current_offset + insert_pos,
+                        "domain": domain,
+                        "block_index": block_idx,
+                    })
+            block_data = bytes(block_data)
+
+        # Record boundary if domain changed
+        if prev_domain is not None and prev_domain != domain:
+            boundaries.append(BoundaryInfo(
+                offset=current_offset,
+                from_domain=prev_domain,
+                to_domain=domain,
+            ))
+
+        # Record block info
+        blocks.append(BlockInfo(
+            block_type=domain,
+            start_offset=current_offset,
+            length=len(block_data),
+            metadata=metadata,
+        ))
+
+        data_parts.append(block_data)
+        current_offset += len(block_data)
+        prev_domain = domain
+        block_idx += 1
+
+    data = b"".join(data_parts)
+
+    return data, blocks, boundaries, motif_locations
+
+
+def create_shift_manifest(
+    seed: int,
+    size_mb: int,
+    actual_size: int,
+    blocks: list[BlockInfo],
+    boundaries: list[BoundaryInfo],
+    motif_locations: list[MotifLocation],
+    output_path: Path,
+    data_hash: str,
+) -> dict:
+    """Create a manifest for the shift dataset with boundary information."""
+    # Compute block summary
+    block_summary = {}
+    for block in blocks:
+        bt = block.block_type
+        if bt not in block_summary:
+            block_summary[bt] = {"count": 0, "total_bytes": 0}
+        block_summary[bt]["count"] += 1
+        block_summary[bt]["total_bytes"] += block.length
+
+    # Compute boundary transition summary
+    boundary_summary = {}
+    for b in boundaries:
+        key = f"{b.from_domain}->{b.to_domain}"
+        boundary_summary[key] = boundary_summary.get(key, 0) + 1
+
+    manifest = {
+        "version": "1.0",
+        "type": "shift_dataset",
+        "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "seed": seed,
+        "target_size_mb": size_mb,
+        "target_size_bytes": size_mb * 1024 * 1024,
+        "actual_size_bytes": actual_size,
+        "sha256": data_hash,
+        "num_blocks": len(blocks),
+        "num_boundaries": len(boundaries),
+        "block_summary": block_summary,
+        "boundary_summary": boundary_summary,
+        "domain_cycle": SHIFT_DOMAIN_CYCLE,
+        "blocks": [
+            {
+                "type": b.block_type,
+                "start": b.start_offset,
+                "length": b.length,
+                "metadata": b.metadata,
+            }
+            for b in blocks
+        ],
+        "boundaries": [
+            {
+                "offset": b.offset,
+                "from_domain": b.from_domain,
+                "to_domain": b.to_domain,
+            }
+            for b in boundaries
+        ],
+        "motifs": [
+            {
+                "motif_id": m.motif_id,
+                "motif_bytes": m.motif_bytes,
+                "occurrences": len(m.locations),
+                "locations": m.locations,
+            }
+            for m in motif_locations
+        ],
+        "output_file": str(output_path),
+    }
+
+    return manifest
+
+
 def create_manifest(
     seed: int,
     total_size: int,
@@ -658,6 +889,76 @@ def create_manifest(
     return manifest
 
 
+def generate_shift_data_main(args: argparse.Namespace) -> None:
+    """Generate shift dataset (called when --shift flag is used)."""
+    size_mb = args.shift_size_mb
+
+    # Output paths
+    output_dir = Path("data/eval")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"heldout_shift_{size_mb}mb.bin"
+    manifest_path = output_dir / f"heldout_shift_{size_mb}mb_manifest.json"
+
+    print(f"Generating domain-shift stress stream dataset...")
+    print(f"  Size: {size_mb} MB")
+    print(f"  Seed: {args.seed}")
+    print(f"  Output: {output_path}")
+    print(f"  Domain cycle: {' -> '.join(SHIFT_DOMAIN_CYCLE)}")
+
+    # Generate shift dataset
+    data, blocks, boundaries, motif_locations = generate_shift_dataset(
+        size_mb=size_mb,
+        seed=args.seed,
+    )
+
+    # Compute hash
+    data_hash = hashlib.sha256(data).hexdigest()
+    print(f"  SHA256: {data_hash[:16]}...")
+
+    # Write data
+    with open(output_path, "wb") as f:
+        f.write(data)
+
+    print(f"  Written {len(data):,} bytes to {output_path}")
+
+    # Create and save manifest
+    manifest = create_shift_manifest(
+        seed=args.seed,
+        size_mb=size_mb,
+        actual_size=len(data),
+        blocks=blocks,
+        boundaries=boundaries,
+        motif_locations=motif_locations,
+        output_path=output_path,
+        data_hash=data_hash,
+    )
+
+    with open(manifest_path, "w") as f:
+        json.dump(manifest, f, indent=2)
+
+    print(f"  Manifest saved to {manifest_path}")
+
+    # Print summary
+    print(f"\nDataset composition:")
+    print(f"  Total blocks: {len(blocks)}")
+    print(f"  Domain boundaries: {len(boundaries)}")
+
+    print("\nBlock distribution:")
+    for bt, info in manifest["block_summary"].items():
+        pct = info["total_bytes"] / len(data) * 100
+        print(f"  {bt:8s}: {info['count']:4d} blocks, {info['total_bytes']:,} bytes ({pct:.1f}%)")
+
+    print("\nBoundary transitions:")
+    for transition, count in manifest["boundary_summary"].items():
+        print(f"  {transition}: {count}")
+
+    # Count total motif occurrences
+    total_motif_occurrences = sum(len(m.locations) for m in motif_locations)
+    print(f"\nCross-domain motifs:")
+    print(f"  Unique motifs: {len(motif_locations)}")
+    print(f"  Total occurrences: {total_motif_occurrences}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Generate deterministic evaluation data for Universal Tokenizer",
@@ -672,8 +973,8 @@ def main() -> None:
     parser.add_argument(
         "--out",
         type=Path,
-        required=True,
-        help="Output file path for generated data",
+        default=None,
+        help="Output file path for generated data (required unless --shift is used)",
     )
     parser.add_argument(
         "--size-bytes",
@@ -694,7 +995,29 @@ def main() -> None:
         help="Disable stability motifs",
     )
 
+    # Shift dataset arguments
+    parser.add_argument(
+        "--shift",
+        action="store_true",
+        help="Generate domain-shift stress stream dataset instead of standard eval data",
+    )
+    parser.add_argument(
+        "--shift-size-mb",
+        type=int,
+        default=10,
+        help="Size of shift dataset in megabytes (default: 10)",
+    )
+
     args = parser.parse_args()
+
+    # Handle shift dataset generation
+    if args.shift:
+        generate_shift_data_main(args)
+        return
+
+    # Standard eval data generation requires --out
+    if args.out is None:
+        parser.error("--out is required when not using --shift")
 
     # Determine target size
     if args.size_bytes is not None:

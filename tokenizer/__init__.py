@@ -13,6 +13,11 @@ from .interfaces import (
     TokenizerBundle,
 )
 from .equilibrium import HHCStats
+from .controller import (
+    HarmonizerController,
+    InterventionRecord,
+    analyze_intervention_correlation,
+)
 
 __all__ = [
     "__version__",
@@ -22,4 +27,7 @@ __all__ = [
     "TokenizerConfig",
     "TokenizerBundle",
     "HHCStats",
+    "HarmonizerController",
+    "InterventionRecord",
+    "analyze_intervention_correlation",
 ]
