@@ -76,7 +76,7 @@ Under regime-shift stress streams, HHC produces a clear trade-off: a 10.5\% incr
 \input{results_hhc_stability}
 
 \section{Downstream Language-Model Proxy}
-To test whether stability-optimized representations improve learnability, we train a small autoregressive language-model proxy on baseline and HHC token streams. This proxy model is intentionally small and optimized for local next-token prediction, and is not intended to represent large-scale language models. A byte-normalized rerun equalizes context bytes, total bytes processed, and training steps. Despite strict normalization, HHC tokens yield substantially higher loss (approximately 50\% increase) and greater variance across seeds. This negative result aligns with PRH: representations optimized for global stability and relational coherence are not necessarily aligned with local next-token predictability.
+To test whether stability-optimized representations improve learnability, we train a small autoregressive language-model proxy on baseline and HHC token streams. This proxy model is intentionally small to isolate tokenization effects on training dynamics, and is not intended to predict performance trends in large-scale pretrained models. A byte-normalized rerun equalizes context bytes, total bytes processed, and training steps. Despite strict normalization, HHC tokens yield substantially higher loss (approximately 50\% increase) and greater variance across seeds. This negative result aligns with PRH: representations optimized for global stability and relational coherence are not necessarily aligned with local next-token predictability.
 
 \input{results_lm_proxy}
 
