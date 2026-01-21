@@ -1,26 +1,36 @@
 # Universal Lossless Tokenizer
 
-A universal lossless tokenizer for bit-exact reconstruction of arbitrary byte streams.
+**Codebase for:** [Testing the Platonic Representation Hypothesis via Representation-Controlled Tokenization](https://curv.institute/publications/universal-tokenizer-prh/)
 
-## Overview
+J. W. Miller, CURV Institute — January 2026
 
-This tokenizer implements:
-- **Equilibrium projection**: Tokens as attractors of span latents via contraction mapping
-- **Curvature-based segmentation**: Boundary selection optimizing `bit_cost + β·curvature + γ·stability`
-- **Closed-loop stability control**: Adaptive regulation of tokenization parameters
-- **Lossless reconstruction**: Bit-exact decode via residual coding
-- **Harmonized Hyper-Connections (HHC)**: Optional relational regularization for improved stability
-- **Language Interface Layer (LIL)**: Reversible prompt structure normalization
+## Abstract
+
+Modern tokenizers are treated as neutral preprocessing steps, yet they implicitly encode assumptions about representation, stability, and learnability. The Platonic Representation Hypothesis (PRH) posits that stable abstract representations exist independently of semantics and learning objectives, and that such representations can be measured and regulated.
+
+We test this hypothesis empirically by constructing a representation-controlled stack consisting of:
+- **Universal Lossless Tokenizer (ULT)** — bit-exact reconstruction of arbitrary byte streams
+- **Harmonized Hyper-Connections (HHC)** — relational regularization for improved stability
+- **Language Interface Layer (LIL)** — reversible prompt structure normalization
+
+## Key Results
+
+| Component | Finding |
+|-----------|---------|
+| **ULT** | 100% lossless reconstruction, 3.35 bits/byte (2.39× compression) on heterogeneous streams |
+| **HHC** | +36% stability improvement at cost of +10.5% compression penalty |
+| **LM Proxy** | Negative result: stability-optimized tokens are harder to learn (confirms PRH) |
+| **LIL** | 100% lossless round-trip with 5% structural overhead |
+
+The negative LM proxy result is not a failure but a confirmation: representations optimized for global stability are not necessarily aligned with local next-token predictability. This supports PRH's prediction that stability, efficiency, and learnability are distinct axes requiring explicit trade-offs.
 
 ## Installation
 
 ```bash
-# Clone repository
 git clone https://github.com/curv-institute/universal_tokenizer.git
 cd universal_tokenizer
 
 # Dependencies managed via uv (PEP 723 inline scripts)
-# Install uv if needed:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
@@ -33,13 +43,39 @@ uv run scripts/test_all.py
 # Encode data
 uv run scripts/encode.py data.txt --output tokens.json
 
-# Evaluate
+# Evaluate baseline
 uv run scripts/eval.py --config configs/cpu_small.toml
+
+# Evaluate with HHC
+uv run scripts/eval.py --config configs/cpu_small_hhc.toml
 ```
+
+## Components
+
+### Universal Lossless Tokenizer (ULT)
+
+Operates directly on bytes with streaming support and guaranteed exact reconstruction:
+- **Equilibrium projection**: Tokens as attractors via contraction mapping
+- **Curvature-based segmentation**: Boundary selection optimizing `bit_cost + β·curvature + γ·stability`
+- **Residual coding**: Bit-exact decode for lossless reconstruction
+
+### Harmonized Hyper-Connections (HHC)
+
+Relational regularization mechanism introducing bounded coupling between neighboring representations:
+- Closed-loop stability controller
+- Curvature diagnostics during tokenization
+- Configurable stability/efficiency trade-off
+
+### Language Interface Layer (LIL)
+
+Reversible, deterministic transformation for structured prompts:
+- Explicit role markers and segment boundaries
+- 23 reversible macros for common patterns
+- Tokenizer-agnostic, streaming-compatible
 
 ## Reproduce Paper Results
 
-All results from the paper can be reproduced from recorded manifests.
+All results can be reproduced from recorded manifests.
 
 ### 1. Generate Evaluation Data
 
@@ -47,29 +83,37 @@ All results from the paper can be reproduced from recorded manifests.
 uv run scripts/make_eval_data.py --profile core --out data/eval
 ```
 
-### 2. Run Experiment
+### 2. Run Experiments
 
 ```bash
+# Baseline
 uv run scripts/run_experiment.py \
   --config configs/cpu_small.toml \
-  --name paper_v1 \
+  --name baseline \
+  --eval data/eval
+
+# HHC-enabled
+uv run scripts/run_experiment.py \
+  --config configs/cpu_small_hhc.toml \
+  --name hhc \
   --eval data/eval
 ```
 
-Outputs go to `eval/results/paper_v1/`:
-- `summary.json` — aggregate metrics
-- `metrics.jsonl` — per-file results
-- `manifests/` — reproducibility manifests
+### 3. Compare Results
 
-### 3. Reproduce from Manifest
+```bash
+uv run scripts/report.py --compare eval/results/baseline eval/results/hhc
+```
+
+### 4. Reproduce from Manifest
 
 ```bash
 uv run scripts/reproduce.py \
-  --manifest "eval/results/paper_v1/manifests/*.json" \
+  --manifest "eval/results/*/manifests/*.json" \
   --compare
 ```
 
-### 4. Build Paper PDF
+### 5. Build Paper PDF
 
 ```bash
 cd paper
@@ -88,24 +132,25 @@ universal_tokenizer/
   eval/results/      # Per-run evaluation outputs
   tests/             # Test suite
   paper/             # LaTeX manuscript and figures
+  data/eval/         # Evaluation datasets with manifests
 ```
-
-## Configuration
-
-Two main configurations:
-- `configs/cpu_small.toml` — Baseline tokenizer
-- `configs/cpu_small_hhc.toml` — HHC-enabled tokenizer
 
 ## Citation
 
 ```bibtex
-@software{miller2026universal,
+@article{miller2026prh_tokenizer,
   author = {Miller, J. W.},
-  title = {Universal Lossless Tokenizer},
+  title = {Testing the Platonic Representation Hypothesis via Representation-Controlled Tokenization},
   year = {2026},
-  url = {https://github.com/curv-institute/universal_tokenizer}
+  institution = {CURV Institute},
+  url = {https://curv.institute/publications/universal-tokenizer-prh/}
 }
 ```
+
+## References
+
+- Huh, M., Cheung, B., Wang, T., & Isola, P. (2024). The Platonic Representation Hypothesis. arXiv:2405.07987
+- Miller, J. W. (2026). Harmonized Hyper-Connections: Relational Coupling for Stable Representations. CURV Institute Technical Report.
 
 ## License
 
