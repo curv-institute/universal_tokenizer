@@ -19,10 +19,10 @@ We test this hypothesis empirically by constructing a representation-controlled 
 |-----------|---------|
 | **ULT** | 100% lossless reconstruction, 3.35 bits/byte (2.39× compression) on heterogeneous streams |
 | **HHC** | +36% stability improvement at cost of +10.5% compression penalty |
-| **LM Proxy** | Negative result: stability-optimized tokens are harder to learn (confirms PRH) |
+| **LM Proxy** | Negative result: stability-optimized tokens are harder to learn (is consistent with PRH) |
 | **LIL** | 100% lossless round-trip with 5% structural overhead |
 
-The negative LM proxy result is not a failure but a confirmation: representations optimized for global stability are not necessarily aligned with local next-token predictability. This supports PRH's prediction that stability, efficiency, and learnability are distinct axes requiring explicit trade-offs.
+The negative LM proxy result is not a failure: representations optimized for global stability are not necessarily aligned with local next-token predictability. This is consistent with PRH's prediction that stability, efficiency, and learnability are distinct axes requiring explicit trade-offs.
 
 ## Installation
 
